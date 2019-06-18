@@ -1,0 +1,144 @@
+2019-06-18 17:03:06.211  INFO 17104 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Starting BookscatalogpprototypeApplication on FORDWICH with PID 17104 (C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype\out\production\classes started by vtahi in C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype)
+2019-06-18 17:03:06.214  INFO 17104 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : No active profile set, falling back to default profiles: default
+2019-06-18 17:03:06.263  INFO 17104 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-18 17:03:06.267  INFO 17104 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-18 17:03:07.155  INFO 17104 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-18 17:03:07.211  INFO 17104 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52ms. Found 3 repository interfaces.
+2019-06-18 17:03:07.456  INFO 17104 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$6b7c1386] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-18 17:03:07.764  INFO 17104 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-06-18 17:03:07.786  INFO 17104 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-06-18 17:03:07.786  INFO 17104 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-06-18 17:03:07.872  INFO 17104 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-06-18 17:03:07.872  INFO 17104 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1604 ms
+2019-06-18 17:03:08.261  INFO 17104 --- [restartedMain] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-18 17:03:08.300  INFO 17104 --- [cluster-ClusterId{value='5d08ef1ceefd2142d06eb411', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:5}] to localhost:27017
+2019-06-18 17:03:08.305  INFO 17104 --- [cluster-ClusterId{value='5d08ef1ceefd2142d06eb411', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 10]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=2054400}
+2019-06-18 17:03:08.466  INFO 17104 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-06-18 17:03:08.507  INFO 17104 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'commenterName' in type 'Review' for path 'response -> response'
+2019-06-18 17:03:08.509  INFO 17104 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'response' in type 'Review' for path 'response -> response'
+2019-06-18 17:03:09.118  INFO 17104 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-18 17:03:09.474  INFO 17104 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-06-18 17:03:09.477  INFO 17104 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Started BookscatalogpprototypeApplication in 3.616 seconds (JVM running for 4.404)
+2019-06-18 17:03:18.982  INFO 17104 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-18 17:03:18.982  INFO 17104 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-06-18 17:03:19.002  INFO 17104 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 19 ms
+2019-06-18 17:04:09.501  INFO 17104 --- [http-nio-8080-exec-5] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:6}] to localhost:27017
+2019-06-18 17:10:19.422  INFO 16316 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Starting BookscatalogpprototypeApplication on FORDWICH with PID 16316 (C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype\out\production\classes started by vtahi in C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype)
+2019-06-18 17:10:19.431  INFO 16316 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : No active profile set, falling back to default profiles: default
+2019-06-18 17:10:19.488  INFO 16316 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-18 17:10:19.489  INFO 16316 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-18 17:10:20.402  INFO 16316 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-18 17:10:20.457  INFO 16316 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52ms. Found 3 repository interfaces.
+2019-06-18 17:10:20.704  INFO 16316 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$bb4a60a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-18 17:10:21.010  INFO 16316 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-06-18 17:10:21.032  INFO 16316 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-06-18 17:10:21.033  INFO 16316 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-06-18 17:10:21.122  INFO 16316 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-06-18 17:10:21.122  INFO 16316 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1633 ms
+2019-06-18 17:10:21.515  INFO 16316 --- [restartedMain] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-18 17:10:21.555  INFO 16316 --- [cluster-ClusterId{value='5d08f0cdeefd213fbc456cf3', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:24}] to localhost:27017
+2019-06-18 17:10:21.561  INFO 16316 --- [cluster-ClusterId{value='5d08f0cdeefd213fbc456cf3', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 10]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=2178400}
+2019-06-18 17:10:21.719  INFO 16316 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-06-18 17:10:21.762  INFO 16316 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'commenterName' in type 'Review' for path 'response -> response'
+2019-06-18 17:10:21.764  INFO 16316 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'response' in type 'Review' for path 'response -> response'
+2019-06-18 17:10:22.370  INFO 16316 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-18 17:10:22.696  INFO 16316 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-06-18 17:10:22.699  INFO 16316 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Started BookscatalogpprototypeApplication in 3.655 seconds (JVM running for 4.438)
+2019-06-18 17:10:38.856  INFO 16316 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-18 17:10:38.856  INFO 16316 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-06-18 17:10:38.876  INFO 16316 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 19 ms
+2019-06-18 17:13:41.282  INFO 14500 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Starting BookscatalogpprototypeApplication on FORDWICH with PID 14500 (C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype\out\production\classes started by vtahi in C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype)
+2019-06-18 17:13:41.285  INFO 14500 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : No active profile set, falling back to default profiles: default
+2019-06-18 17:13:41.368  INFO 14500 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-18 17:13:41.368  INFO 14500 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-18 17:13:42.257  INFO 14500 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-18 17:13:42.318  INFO 14500 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56ms. Found 3 repository interfaces.
+2019-06-18 17:13:42.573  INFO 14500 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$e4eed775] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-18 17:13:42.893  INFO 14500 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-06-18 17:13:42.914  INFO 14500 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-06-18 17:13:42.915  INFO 14500 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-06-18 17:13:43.006  INFO 14500 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-06-18 17:13:43.007  INFO 14500 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1638 ms
+2019-06-18 17:13:43.432  INFO 14500 --- [restartedMain] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-18 17:13:43.474  INFO 14500 --- [cluster-ClusterId{value='5d08f197eefd2138a49b4de6', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:32}] to localhost:27017
+2019-06-18 17:13:43.479  INFO 14500 --- [cluster-ClusterId{value='5d08f197eefd2138a49b4de6', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 10]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=2135200}
+2019-06-18 17:13:43.660  INFO 14500 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-06-18 17:13:43.706  INFO 14500 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'commenterName' in type 'Review' for path 'response -> response'
+2019-06-18 17:13:43.708  INFO 14500 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'response' in type 'Review' for path 'response -> response'
+2019-06-18 17:13:44.313  INFO 14500 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-18 17:13:44.650  INFO 14500 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-06-18 17:13:44.654  INFO 14500 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Started BookscatalogpprototypeApplication in 3.733 seconds (JVM running for 4.494)
+2019-06-18 17:13:57.370  INFO 14500 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-18 17:13:57.371  INFO 14500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-06-18 17:13:57.389  INFO 14500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 18 ms
+2019-06-18 17:16:29.206  INFO 14500 --- [http-nio-8080-exec-8] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:41}] to localhost:27017
+2019-06-18 17:19:56.364  INFO 9164 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Starting BookscatalogpprototypeApplication on FORDWICH with PID 9164 (C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype\out\production\classes started by vtahi in C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype)
+2019-06-18 17:19:56.367  INFO 9164 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : No active profile set, falling back to default profiles: default
+2019-06-18 17:19:56.424  INFO 9164 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-18 17:19:56.424  INFO 9164 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-18 17:19:57.396  INFO 9164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-18 17:19:57.457  INFO 9164 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58ms. Found 3 repository interfaces.
+2019-06-18 17:19:57.721  INFO 9164 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$fd380b6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-18 17:19:58.048  INFO 9164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-06-18 17:19:58.070  INFO 9164 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-06-18 17:19:58.070  INFO 9164 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-06-18 17:19:58.160  INFO 9164 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-06-18 17:19:58.160  INFO 9164 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1734 ms
+2019-06-18 17:19:58.562  INFO 9164 --- [restartedMain] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-18 17:19:58.601  INFO 9164 --- [cluster-ClusterId{value='5d08f30eeefd2123cc9efca9', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:53}] to localhost:27017
+2019-06-18 17:19:58.607  INFO 9164 --- [cluster-ClusterId{value='5d08f30eeefd2123cc9efca9', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 10]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=2477800}
+2019-06-18 17:19:58.780  INFO 9164 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-06-18 17:19:58.828  INFO 9164 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'commenterName' in type 'Review' for path 'response -> response'
+2019-06-18 17:19:58.831  INFO 9164 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'response' in type 'Review' for path 'response -> response'
+2019-06-18 17:19:59.561  INFO 9164 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-18 17:19:59.945  INFO 9164 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-06-18 17:19:59.948  INFO 9164 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Started BookscatalogpprototypeApplication in 4.013 seconds (JVM running for 4.871)
+2019-06-18 17:20:16.835  INFO 9164 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-18 17:20:16.835  INFO 9164 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-06-18 17:20:16.854  INFO 9164 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 19 ms
+2019-06-18 17:21:56.314  INFO 5116 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Starting BookscatalogpprototypeApplication on FORDWICH with PID 5116 (C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype\out\production\classes started by vtahi in C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype)
+2019-06-18 17:21:56.322  INFO 5116 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : No active profile set, falling back to default profiles: default
+2019-06-18 17:21:56.393  INFO 5116 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-18 17:21:56.393  INFO 5116 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-18 17:21:57.241  INFO 5116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-18 17:21:57.298  INFO 5116 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53ms. Found 3 repository interfaces.
+2019-06-18 17:21:57.565  INFO 5116 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$82137c83] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-18 17:21:57.870  INFO 5116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-06-18 17:21:57.892  INFO 5116 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-06-18 17:21:57.893  INFO 5116 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-06-18 17:21:57.978  INFO 5116 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-06-18 17:21:57.978  INFO 5116 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1585 ms
+2019-06-18 17:21:58.364  INFO 5116 --- [restartedMain] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-18 17:21:58.407  INFO 5116 --- [cluster-ClusterId{value='5d08f386eefd2113fcec9a53', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:57}] to localhost:27017
+2019-06-18 17:21:58.412  INFO 5116 --- [cluster-ClusterId{value='5d08f386eefd2113fcec9a53', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 10]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=2148800}
+2019-06-18 17:21:58.568  INFO 5116 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-06-18 17:21:58.615  INFO 5116 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'commenterName' in type 'Review' for path 'response -> response'
+2019-06-18 17:21:58.617  INFO 5116 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'response' in type 'Review' for path 'response -> response'
+2019-06-18 17:21:59.225  INFO 5116 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-18 17:21:59.575  INFO 5116 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-06-18 17:21:59.579  INFO 5116 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Started BookscatalogpprototypeApplication in 3.655 seconds (JVM running for 4.448)
+2019-06-18 17:22:28.011  INFO 14744 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Starting BookscatalogpprototypeApplication on FORDWICH with PID 14744 (C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype\out\production\classes started by vtahi in C:\Users\vtahi\IdeaProjects\BooksCatalogPrototype)
+2019-06-18 17:22:28.020  INFO 14744 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : No active profile set, falling back to default profiles: default
+2019-06-18 17:22:28.097  INFO 14744 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-18 17:22:28.097  INFO 14744 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-18 17:22:28.977  INFO 14744 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-18 17:22:29.035  INFO 14744 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54ms. Found 3 repository interfaces.
+2019-06-18 17:22:29.291  INFO 14744 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$157dbf19] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-18 17:22:29.632  INFO 14744 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-06-18 17:22:29.654  INFO 14744 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-06-18 17:22:29.655  INFO 14744 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-06-18 17:22:29.742  INFO 14744 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-06-18 17:22:29.742  INFO 14744 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1645 ms
+2019-06-18 17:22:30.203  INFO 14744 --- [restartedMain] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-18 17:22:30.242  INFO 14744 --- [cluster-ClusterId{value='5d08f3a6eefd2139982663a7', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:59}] to localhost:27017
+2019-06-18 17:22:30.247  INFO 14744 --- [cluster-ClusterId{value='5d08f3a6eefd2139982663a7', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 10]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=2085900}
+2019-06-18 17:22:30.409  INFO 14744 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-06-18 17:22:30.448  INFO 14744 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'commenterName' in type 'Review' for path 'response -> response'
+2019-06-18 17:22:30.450  INFO 14744 --- [restartedMain] m.c.i.MongoPersistentEntityIndexResolver : Found cycle for field 'response' in type 'Review' for path 'response -> response'
+2019-06-18 17:22:31.037  INFO 14744 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-18 17:22:31.365  INFO 14744 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-06-18 17:22:31.368  INFO 14744 --- [restartedMain] c.s.b.BookscatalogpprototypeApplication  : Started BookscatalogpprototypeApplication in 3.806 seconds (JVM running for 4.644)
+2019-06-18 17:22:59.432  INFO 14744 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-18 17:22:59.432  INFO 14744 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-06-18 17:22:59.452  INFO 14744 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 19 ms
+2019-06-18 17:23:49.257  INFO 14744 --- [http-nio-8080-exec-4] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:63}] to localhost:27017

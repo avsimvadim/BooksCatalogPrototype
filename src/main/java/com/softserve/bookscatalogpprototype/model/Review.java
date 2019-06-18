@@ -1,7 +1,14 @@
 package com.softserve.bookscatalogpprototype.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Getter
+@Setter
+@ToString
 public class Review {
 
     private String commenterName;
@@ -13,6 +20,5 @@ public class Review {
     private int rating;
 
     private Date createDate;
-
 
 }
