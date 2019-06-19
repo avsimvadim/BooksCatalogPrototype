@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
-public class BookDao implements GeneralDao<Book> {
+public class BookService implements GeneralDao<Book> {
 
     @Autowired
     private BookRepository bookRepository;

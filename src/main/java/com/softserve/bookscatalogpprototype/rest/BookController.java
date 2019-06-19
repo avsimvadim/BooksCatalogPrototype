@@ -1,12 +1,14 @@
 package com.softserve.bookscatalogpprototype.rest;
 
+import com.softserve.bookscatalogpprototype.model.Author;
 import com.softserve.bookscatalogpprototype.model.Book;
-import com.softserve.bookscatalogpprototype.service.impl.BookDao;
+import com.softserve.bookscatalogpprototype.service.impl.BookService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,30 +17,21 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    private BookDao bookDao;
-
-//    public BookController(){
-//        Book book1 = new Book(1L, "tolstoi", new Date(), new Date(), null, null);
-//        Book book2 = new Book(2L, "math", new Date(), new Date(), null, null);
-//
-//        bookDao.save(book1);
-//        bookDao.save(book2);
-//    }
+    private BookService bookService;
 
     @PostMapping("/book")
     public boolean createBook(@RequestBody Book book) {
-        return bookDao.save(book);
+        return bookService.save(book);
     }
 
     @GetMapping("/books")
     public List<Book> getBooks() {
-        return bookDao.getAll();
+        return bookService.getAll();
     }
 
     @GetMapping("/book")
-    public ResponseEntity<Book> getBookById(@RequestParam("bookId") Long bookId)
-            throws ResourceNotFoundException {
-        Book book = bookDao.get(bookId);
+    public ResponseEntity<Book> getBookById(@RequestParam("bookId") Long bookId){
+        Book book = bookService.get(bookId);
         return ResponseEntity.ok().body(book);
     }
 }

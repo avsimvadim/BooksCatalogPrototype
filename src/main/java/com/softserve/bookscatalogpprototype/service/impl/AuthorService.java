@@ -1,19 +1,24 @@
 package com.softserve.bookscatalogpprototype.service.impl;
 
 import com.softserve.bookscatalogpprototype.model.Author;
+import com.softserve.bookscatalogpprototype.repository.AuthorRepository;
 import com.softserve.bookscatalogpprototype.service.GeneralDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
+public class AuthorService implements GeneralDao<Author> {
 
-public class AuthorDao implements GeneralDao<Author> {
+    @Autowired
+    private AuthorRepository authorRepository;
+
     @Override
     public boolean save(Author object) {
-        return false;
+        authorRepository.save(object);
+        return true;
     }
 
     @Override

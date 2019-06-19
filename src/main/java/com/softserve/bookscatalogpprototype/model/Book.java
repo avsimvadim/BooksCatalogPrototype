@@ -1,21 +1,25 @@
 package com.softserve.bookscatalogpprototype.model;
 
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 
 
 @Document
-@EqualsAndHashCode(of = "isbn")
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
 public class Book {
 
     @Id
-    private Long isbn;
+    private ObjectId id;
 
     private String name;
 
@@ -23,19 +27,10 @@ public class Book {
 
     private Date createDate;
 
-    private List<Author> authors = new ArrayList<>();
+    @DBRef
+    private List<Author> authors;
 
-    private List<Review> reviews = new LinkedList<>();
+    @DBRef
+    private List<Review> reviews;
 
-    public Book() {
-    }
-
-    public Book(Long isbn, String name, Date yearPublished, Date createDate, List<Author> authors, List<Review> reviews) {
-        this.isbn = isbn;
-        this.name = name;
-        this.yearPublished = yearPublished;
-        this.createDate = createDate;
-        this.authors = authors;
-        this.reviews = reviews;
-    }
 }

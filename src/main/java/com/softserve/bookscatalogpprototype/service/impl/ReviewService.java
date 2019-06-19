@@ -9,8 +9,7 @@ import java.util.List;
 
 @Service
 @Transactional
-
-public class ReviewDao implements GeneralDao<Review> {
+public class ReviewService implements GeneralDao<Review> {
 
     @Override
     public boolean save(Review object) {
