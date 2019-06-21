@@ -12,8 +12,8 @@ import java.util.List;
 public class ReviewService implements GeneralDao<Review> {
 
     @Override
-    public boolean save(Review object) {
-        return false;
+    public Review save(Review object) {
+        return object;
     }
 
     @Override

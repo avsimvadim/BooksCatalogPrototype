@@ -17,9 +17,9 @@ public class BookService implements GeneralDao<Book> {
     private BookRepository bookRepository;
 
     @Override
-    public boolean save(Book book) {
-        bookRepository.save(book);
-        return true;
+    public Book save(Book book) {
+        Book save = bookRepository.save(book);
+        return book;
     }
 
     @Override

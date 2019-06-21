@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface GeneralDao<T> {
 
-    boolean save(T object);
+    T save(T object);
 
     List<T> getAll();
 

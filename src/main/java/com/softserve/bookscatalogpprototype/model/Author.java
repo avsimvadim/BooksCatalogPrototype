@@ -9,21 +9,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Document
-@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode(of = "isbn")
 @ToString
 public class Author {
 
     @Id
     private ObjectId id;
 
-    private String firstName;
+    private final String firstName;
 
-    private String secondName;
+    private final String secondName;
 
-    private Date createDate;
+    private final Date creationDate;
 
 }

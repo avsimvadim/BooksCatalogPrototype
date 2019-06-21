@@ -1,5 +1,6 @@
 package com.softserve.bookscatalogpprototype.model;
 
+import com.softserve.bookscatalogpprototype.annotations.CascadeSave;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -9,11 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Document
-@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @ToString
 public class Review {
 
@@ -24,10 +25,12 @@ public class Review {
 
     private String comment;
 
+    @DBRef
+    @CascadeSave
     private Review response;
 
     private int rating;
 
-    private Date createDate;
+    private Date creationDate;
 
 }

@@ -16,9 +16,8 @@ public class AuthorService implements GeneralDao<Author> {
     private AuthorRepository authorRepository;
 
     @Override
-    public boolean save(Author object) {
-        authorRepository.save(object);
-        return true;
+    public Author save(Author object) {
+        return null;
     }
 
     @Override

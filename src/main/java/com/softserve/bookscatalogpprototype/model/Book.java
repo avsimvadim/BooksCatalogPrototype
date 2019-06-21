@@ -1,5 +1,6 @@
 package com.softserve.bookscatalogpprototype.model;
 
+import com.softserve.bookscatalogpprototype.annotations.CascadeSave;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -8,29 +9,33 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 
-
 @Document
-@EqualsAndHashCode(of = "id")
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(of = "isbn")
 @ToString
 public class Book {
 
     @Id
-    private ObjectId id;
+    private ObjectId isbn;
 
-    private String name;
+    private final String name;
 
-    private Date yearPublished;
+    private final Date yearPublished;
 
-    private Date createDate;
+    private final Publisher publisher;
+
+    private final Date creationDate;
 
     @DBRef
-    private List<Author> authors;
+    @CascadeSave
+    private final List<Author> authors;
 
     @DBRef
-    private List<Review> reviews;
+    @CascadeSave
+    private final List<Review> reviews;
 
 }
