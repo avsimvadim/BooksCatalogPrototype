@@ -10,9 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 
 @Document
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = "isbn")
@@ -22,20 +21,26 @@ public class Book {
     @Id
     private ObjectId isbn;
 
-    private final String name;
+    private String name;
 
-    private final Date yearPublished;
+    private Date yearPublished;
 
-    private final Publisher publisher;
+    private Publisher publisher;
 
-    private final Date creationDate;
-
-    @DBRef
-    @CascadeSave
-    private final List<Author> authors;
+    private Date creationDate;
 
     @DBRef
     @CascadeSave
-    private final List<Review> reviews;
+    private List<Author> authors = new ArrayList<>();
 
+    @DBRef
+    @CascadeSave
+    private List<Review> reviews = new ArrayList<>();
+
+    public Book(String name, Date yearPublished, Publisher publisher, Date creationDate) {
+        this.name = name;
+        this.yearPublished = yearPublished;
+        this.publisher = publisher;
+        this.creationDate = creationDate;
+    }
 }

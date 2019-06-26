@@ -32,6 +32,10 @@ public class AuthorService implements GeneralDao<Author> {
 
     @Override
     public void delete(Author object) {
+    }
 
+
+    public Author findByFirstNameIsAndSecondName(String firstName, String secondName){
+        return authorRepository.findByFirstNameIsAndSecondName(firstName, secondName);
     }
 }
