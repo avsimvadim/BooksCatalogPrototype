@@ -11,4 +11,6 @@ public interface GeneralDao<T> {
     T get(String isbn);
 
     void delete(T object);
+
+    T update(T object);
 }

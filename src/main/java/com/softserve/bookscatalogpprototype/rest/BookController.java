@@ -13,6 +13,9 @@ import com.softserve.bookscatalogpprototype.service.impl.BookService;
 import com.softserve.bookscatalogpprototype.util.DTOConverter;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
@@ -50,6 +53,15 @@ public class BookController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/allPage")
+    public ResponseEntity<List<BookDTO>> allPAge(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        Page<Book> pageResult = bookService.getAll(new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.ASC, "name")));
+        List<BookDTO> result = pageResult.stream()
+                .map(book -> DTOConverter.convertBook(book))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping("/get/{id}")
     public ResponseEntity<BookDTO> get(@PathVariable String id){
         BookDTO result = DTOConverter.convertBook(bookService.get(id));
@@ -81,6 +93,12 @@ public class BookController {
     public ResponseEntity deleteCover(@PathVariable String id) {
         gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Book> update(@RequestBody Book book){
+        Book update = bookService.update(book);
+        return ResponseEntity.ok(update);
     }
 
     //    put content and book id, get content id

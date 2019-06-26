@@ -12,4 +12,5 @@ import java.util.List;
 public interface AuthorRepository extends MongoRepository<Author, ObjectId> {
 
     Author findByFirstNameIsAndSecondName(String firstName, String secondName);
+
 }

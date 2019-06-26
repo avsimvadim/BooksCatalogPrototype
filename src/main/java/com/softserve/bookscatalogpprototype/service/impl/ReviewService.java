@@ -30,4 +30,9 @@ public class ReviewService implements GeneralDao<Review> {
     public void delete(Review object) {
 
     }
+
+    @Override
+    public Review update(Review object) {
+        return null;
+    }
 }
