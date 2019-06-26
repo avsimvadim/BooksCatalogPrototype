@@ -8,7 +8,7 @@ public interface GeneralDao<T> {
 
     List<T> getAll();
 
-    T get(long isbn);
+    T get(String isbn);
 
     void delete(T object);
 }

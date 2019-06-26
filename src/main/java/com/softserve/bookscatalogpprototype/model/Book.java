@@ -43,4 +43,12 @@ public class Book {
         this.publisher = publisher;
         this.creationDate = creationDate;
     }
+
+    public Book(ObjectId isbn, String name, Date yearPublished, Publisher publisher, Date creationDate) {
+        this.isbn = isbn;
+        this.name = name;
+        this.yearPublished = yearPublished;
+        this.publisher = publisher;
+        this.creationDate = creationDate;
+    }
 }

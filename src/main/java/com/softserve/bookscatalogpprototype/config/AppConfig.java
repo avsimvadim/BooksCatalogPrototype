@@ -1,5 +1,6 @@
 package com.softserve.bookscatalogpprototype.config;
 
+import com.softserve.bookscatalogpprototype.dto.BookDTO;
 import com.softserve.bookscatalogpprototype.event.CascadeSaveMongoEventListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

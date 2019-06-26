@@ -22,7 +22,7 @@ public class ReviewService implements GeneralDao<Review> {
     }
 
     @Override
-    public Review get(long isbn) {
+    public Review get(String isbn) {
         return null;
     }
 

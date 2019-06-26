@@ -2,6 +2,7 @@ package com.softserve.bookscatalogpprototype.rest;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.softserve.bookscatalogpprototype.dto.BookDTO;
 import com.softserve.bookscatalogpprototype.exception.UploadContentException;
 import com.softserve.bookscatalogpprototype.exception.UploadCoverException;
 import com.softserve.bookscatalogpprototype.model.Author;
@@ -9,6 +10,7 @@ import com.softserve.bookscatalogpprototype.model.Book;
 import com.softserve.bookscatalogpprototype.repository.AuthorRepository;
 import com.softserve.bookscatalogpprototype.service.impl.AuthorService;
 import com.softserve.bookscatalogpprototype.service.impl.BookService;
+import com.softserve.bookscatalogpprototype.util.DTOConverter;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -22,45 +24,42 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/book")
 public class BookController {
 
     @Autowired
     private BookService bookService;
 
     @Autowired
-    private AuthorService authorService;
-
-    @Autowired
     private GridFsOperations gridFsOperations;
 
-    // add new book, if author first and second name is same to the one in the database, no new author will be created and
-    // id from the database's author will be taken and set to incoming author
-    @PostMapping("/book")
-    public boolean createBook(@RequestBody Book book) {
-        book.getAuthors().stream().forEach(author -> {
-            Author result = authorService.findByFirstNameIsAndSecondName(author.getFirstName(), author.getSecondName());
-            if (result != null) {
-                ObjectId objectId = result.getId();
-                author.setId(objectId);
-            }
-        });
-        bookService.save(book);
-        return true;
+    @PostMapping("/add")
+    public ResponseEntity<BookDTO> add(@RequestBody Book book) {
+        BookDTO result = DTOConverter.convertBook(bookService.save(book));
+        return ResponseEntity.ok(result);
     }
 
-    // TODO: 26.06.2019  
-//    @GetMapping("/books")
-//    public ResponseEntity<List<Book>> getBooks() {
-//        return bookService.getAll();
-//    }
+    @GetMapping("/all")
+    public ResponseEntity<List<BookDTO>> all() {
+        List<BookDTO> result = bookService.getAll().stream()
+                .map(book -> DTOConverter.convertBook(book))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
+    }
 
-    @GetMapping("/book")
-    public ResponseEntity<Book> getBookById(@RequestParam Long id){
-        Book book = bookService.get(id);
-        return ResponseEntity.ok().body(book);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<BookDTO> get(@PathVariable String id){
+        BookDTO result = DTOConverter.convertBook(bookService.get(id));
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable String id){
+        bookService.delete(bookService.get(id));
+        return ResponseEntity.ok().build();
     }
 
 //    put cover and book id, get cover id

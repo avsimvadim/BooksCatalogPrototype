@@ -26,7 +26,7 @@ public class AuthorService implements GeneralDao<Author> {
     }
 
     @Override
-    public Author get(long isbn) {
+    public Author get(String isbn) {
         return null;
     }
 
