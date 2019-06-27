@@ -4,6 +4,7 @@ import com.softserve.bookscatalogpprototype.annotations.CascadeSave;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -29,6 +30,11 @@ public class Book {
 
     private Date creationDate;
 
+    //rate can be between 1 and 5, rate = 0 means book is not evaluated yet
+    private double rate;
+
+    private int totalVoteCount;
+
     @DBRef
     @CascadeSave
     private List<Author> authors = new ArrayList<>();
@@ -37,18 +43,4 @@ public class Book {
     @CascadeSave
     private List<Review> reviews = new ArrayList<>();
 
-    public Book(String name, Date yearPublished, Publisher publisher, Date creationDate) {
-        this.name = name;
-        this.yearPublished = yearPublished;
-        this.publisher = publisher;
-        this.creationDate = creationDate;
-    }
-
-    public Book(ObjectId isbn, String name, Date yearPublished, Publisher publisher, Date creationDate) {
-        this.isbn = isbn;
-        this.name = name;
-        this.yearPublished = yearPublished;
-        this.publisher = publisher;
-        this.creationDate = creationDate;
-    }
 }

@@ -1,17 +1,7 @@
 package com.softserve.bookscatalogpprototype.dto;
 
-
-import com.softserve.bookscatalogpprototype.annotations.CascadeSave;
-import com.softserve.bookscatalogpprototype.model.Author;
 import com.softserve.bookscatalogpprototype.model.Publisher;
-import com.softserve.bookscatalogpprototype.model.Review;
 import lombok.*;
-import org.bson.types.ObjectId;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +21,8 @@ public class BookDTO {
     private Publisher publisher;
 
     private Date creationDate;
+
+    private double rate;
 
     private List<String> authorsId;
 
