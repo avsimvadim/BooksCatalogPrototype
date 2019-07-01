@@ -1,5 +1,7 @@
 package com.softserve.booksCatalogPrototype.service.impl;
 
+import com.softserve.booksCatalogPrototype.exception.BookIsNotFoundException;
+import com.softserve.booksCatalogPrototype.exception.EntityException;
 import com.softserve.booksCatalogPrototype.exception.RateOutOfBoundException;
 import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
@@ -36,9 +38,7 @@ public class BookService implements GeneralDao<Book> {
     // id from the database's author will be taken and set to incoming author
     @Override
     public Book save(Book book) {
-        // TODO: 27.06.2019 exception
         Book checkedBook = BookRateCheck.rateCheck(book);
-
         checkedBook.getAuthors().stream().forEach(author -> {
             Author result = authorRepository.findByFirstNameIsAndSecondName(author.getFirstName(), author.getSecondName());
             if (result != null) {
@@ -57,7 +57,11 @@ public class BookService implements GeneralDao<Book> {
     @Override
     public Book get(String isbn) {
         ObjectId objectId = new ObjectId(isbn);
-        return bookRepository.findById(objectId).get();
+        Book book = bookRepository.findById(objectId).get();
+        if (book == null){
+            throw new BookIsNotFoundException("not found book with this id");
+        }
+        return book;
     }
 
     @Override
@@ -67,7 +71,10 @@ public class BookService implements GeneralDao<Book> {
 
     @Override
     public Book update(Book newBook) {
-        // TODO: 28.06.2019 exception
+        Book book = bookRepository.findById(newBook.getIsbn()).get();
+        if (book == null){
+            throw new BookIsNotFoundException("not found book with this id");
+        }
         Book checkedBook = BookRateCheck.rateCheck(newBook);
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(checkedBook.getIsbn()));
@@ -85,13 +92,16 @@ public class BookService implements GeneralDao<Book> {
         return bookRepository.findById(newBook.getIsbn()).get();
     }
 
-
     public Page<Book> getAll(Pageable pageable) {
         return bookRepository.findAll(pageable);
     }
 
     public List<Book> getBooksByAuthor(String authorId){
-        return bookRepository.findBooksByAuthors(authorRepository.findById(new ObjectId(authorId)).get());
+        Author author = authorRepository.findById(new ObjectId(authorId)).get();
+        if (author == null){
+            throw new EntityException("no author with this id");
+        }
+        return bookRepository.findBooksByAuthors(author);
     }
 
     public List<Book> withRate(Pageable pageable){
@@ -103,6 +113,9 @@ public class BookService implements GeneralDao<Book> {
     }
 
     public Book giveRate(String id, int newRate){
+        if (newRate <= 1 || newRate >= 5){
+            throw new RateOutOfBoundException("Rate is more than 5 or less than 1");
+        }
         Book book = this.get(id);
         double rate = book.getRate();
         int totalVoteCount = book.getTotalVoteCount();

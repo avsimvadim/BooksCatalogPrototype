@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "isbn")
+@EqualsAndHashCode(of = "id")
 @ToString
 public class Author {
 

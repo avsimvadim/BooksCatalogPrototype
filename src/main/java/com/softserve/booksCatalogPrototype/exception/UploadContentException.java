@@ -1,9 +1,8 @@
 package com.softserve.booksCatalogPrototype.exception;
 
-public class UploadContentException extends Throwable {
+public class UploadContentException extends RuntimeException {
 
     public UploadContentException() {
-        super();
     }
 
     public UploadContentException(String message) {
