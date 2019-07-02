@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @Document
 @Getter
@@ -27,10 +29,13 @@ public class Review {
 
     @DBRef
     @CascadeSave
-    private Review response;
-
-    private int rating;
+    private List<Review> responses = new LinkedList<>();
 
     private Date creationDate;
 
+    public Review(String commenterName, String comment, Date creationDate) {
+        this.commenterName = commenterName;
+        this.comment = comment;
+        this.creationDate = creationDate;
+    }
 }

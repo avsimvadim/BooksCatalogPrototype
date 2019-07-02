@@ -1,25 +1,36 @@
 package com.softserve.booksCatalogPrototype.service.impl;
 
-import com.softserve.booksCatalogPrototype.exception.BookIsNotFoundException;
-import com.softserve.booksCatalogPrototype.exception.EntityException;
-import com.softserve.booksCatalogPrototype.exception.RateOutOfBoundException;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.client.gridfs.model.GridFSFile;
+import com.softserve.booksCatalogPrototype.dto.BookDTO;
+import com.softserve.booksCatalogPrototype.exception.*;
 import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
 import com.softserve.booksCatalogPrototype.util.BookRateCheck;
 import com.softserve.booksCatalogPrototype.service.GeneralDao;
+import com.softserve.booksCatalogPrototype.util.DTOConverter;
 import org.apache.commons.math3.util.Precision;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,18 +45,18 @@ public class BookService implements GeneralDao<Book> {
 
     @Autowired
     private MongoOperations mongoOperations;
+
+    @Autowired
+    private GridFsOperations gridFsOperations;
+
+    @Autowired
+    private ReviewService reviewService;
+
     // add new book, if author first and second name is same to the one in the database, no new author will be created and
     // id from the database's author will be taken and set to incoming author
     @Override
     public Book save(Book book) {
         Book checkedBook = BookRateCheck.rateCheck(book);
-        checkedBook.getAuthors().stream().forEach(author -> {
-            Author result = authorRepository.findByFirstNameIsAndSecondName(author.getFirstName(), author.getSecondName());
-            if (result != null) {
-                ObjectId objectId = result.getId();
-                author.setId(objectId);
-            }
-        });
         return bookRepository.save(checkedBook);
     }
 
@@ -66,7 +77,28 @@ public class BookService implements GeneralDao<Book> {
 
     @Override
     public void delete(Book book) {
-        bookRepository.delete(book);
+        try {
+            deleteBookContent(book.getIsbn().toString());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new DeleteContentException("not found book with this id");
+        }
+        try{
+            deleteBookCover(book.getIsbn().toString());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new DeleteCoverException("not found book with this id");
+        }
+        try{
+            reviewService.delete(book.getReviews());
+        }catch (Exception e){
+            throw new ReviewDeleteException("not found book with such ids");
+        }
+        try {
+            bookRepository.delete(book);
+        }catch (Exception e){
+            throw new DeleteBookException("could not delete the book");
+        }
     }
 
     @Override
@@ -129,5 +161,57 @@ public class BookService implements GeneralDao<Book> {
     public void deleteBooks(String[] ids){
         List<String> list = Arrays.asList(ids);
         list.stream().forEach(id -> this.delete(this.get(id)));
+    }
+
+    public String uploadBookCover(MultipartFile file, String id){
+        DBObject metaData = new BasicDBObject();
+        metaData.put("bookId", id);
+        try(InputStream is = file.getInputStream()) {
+            return gridFsOperations.store(is,id + ".png", "image/png", metaData).toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            throw new UploadCoverException("failed to upload cover");
+        }
+    }
+
+    public Resource getBookCover(String id){
+        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+        return new GridFsResource(file);
+    }
+
+    public void deleteBookCover(String id){
+        try {
+            gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new DeleteCoverException("failed to delete, possibly wrong id");
+        }
+    }
+
+    public String uploadBookContent(MultipartFile file, String id){
+        DBObject metaData = new BasicDBObject();
+        metaData.put("bookId", id);
+        try(InputStream is = file.getInputStream()) {
+            return gridFsOperations.store(is,id + ".txt", "text/plain", metaData).toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            throw new UploadContentException("failed to upload a content");
+        }
+    }
+
+    public Resource getBookContent(String id){
+        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+        return new GridFsResource(file);
+    }
+
+    public void deleteBookContent(String id){
+        try {
+            gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new DeleteContentException("failed to delete, possibly wrong id");
+        }
     }
 }

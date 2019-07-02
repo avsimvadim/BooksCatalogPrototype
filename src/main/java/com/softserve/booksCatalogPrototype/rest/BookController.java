@@ -17,13 +17,14 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,14 +35,12 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @Autowired
-    private GridFsOperations gridFsOperations;
-
     @PostMapping("/add")
-    public ResponseEntity<BookDTO> add(@RequestBody Book book) {
-        if (!(book instanceof Book)){
-            throw new EntityException("is not book entity");
+    public ResponseEntity<BookDTO> add(@RequestBody BookDTO bookDTO) {
+        if (!(bookDTO instanceof BookDTO)){
+            throw new EntityException("is not bookDTO entity");
         }
+        Book book = DTOConverter.convertBook(bookDTO);
         BookDTO result = DTOConverter.convertBook(bookService.save(book));
         return ResponseEntity.ok(result);
     }
@@ -128,66 +127,51 @@ public class BookController {
         return ResponseEntity.ok(bookDTO);
     }
 
-//  put cover and book id, get cover id
+    //  put cover and book id, get cover id
     @PostMapping("/upload_cover/{id}")
     public ResponseEntity<String> uploadCover(@RequestParam MultipartFile file, @PathVariable String id){
-        DBObject metaData = new BasicDBObject();
-        metaData.put("bookId", id);
-        try(InputStream is = file.getInputStream()) {
-            String coverId = gridFsOperations.store(is,id + ".png", "image/png", metaData).toString();
-            return ResponseEntity.ok(coverId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            throw new UploadCoverException("failed to upload cover");
-        }
+        String bookCover = bookService.uploadBookCover(file, id);
+        return ResponseEntity.ok(bookCover);
     }
 
-    @GetMapping(value = "/get_cover/{id}", produces = "multipart/form-data")
-    public ResponseEntity<Resource> getCover(@PathVariable String id){
-        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
-        Resource resource = new GridFsResource(file);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_LOCATION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(resource);
+    // TODO: 01.07.2019 to repair
+    @GetMapping(value = "/get_cover/{id}")
+    public ResponseEntity<Resource> getCover(@PathVariable String id) throws IOException {
+        Resource bookCover = bookService.getBookCover(id);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")
+                .contentLength(bookCover.contentLength())
+                .contentType(MediaType.IMAGE_PNG)
+                .cacheControl(CacheControl.noCache())
+                .body(bookCover);
     }
 
-//  delete by cover id
+    //  delete by cover id
     @GetMapping("/delete_cover/{id}")
     public ResponseEntity deleteCover(@PathVariable String id) {
-        gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
+        bookService.deleteBookCover(id);
         return ResponseEntity.ok().build();
     }
 
     //    put content and book id, get content id
     @PostMapping("/upload_content/{id}")
     public ResponseEntity<String> uploadContent(@RequestParam MultipartFile file, @PathVariable String id) throws UploadContentException {
-        DBObject metaData = new BasicDBObject();
-        metaData.put("bookId", id);
-        try(InputStream is = file.getInputStream()) {
-            String contentId = gridFsOperations.store(is,id + ".txt", "text/plain", metaData).toString();
-            return ResponseEntity.ok(contentId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            throw new UploadContentException("failed to upload a content");
-        }
+        String bookContent = bookService.uploadBookContent(file, id);
+        return ResponseEntity.ok(bookContent);
     }
 
     // get content by book id
-    @GetMapping(value = "/get_content/{id}", produces = "multipart/form-data")
+    @GetMapping(value = "/get_content/{id}")
     public ResponseEntity<Resource> getContent(@PathVariable String id){
-        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
-        Resource resource = new GridFsResource(file);
+        Resource bookContent = bookService.getBookContent(id);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_LOCATION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(resource);
+                "attachment; filename=\"" + bookContent.getFilename() + "\"").body(bookContent);
     }
 
-//    delete content by content id
+    //    delete content by content id
     @GetMapping("/delete_content/{id}")
     public ResponseEntity deleteContent(@PathVariable String id) {
-        gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
+        bookService.deleteBookContent(id);
         return ResponseEntity.ok().build();
     }
-
 
 }

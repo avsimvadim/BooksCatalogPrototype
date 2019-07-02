@@ -1,11 +1,12 @@
 package com.softserve.booksCatalogPrototype.rest;
 
+import com.softserve.booksCatalogPrototype.dto.AuthorDTO;
 import com.softserve.booksCatalogPrototype.exception.EntityException;
 import com.softserve.booksCatalogPrototype.exception.PaginationException;
 import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.service.impl.AuthorService;
+import com.softserve.booksCatalogPrototype.util.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -23,40 +24,46 @@ public class AuthorController {
     private AuthorService authorService;
 
     @PostMapping("/add")
-    public ResponseEntity<Author> add(@RequestBody Author author) {
-        if (!(author instanceof Author)){
+    public ResponseEntity<AuthorDTO> add(@RequestBody AuthorDTO authorDTO) {
+        if (!(authorDTO instanceof AuthorDTO)){
             throw new EntityException("is not author entity");
         }
+        Author author = DTOConverter.convertAuthorDTOToAuthorRequest(authorDTO);
         Author result = authorService.save(author);
-        return ResponseEntity.ok(result);
+        AuthorDTO dtoResult = DTOConverter.convertAuthorToAuthorDTOResponse(result);
+        return ResponseEntity.ok(dtoResult);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Author>> all() {
+    public ResponseEntity<List<AuthorDTO>> all() {
         List<Author> result = authorService.getAll();
-        return ResponseEntity.ok(result);
+        List<AuthorDTO> authorDTOS = DTOConverter.convertAuthorListToAuthorDTOListResponse(result);
+        return ResponseEntity.ok(authorDTOS);
     }
 
     @GetMapping("/all_pagination")
-    public ResponseEntity<List<Author>> allPages(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    public ResponseEntity<List<AuthorDTO>> allPages(@RequestParam int pageNumber, @RequestParam int pageSize) {
         if (pageNumber < 0 || pageSize <= 0){
             throw new PaginationException("wrong page number or size");
         }
         Stream<Author> stream = authorService.getAll(new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.ASC, "firstName")));
         List<Author> authors = stream.collect(Collectors.toList());
-        return ResponseEntity.ok(authors);
+        List<AuthorDTO> authorDTOS = DTOConverter.convertAuthorListToAuthorDTOListResponse(authors);
+        return ResponseEntity.ok(authorDTOS);
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Author> get(@PathVariable String id){
+    public ResponseEntity<AuthorDTO> get(@PathVariable String id){
         Author author = authorService.get(id);
-        return ResponseEntity.ok(author);
+        AuthorDTO authorDTO = DTOConverter.convertAuthorToAuthorDTOResponse(author);
+        return ResponseEntity.ok(authorDTO);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Author> update(@RequestBody Author author){
+    public ResponseEntity<AuthorDTO> update(@RequestBody Author author){
         Author result = authorService.update(author);
-        return ResponseEntity.ok(result);
+        AuthorDTO authorDTO = DTOConverter.convertAuthorToAuthorDTOResponse(author);
+        return ResponseEntity.ok(authorDTO);
     }
 
     @DeleteMapping("/delete/{id}")

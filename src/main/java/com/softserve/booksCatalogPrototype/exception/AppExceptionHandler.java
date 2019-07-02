@@ -45,8 +45,9 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = {BookIsNotFoundException.class, AuthorIsNotFoundException.class})
-    public ResponseEntity<Object> handleBookIsNotFoundExceptionException(Exception exception){
+    @ExceptionHandler(value = {BookIsNotFoundException.class, AuthorIsNotFoundException.class,
+            DeleteContentException.class, DeleteCoverException.class, ReviewDeleteException.class, DeleteBookException.class, ReviewIsNotFoundException.class})
+    public ResponseEntity<Object> handleNotFoundExceptions(Exception exception){
 
         String errorMessageDescription = exception.getLocalizedMessage();
         if (errorMessageDescription == null){
@@ -57,7 +58,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {UploadCoverException.class, UploadContentException.class})
-    public ResponseEntity<Object> handleUploadCoverExceptionException(Exception exception){
+    public ResponseEntity<Object> handleUploadCoverContentExceptionException(Exception exception){
 
         String errorMessageDescription = exception.getLocalizedMessage();
         if (errorMessageDescription == null){

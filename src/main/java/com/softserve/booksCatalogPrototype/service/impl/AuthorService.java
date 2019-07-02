@@ -41,7 +41,8 @@ public class AuthorService implements GeneralDao<Author> {
 
     @Override
     public List<Author> getAll() {
-        return authorRepository.findAll();
+        List<Author> result = authorRepository.findAll();
+        return result;
     }
 
     public Stream<Author> getAll(Pageable pageable) {
@@ -62,7 +63,12 @@ public class AuthorService implements GeneralDao<Author> {
     public void delete(Author author) {
         List<Book> booksByAuthors = bookRepository.findBooksByAuthors(author);
         if (booksByAuthors.isEmpty()){
-            authorRepository.delete(author);
+            try {
+                authorRepository.delete(author);
+            }catch (Exception e){
+                e.printStackTrace();
+                throw new EntityException("no author with this id or other causes");
+            }
         } else {
             throw new EntityException("there is at least 1 book connected to this author");
         }
@@ -90,7 +96,12 @@ public class AuthorService implements GeneralDao<Author> {
 
     public void deleteAuthors(String[] ids){
         List<String> list = Arrays.asList(ids);
-        list.stream().forEach(id -> this.delete(this.get(id)));
+        try {
+            list.stream().forEach(id -> this.delete(this.get(id)));
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new EntityException("no author with this id or other causes");
+        }
     }
 
 }

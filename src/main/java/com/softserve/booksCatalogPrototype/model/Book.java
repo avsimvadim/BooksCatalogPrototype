@@ -40,6 +40,15 @@ public class Book {
 
     @DBRef
     @CascadeSave
-    private List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new LinkedList<>();
 
+    public Book(String name, Date yearPublished, Publisher publisher, Date creationDate, double rate, List<Author> authors, List<Review> reviews) {
+        this.name = name;
+        this.yearPublished = yearPublished;
+        this.publisher = publisher;
+        this.creationDate = creationDate;
+        this.rate = rate;
+        this.authors = authors;
+        this.reviews = reviews;
+    }
 }
