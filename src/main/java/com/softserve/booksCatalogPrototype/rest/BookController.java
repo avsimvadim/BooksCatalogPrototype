@@ -1,25 +1,38 @@
 package com.softserve.booksCatalogPrototype.rest;
 
+import com.mongodb.client.gridfs.model.GridFSFile;
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSDBFile;
 import com.softserve.booksCatalogPrototype.dto.BookDTO;
 import com.softserve.booksCatalogPrototype.exception.custom.BookException;
 import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
 import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
+import com.softserve.booksCatalogPrototype.exception.custom.RateOutOfBoundException;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.service.impl.BookService;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.nio.ch.IOUtil;
+import sun.security.util.IOUtils;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -28,6 +41,9 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private GridFsOperations gridFsOperations;
 
     @PostMapping("/add")
     public ResponseEntity<Book> add(@RequestBody BookDTO bookDTO) {
@@ -89,35 +105,35 @@ public class BookController {
 
     //get books with rate
     @GetMapping("/rate_exists")
-    public ResponseEntity<List<BookDTO>> rateExists(@RequestParam int pageNumber, @RequestParam int pageSize){
-        // TODO: 04.07.2019 anno listener rate
-        if (pageNumber < 0 || pageSize <= 0){
+    public ResponseEntity<List<Book>> rateExists(@RequestParam int pageNumber, @RequestParam int pageSize){
+        if (pageNumber < 0 || pageSize < 1){
             throw new PaginationException("Wrong page number or size");
         }
-        //List<BookDTO> bookDTOS = DTOConverter.convertBookListToBookDTOList(bookService.withRate(new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate"))));
-        return ResponseEntity.ok(null);
+        List<Book> books = bookService.withRate(new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate")));
+        return ResponseEntity.ok(books);
     }
 
     // get books with rate
     @GetMapping("/rate")
-    public ResponseEntity<List<BookDTO>> rate(@RequestParam int rate, @RequestParam int pageNumber, @RequestParam int pageSize){
-        // TODO: 04.07.2019
-        if (pageNumber < 0 || pageSize <= 0){
-            throw new PaginationException("wrong page number or size");
+    public ResponseEntity<List<Book>> rate(@RequestParam double rate, @RequestParam int pageNumber, @RequestParam int pageSize){
+        if (pageNumber < 0 || pageSize < 1){
+            throw new PaginationException("Wrong page number or size");
         }
         if (rate < 1 || rate > 5){
-            //throw new RateOutOfBoundException("Rate is more than 5 or less than 1");
+            throw new RateOutOfBoundException("Rate cannot be " + rate);
         }
-        //List<BookDTO> bookDTOS = DTOConverter.convertBookListToBookDTOList(bookService.withRate(rate, new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate"))));
-        return ResponseEntity.ok(null);
+        List<Book> books = bookService.withRate(rate, new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate")));
+        return ResponseEntity.ok(books);
     }
 
-    //give rate to book with id, rate from 1 to 5
+    //give rate to book with id
     @GetMapping("/give_rate/{id}")
-    public ResponseEntity<BookDTO> giveRate(@PathVariable String id, @RequestParam int rate){
-        // TODO: 04.07.2019
-        //BookDTO bookDTO = DTOConverter.convertBook(bookService.giveRate(id, rate));
-        return ResponseEntity.ok(null);
+    public ResponseEntity<Book> giveRate(@PathVariable String id, @RequestParam int rate){
+        if (rate < 1 || rate > 5){
+            throw new RateOutOfBoundException("Rate cannot be " + rate);
+        }
+        Book result = bookService.giveRate(id, rate);
+        return ResponseEntity.ok(result);
     }
 
     //  put cover and book id, get cover id
@@ -129,13 +145,13 @@ public class BookController {
 
     // TODO: 01.07.2019 to repair
     @GetMapping(value = "/get_cover/{id}")
-    public ResponseEntity<Resource> getCover(@PathVariable String id) throws IOException {
-        Resource bookCover = bookService.getBookCover(id);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")
-                .contentLength(bookCover.contentLength())
-                .contentType(MediaType.IMAGE_PNG)
-                .cacheControl(CacheControl.noCache())
-                .body(bookCover);
+    public byte[] getCover(@PathVariable String id) throws IOException{
+//        //Resource bookCover = bookService.getBookCover(id);
+//        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+//        InputStream is = new FileInputStream(file);
+//        new InputStreamResource(file)
+//        return ResponseEntity.ok().body();
+        return null;
     }
 
     //  delete by cover id

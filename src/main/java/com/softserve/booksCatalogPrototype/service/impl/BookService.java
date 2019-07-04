@@ -15,7 +15,6 @@ import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.util.BookRateCheck;
 import com.softserve.booksCatalogPrototype.service.GeneralDao;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +52,7 @@ public class BookService implements GeneralDao<Book> {
 
     @Override
     public Book save(Book book) {
-        Book checkedBook = BookRateCheck.rateCheck(book);//TODO add validation
-        Book result = bookRepository.save(checkedBook);
+        Book result = bookRepository.save(book);
         return result;
     }
 
@@ -85,17 +83,15 @@ public class BookService implements GeneralDao<Book> {
         Supplier<BookException> supplier = () -> new BookException( "There is no book with such id");
         bookRepository.findById(newBook.getIsbn()).orElseThrow(supplier);
 
-        Book checkedBook = BookRateCheck.rateCheck(newBook);
-
         Query query = new Query();
-        query.addCriteria(Criteria.where("_id").is(checkedBook.getIsbn()));
+        query.addCriteria(Criteria.where("_id").is(newBook.getIsbn()));
         query.fields().include("_id");
 
         Update update = new Update();
-        update.set("name", checkedBook.getName());
-        update.set("yearPublished", checkedBook.getYearPublished());
-        update.set("publisher", checkedBook.getPublisher());
-        update.set("rate", checkedBook.getRate());
+        update.set("name", newBook.getName());
+        update.set("yearPublished", newBook.getYearPublished());
+        update.set("publisher", newBook.getPublisher());
+        update.set("rate", newBook.getRate());
 
         mongoOperations.updateFirst(query, update, Book.class);
         Book result = bookRepository.findById(newBook.getIsbn()).orElseThrow(supplier);
@@ -113,18 +109,14 @@ public class BookService implements GeneralDao<Book> {
     }
 
     public List<Book> withRate(Pageable pageable){
-        return bookRepository.findAllByRateIsNotNull(pageable);
+        return bookRepository.findAllByRateIsNot(0, pageable);
     }
 
-    public List<Book> withRate(int rate, Pageable pageable){
+    public List<Book> withRate(double rate, Pageable pageable){
         return bookRepository.findAllByRateIs(rate, pageable);
     }
 
     public Book giveRate(String id, int newRate){
-        // TODO: 04.07.2019
-        if (newRate <= 1 || newRate >= 5){
-            //throw new RateOutOfBoundException("Rate is more than 5 or less than 1");
-        }
         Book book = this.get(id);
         double rate = book.getRate();
         int totalVoteCount = book.getTotalVoteCount();
