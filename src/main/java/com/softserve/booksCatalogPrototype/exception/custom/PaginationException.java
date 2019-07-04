@@ -1,4 +1,4 @@
-package com.softserve.booksCatalogPrototype.exception;
+package com.softserve.booksCatalogPrototype.exception.custom;
 
 public class PaginationException extends RuntimeException {
     public PaginationException() {

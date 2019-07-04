@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,19 +14,12 @@ import java.util.List;
 @ToString
 public class BookDTO {
 
-    private String isbn;
-
     private String name;
 
     private Date yearPublished;
 
     private Publisher publisher;
 
-    private Date creationDate;
+    private List<String> authorsId = new ArrayList<>();
 
-    private double rate;
-
-    private List<String> authorsId;
-
-    private List<String> reviewsId = new LinkedList<>();
 }

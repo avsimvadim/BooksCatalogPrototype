@@ -1,13 +1,19 @@
 package com.softserve.booksCatalogPrototype.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.softserve.booksCatalogPrototype.annotations.CascadeDelete;
 import com.softserve.booksCatalogPrototype.annotations.CascadeSave;
 import lombok.*;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
+
+import static org.springframework.data.mongodb.core.schema.JsonSchemaObject.Type.TIMESTAMP;
 
 @Document
 @NoArgsConstructor
@@ -19,7 +25,7 @@ import java.util.*;
 public class Book {
 
     @Id
-    private ObjectId isbn;
+    private String isbn;
 
     private String name;
 
@@ -27,6 +33,7 @@ public class Book {
 
     private Publisher publisher;
 
+    @CreatedDate
     private Date creationDate;
 
     //rate can be between 1 and 5, rate = 0 means book is not evaluated yet
@@ -40,15 +47,14 @@ public class Book {
 
     @DBRef
     @CascadeSave
+    @CascadeDelete
     private List<Review> reviews = new LinkedList<>();
 
-    public Book(String name, Date yearPublished, Publisher publisher, Date creationDate, double rate, List<Author> authors, List<Review> reviews) {
+    public Book(String name, Date yearPublished, Publisher publisher, List<Author> authors) {
         this.name = name;
         this.yearPublished = yearPublished;
         this.publisher = publisher;
-        this.creationDate = creationDate;
-        this.rate = rate;
         this.authors = authors;
-        this.reviews = reviews;
     }
+
 }

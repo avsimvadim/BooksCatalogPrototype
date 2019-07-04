@@ -1,13 +1,14 @@
 package com.softserve.booksCatalogPrototype.service.impl;
 
-import com.softserve.booksCatalogPrototype.exception.AuthorIsNotFoundException;
-import com.softserve.booksCatalogPrototype.exception.EntityException;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
+import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
+import com.softserve.booksCatalogPrototype.exception.custom.BookException;
 import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
 import com.softserve.booksCatalogPrototype.service.GeneralDao;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService implements GeneralDao<Author> {
@@ -36,7 +37,8 @@ public class AuthorService implements GeneralDao<Author> {
 
     @Override
     public Author save(Author author) {
-        return authorRepository.save(author);
+        Author result = authorRepository.save(author);
+        return result;
     }
 
     @Override
@@ -45,18 +47,15 @@ public class AuthorService implements GeneralDao<Author> {
         return result;
     }
 
-    public Stream<Author> getAll(Pageable pageable) {
-        Stream<Author> pages = authorRepository.findAll(pageable).get();
+    public Page<Author> getAll(Pageable pageable) {
+        Page<Author> pages = authorRepository.findAll(pageable);
         return pages;
     }
 
     @Override
     public Author get(String id) {
-        Optional<Author> author = authorRepository.findById(new ObjectId(id));
-        if (author.get() == null){
-            throw new EntityException("author not found");
-        }
-        return author.get();
+        Author author = authorRepository.findById(id).orElseThrow(() -> new AuthorException("Did not find the author with this id"));
+        return author;
     }
 
     @Override
@@ -66,42 +65,37 @@ public class AuthorService implements GeneralDao<Author> {
             try {
                 authorRepository.delete(author);
             }catch (Exception e){
-                e.printStackTrace();
-                throw new EntityException("no author with this id or other causes");
+                throw new AuthorException("Did not find the author with this id");
             }
         } else {
-            throw new EntityException("there is at least 1 book connected to this author");
+            throw new BookException("There is at least 1 book connected to this author");
         }
     }
 
     @Override
     public Author update(Author newAuthor) {
-        Author author = authorRepository.findById(newAuthor.getId()).get();
-        if (author == null){
-            throw new AuthorIsNotFoundException("not found author with this id");
-        }
+        Supplier<AuthorException> supplier = () -> new AuthorException( "Did not find the author with this id");
+        authorRepository.findById(newAuthor.getId()).orElseThrow(supplier);
+
         Query query = new Query();
-        query.addCriteria(Criteria.where("_id").is(author.getId()));
+        query.addCriteria(Criteria.where("_id").is(newAuthor.getId()));
         query.fields().include("_id");
 
         Update update = new Update();
-        update.set("firstName", author.getFirstName());
-        update.set("secondName", author.getSecondName());
-        update.set("creationDate", author.getCreationDate());
+        update.set("firstName", newAuthor.getFirstName());
+        update.set("secondName", newAuthor.getSecondName());
 
         mongoOperations.updateFirst(query, update, Author.class);
-
-        return authorRepository.findById(author.getId()).get();
+        Author result = authorRepository.findById(newAuthor.getId()).orElseThrow(supplier);
+        return result;
     }
 
-    public void deleteAuthors(String[] ids){
+    public void deleteAuthors(String... ids){
         List<String> list = Arrays.asList(ids);
-        try {
-            list.stream().forEach(id -> this.delete(this.get(id)));
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new EntityException("no author with this id or other causes");
-        }
+        Iterables.removeIf(list, Predicates.isNull());
+        List<String> listWithoutDuplicates = list.stream().distinct().collect(Collectors.toList());
+        listWithoutDuplicates.stream().forEach(id -> this.get(id));
+        listWithoutDuplicates.stream().forEach(id -> this.delete(this.get(id)));
     }
 
 }

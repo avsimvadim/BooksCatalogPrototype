@@ -14,12 +14,8 @@ import java.util.Date;
 @ToString
 public class AuthorDTO {
 
-    private String id;
-
     private String firstName;
 
     private String secondName;
-
-    private Date creationDate;
 
 }

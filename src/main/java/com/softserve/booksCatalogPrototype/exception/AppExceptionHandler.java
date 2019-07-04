@@ -1,5 +1,6 @@
 package com.softserve.booksCatalogPrototype.exception;
 
+import com.softserve.booksCatalogPrototype.exception.custom.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.EXPECTATION_FAILED);
     }
 
-    @ExceptionHandler(value = {EntityException.class, PaginationException.class})
+    @ExceptionHandler(value = {PaginationException.class})
     public ResponseEntity<Object> handleSpecificException(Exception exception){
 
         String errorMessageDescription = exception.getLocalizedMessage();
@@ -45,8 +46,8 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = {BookIsNotFoundException.class, AuthorIsNotFoundException.class,
-            DeleteContentException.class, DeleteCoverException.class, ReviewDeleteException.class, DeleteBookException.class, ReviewIsNotFoundException.class})
+    @ExceptionHandler(value = {BookException.class, AuthorException.class,
+            ReviewException.class, CoverException.class, ContentException.class})
     public ResponseEntity<Object> handleNotFoundExceptions(Exception exception){
 
         String errorMessageDescription = exception.getLocalizedMessage();
@@ -57,14 +58,4 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {UploadCoverException.class, UploadContentException.class})
-    public ResponseEntity<Object> handleUploadCoverContentExceptionException(Exception exception){
-
-        String errorMessageDescription = exception.getLocalizedMessage();
-        if (errorMessageDescription == null){
-            errorMessageDescription = exception.toString();
-        }
-        ErrorMessage errorMessage = new ErrorMessage(new Date(), errorMessageDescription);
-        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
-    }
 }

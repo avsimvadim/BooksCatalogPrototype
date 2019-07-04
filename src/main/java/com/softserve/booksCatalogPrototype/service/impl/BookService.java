@@ -1,10 +1,15 @@
 package com.softserve.booksCatalogPrototype.service.impl;
 
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
-import com.softserve.booksCatalogPrototype.dto.BookDTO;
-import com.softserve.booksCatalogPrototype.exception.*;
+import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
+import com.softserve.booksCatalogPrototype.exception.custom.BookException;
+import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
+import com.softserve.booksCatalogPrototype.exception.custom.CoverException;
 import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
@@ -12,9 +17,7 @@ import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
 import com.softserve.booksCatalogPrototype.util.BookRateCheck;
 import com.softserve.booksCatalogPrototype.service.GeneralDao;
-import com.softserve.booksCatalogPrototype.util.DTOConverter;
 import org.apache.commons.math3.util.Precision;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -25,14 +28,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService implements GeneralDao<Book> {
@@ -49,15 +51,11 @@ public class BookService implements GeneralDao<Book> {
     @Autowired
     private GridFsOperations gridFsOperations;
 
-    @Autowired
-    private ReviewService reviewService;
-
-    // add new book, if author first and second name is same to the one in the database, no new author will be created and
-    // id from the database's author will be taken and set to incoming author
     @Override
     public Book save(Book book) {
-        Book checkedBook = BookRateCheck.rateCheck(book);
-        return bookRepository.save(checkedBook);
+        Book checkedBook = BookRateCheck.rateCheck(book);//TODO add validation
+        Book result = bookRepository.save(checkedBook);
+        return result;
     }
 
     @Override
@@ -66,48 +64,29 @@ public class BookService implements GeneralDao<Book> {
     }
 
     @Override
-    public Book get(String isbn) {
-        ObjectId objectId = new ObjectId(isbn);
-        Book book = bookRepository.findById(objectId).get();
-        if (book == null){
-            throw new BookIsNotFoundException("not found book with this id");
-        }
+    public Book get(String id) {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookException("There is no book with id " + id));
         return book;
     }
 
     @Override
     public void delete(Book book) {
-        try {
-            deleteBookContent(book.getIsbn().toString());
+       try {
+           deleteBookContent(book.getIsbn());
+           deleteBookCover(book.getIsbn());
+           bookRepository.delete(book);
         }catch (Exception e){
-            e.printStackTrace();
-            throw new DeleteContentException("not found book with this id");
-        }
-        try{
-            deleteBookCover(book.getIsbn().toString());
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new DeleteCoverException("not found book with this id");
-        }
-        try{
-            reviewService.delete(book.getReviews());
-        }catch (Exception e){
-            throw new ReviewDeleteException("not found book with such ids");
-        }
-        try {
-            bookRepository.delete(book);
-        }catch (Exception e){
-            throw new DeleteBookException("could not delete the book");
+            throw new BookException("Could not delete the book");
         }
     }
 
     @Override
     public Book update(Book newBook) {
-        Book book = bookRepository.findById(newBook.getIsbn()).get();
-        if (book == null){
-            throw new BookIsNotFoundException("not found book with this id");
-        }
+        Supplier<BookException> supplier = () -> new BookException( "There is no book with such id");
+        bookRepository.findById(newBook.getIsbn()).orElseThrow(supplier);
+
         Book checkedBook = BookRateCheck.rateCheck(newBook);
+
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(checkedBook.getIsbn()));
         query.fields().include("_id");
@@ -116,12 +95,11 @@ public class BookService implements GeneralDao<Book> {
         update.set("name", checkedBook.getName());
         update.set("yearPublished", checkedBook.getYearPublished());
         update.set("publisher", checkedBook.getPublisher());
-        update.set("creationDate", checkedBook.getCreationDate());
         update.set("rate", checkedBook.getRate());
 
         mongoOperations.updateFirst(query, update, Book.class);
-
-        return bookRepository.findById(newBook.getIsbn()).get();
+        Book result = bookRepository.findById(newBook.getIsbn()).orElseThrow(supplier);
+        return result;
     }
 
     public Page<Book> getAll(Pageable pageable) {
@@ -129,11 +107,9 @@ public class BookService implements GeneralDao<Book> {
     }
 
     public List<Book> getBooksByAuthor(String authorId){
-        Author author = authorRepository.findById(new ObjectId(authorId)).get();
-        if (author == null){
-            throw new EntityException("no author with this id");
-        }
-        return bookRepository.findBooksByAuthors(author);
+        Author author = authorRepository.findById(authorId).orElseThrow(() -> new AuthorException("No author with such id"));
+        List<Book> booksByAuthors = bookRepository.findBooksByAuthors(author);
+        return booksByAuthors;
     }
 
     public List<Book> withRate(Pageable pageable){
@@ -145,8 +121,9 @@ public class BookService implements GeneralDao<Book> {
     }
 
     public Book giveRate(String id, int newRate){
+        // TODO: 04.07.2019
         if (newRate <= 1 || newRate >= 5){
-            throw new RateOutOfBoundException("Rate is more than 5 or less than 1");
+            //throw new RateOutOfBoundException("Rate is more than 5 or less than 1");
         }
         Book book = this.get(id);
         double rate = book.getRate();
@@ -158,9 +135,12 @@ public class BookService implements GeneralDao<Book> {
         return book;
     }
 
-    public void deleteBooks(String[] ids){
-        List<String> list = Arrays.asList(ids);
-        list.stream().forEach(id -> this.delete(this.get(id)));
+    public void deleteBooks(String... ids){
+        List<String> list = Lists.newArrayList(ids);
+        Iterables.removeIf(list, Predicates.isNull());
+        List<String> listWithoutDuplicates = list.stream().distinct().collect(Collectors.toList());
+        listWithoutDuplicates.forEach(id -> this.get(id));
+        listWithoutDuplicates.forEach(id -> this.delete(this.get(id)));
     }
 
     public String uploadBookCover(MultipartFile file, String id){
@@ -168,15 +148,16 @@ public class BookService implements GeneralDao<Book> {
         metaData.put("bookId", id);
         try(InputStream is = file.getInputStream()) {
             return gridFsOperations.store(is,id + ".png", "image/png", metaData).toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            throw new UploadCoverException("failed to upload cover");
+        } catch (Exception e) {
+            throw new CoverException("Failed to upload cover");
         }
     }
 
     public Resource getBookCover(String id){
         GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+        if (file == null){
+            throw new CoverException("Did not find a cover with such id");
+        }
         return new GridFsResource(file);
     }
 
@@ -184,8 +165,7 @@ public class BookService implements GeneralDao<Book> {
         try {
             gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
         } catch (Exception e){
-            e.printStackTrace();
-            throw new DeleteCoverException("failed to delete, possibly wrong id");
+            throw new CoverException("Failed to delete book's cover, wrong id");
         }
     }
 
@@ -194,15 +174,16 @@ public class BookService implements GeneralDao<Book> {
         metaData.put("bookId", id);
         try(InputStream is = file.getInputStream()) {
             return gridFsOperations.store(is,id + ".txt", "text/plain", metaData).toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            throw new UploadContentException("failed to upload a content");
+        } catch (Exception e) {
+            throw new ContentException("Failed to delete book's content, wrong id");
         }
     }
 
     public Resource getBookContent(String id){
         GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+        if (file == null){
+            throw new ContentException("Did not find a content with such id");
+        }
         return new GridFsResource(file);
     }
 
@@ -210,8 +191,17 @@ public class BookService implements GeneralDao<Book> {
         try {
             gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
         } catch (Exception e){
-            e.printStackTrace();
-            throw new DeleteContentException("failed to delete, possibly wrong id");
+            throw new ContentException("Failed to delete book's content, wrong id");
         }
     }
+
+    public Book findBookWithReview(Review review){
+        try{
+            Book result = bookRepository.findBookByReviewsIs(review);
+            return result;
+        } catch (Exception e){
+            throw new BookException("There is no book with such review");
+        }
+    }
+
 }

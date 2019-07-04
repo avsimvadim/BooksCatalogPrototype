@@ -1,8 +1,10 @@
 package com.softserve.booksCatalogPrototype.model;
 
+import com.softserve.booksCatalogPrototype.annotations.CascadeDelete;
 import com.softserve.booksCatalogPrototype.annotations.CascadeSave;
 import lombok.*;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,7 +23,7 @@ import java.util.List;
 public class Review {
 
     @Id
-    private ObjectId id;
+    private String id;
 
     private String commenterName;
 
@@ -29,13 +31,14 @@ public class Review {
 
     @DBRef
     @CascadeSave
+    @CascadeDelete
     private List<Review> responses = new LinkedList<>();
 
+    @CreatedDate
     private Date creationDate;
 
-    public Review(String commenterName, String comment, Date creationDate) {
+    public Review(String commenterName, String comment) {
         this.commenterName = commenterName;
         this.comment = comment;
-        this.creationDate = creationDate;
     }
 }

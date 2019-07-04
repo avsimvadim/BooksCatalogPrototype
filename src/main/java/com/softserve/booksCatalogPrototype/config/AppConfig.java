@@ -1,10 +1,13 @@
 package com.softserve.booksCatalogPrototype.config;
 
-import com.softserve.booksCatalogPrototype.event.CascadeSaveMongoEventListener;
+import com.softserve.booksCatalogPrototype.event.CascadeMongoEventListener;
+import com.softserve.booksCatalogPrototype.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -14,6 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
+@EnableMongoAuditing
 public class AppConfig{
 
     @Autowired
@@ -31,8 +35,8 @@ public class AppConfig{
     }
 
     @Bean
-    public CascadeSaveMongoEventListener cascadingMongoEventListener() {
-        return new CascadeSaveMongoEventListener();
+    public CascadeMongoEventListener cascadingMongoEventListener() {
+        return new CascadeMongoEventListener();
     }
 
     @Bean

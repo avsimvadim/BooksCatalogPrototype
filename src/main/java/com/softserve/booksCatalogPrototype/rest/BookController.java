@@ -1,10 +1,9 @@
 package com.softserve.booksCatalogPrototype.rest;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.client.gridfs.model.GridFSFile;
 import com.softserve.booksCatalogPrototype.dto.BookDTO;
-import com.softserve.booksCatalogPrototype.exception.*;
+import com.softserve.booksCatalogPrototype.exception.custom.BookException;
+import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
+import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.service.impl.BookService;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
@@ -13,10 +12,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.gridfs.GridFsOperations;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/book")
@@ -36,95 +30,94 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/add")
-    public ResponseEntity<BookDTO> add(@RequestBody BookDTO bookDTO) {
-        if (!(bookDTO instanceof BookDTO)){
-            throw new EntityException("is not bookDTO entity");
-        }
+    public ResponseEntity<Book> add(@RequestBody BookDTO bookDTO) {
         Book book = DTOConverter.convertBook(bookDTO);
-        BookDTO result = DTOConverter.convertBook(bookService.save(book));
+        Book result = bookService.save(book);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<BookDTO>> all() {
-        List<BookDTO> result = bookService.getAll().stream()
-                .map(book -> DTOConverter.convertBook(book))
-                .collect(Collectors.toList());
+    public ResponseEntity<List<Book>> all() {
+        List<Book> result = bookService.getAll();
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/all_pagination")
-    public ResponseEntity<List<BookDTO>> allPages(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    public ResponseEntity<List<Book>> allPages(@RequestParam int pageNumber, @RequestParam int pageSize) {
         if (pageNumber < 0 || pageSize <= 0){
-            throw new PaginationException("wrong page number or size");
+            throw new PaginationException("Wrong page number or size" );
         }
         Page<Book> pageResult = bookService.getAll(new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.ASC, "name")));
-        List<BookDTO> result = pageResult.stream()
-                .map(book -> DTOConverter.convertBook(book))
-                .collect(Collectors.toList());
+        if (!pageResult.hasContent()){
+            throw new BookException("There are no books");
+        }
+        List<Book> result = pageResult.getContent();
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<BookDTO> get(@PathVariable String id){
-        BookDTO result = DTOConverter.convertBook(bookService.get(id));
+    public ResponseEntity<Book> get(@PathVariable String id){
+        Book result = bookService.get(id);
         return ResponseEntity.ok(result);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<BookDTO> update(@RequestBody Book book){
-        BookDTO bookDTO = DTOConverter.convertBook(bookService.update(book));
-        return ResponseEntity.ok(bookDTO);
+    public ResponseEntity<Book> update(@RequestBody Book book){
+        Book updated = bookService.update(book);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable String id){
-        bookService.delete(bookService.get(id));
+        Book book = bookService.get(id);
+        bookService.delete(book);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/bulk_delete")
-    public ResponseEntity deleteBooks(@RequestParam("id") String[] ids){
+    public ResponseEntity deleteBooks(@RequestParam("id") String... ids){
         bookService.deleteBooks(ids);
         return ResponseEntity.ok().build();
     }
 
     //get books by author
     @GetMapping("/books/{authorId}")
-    public ResponseEntity<List<BookDTO>> author(@PathVariable String authorId){
-        List<Book> booksByAuthor = bookService.getBooksByAuthor(authorId);
-        List<BookDTO> bookDTOS = DTOConverter.convertBookListToBookDTOList(booksByAuthor);
-        return ResponseEntity.ok(bookDTOS);
+    public ResponseEntity<List<Book>> author(@PathVariable String authorId){
+        List<Book> result = bookService.getBooksByAuthor(authorId);
+        return ResponseEntity.ok(result);
     }
 
     //get books with rate
     @GetMapping("/rate_exists")
     public ResponseEntity<List<BookDTO>> rateExists(@RequestParam int pageNumber, @RequestParam int pageSize){
+        // TODO: 04.07.2019 anno listener rate
         if (pageNumber < 0 || pageSize <= 0){
-            throw new PaginationException("wrong page number or size");
+            throw new PaginationException("Wrong page number or size");
         }
-        List<BookDTO> bookDTOS = DTOConverter.convertBookListToBookDTOList(bookService.withRate(new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate"))));
-        return ResponseEntity.ok(bookDTOS);
+        //List<BookDTO> bookDTOS = DTOConverter.convertBookListToBookDTOList(bookService.withRate(new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate"))));
+        return ResponseEntity.ok(null);
     }
 
     // get books with rate
     @GetMapping("/rate")
     public ResponseEntity<List<BookDTO>> rate(@RequestParam int rate, @RequestParam int pageNumber, @RequestParam int pageSize){
+        // TODO: 04.07.2019
         if (pageNumber < 0 || pageSize <= 0){
             throw new PaginationException("wrong page number or size");
         }
         if (rate < 1 || rate > 5){
-            throw new RateOutOfBoundException("Rate is more than 5 or less than 1");
+            //throw new RateOutOfBoundException("Rate is more than 5 or less than 1");
         }
-        List<BookDTO> bookDTOS = DTOConverter.convertBookListToBookDTOList(bookService.withRate(rate, new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate"))));
-        return ResponseEntity.ok(bookDTOS);
+        //List<BookDTO> bookDTOS = DTOConverter.convertBookListToBookDTOList(bookService.withRate(rate, new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "rate"))));
+        return ResponseEntity.ok(null);
     }
 
     //give rate to book with id, rate from 1 to 5
     @GetMapping("/give_rate/{id}")
     public ResponseEntity<BookDTO> giveRate(@PathVariable String id, @RequestParam int rate){
-        BookDTO bookDTO = DTOConverter.convertBook(bookService.giveRate(id, rate));
-        return ResponseEntity.ok(bookDTO);
+        // TODO: 04.07.2019
+        //BookDTO bookDTO = DTOConverter.convertBook(bookService.giveRate(id, rate));
+        return ResponseEntity.ok(null);
     }
 
     //  put cover and book id, get cover id
@@ -146,7 +139,7 @@ public class BookController {
     }
 
     //  delete by cover id
-    @GetMapping("/delete_cover/{id}")
+    @DeleteMapping("/delete_cover/{id}")
     public ResponseEntity deleteCover(@PathVariable String id) {
         bookService.deleteBookCover(id);
         return ResponseEntity.ok().build();
@@ -154,7 +147,7 @@ public class BookController {
 
     //    put content and book id, get content id
     @PostMapping("/upload_content/{id}")
-    public ResponseEntity<String> uploadContent(@RequestParam MultipartFile file, @PathVariable String id) throws UploadContentException {
+    public ResponseEntity<String> uploadContent(@RequestParam MultipartFile file, @PathVariable String id) throws ContentException {
         String bookContent = bookService.uploadBookContent(file, id);
         return ResponseEntity.ok(bookContent);
     }
@@ -168,7 +161,7 @@ public class BookController {
     }
 
     //    delete content by content id
-    @GetMapping("/delete_content/{id}")
+    @DeleteMapping("/delete_content/{id}")
     public ResponseEntity deleteContent(@PathVariable String id) {
         bookService.deleteBookContent(id);
         return ResponseEntity.ok().build();
