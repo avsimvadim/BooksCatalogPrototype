@@ -1,4 +1,4 @@
-package com.softserve.booksCatalogPrototype.rest;
+package com.softserve.booksCatalogPrototype.controller;
 
 import com.softserve.booksCatalogPrototype.dto.AuthorDTO;
 import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;

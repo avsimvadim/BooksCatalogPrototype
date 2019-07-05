@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
+import com.mongodb.gridfs.GridFSDBFile;
 import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
 import com.softserve.booksCatalogPrototype.exception.custom.BookException;
 import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
@@ -18,6 +19,7 @@ import com.softserve.booksCatalogPrototype.repository.BookRepository;
 import com.softserve.booksCatalogPrototype.service.GeneralDao;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +29,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.stream.FileImageOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.function.Supplier;
@@ -49,6 +53,9 @@ public class BookService implements GeneralDao<Book> {
 
     @Autowired
     private GridFsOperations gridFsOperations;
+
+    @Autowired
+    private GridFsTemplate gridFsTemplate;
 
     @Override
     public Book save(Book book) {
@@ -139,7 +146,7 @@ public class BookService implements GeneralDao<Book> {
         DBObject metaData = new BasicDBObject();
         metaData.put("bookId", id);
         try(InputStream is = file.getInputStream()) {
-            return gridFsOperations.store(is,id + ".png", "image/png", metaData).toString();
+            return gridFsOperations.store(is,id + ".jpeg", "image/jpeg",metaData).toString();
         } catch (Exception e) {
             throw new CoverException("Failed to upload cover");
         }

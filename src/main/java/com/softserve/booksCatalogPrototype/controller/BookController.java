@@ -1,38 +1,26 @@
-package com.softserve.booksCatalogPrototype.rest;
+package com.softserve.booksCatalogPrototype.controller;
 
-import com.mongodb.client.gridfs.model.GridFSFile;
-import com.mongodb.gridfs.GridFS;
-import com.mongodb.gridfs.GridFSDBFile;
 import com.softserve.booksCatalogPrototype.dto.BookDTO;
 import com.softserve.booksCatalogPrototype.exception.custom.BookException;
-import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
 import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
+import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
 import com.softserve.booksCatalogPrototype.exception.custom.RateOutOfBoundException;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.service.impl.BookService;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.gridfs.GridFsOperations;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.nio.ch.IOUtil;
-import sun.security.util.IOUtils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -41,9 +29,6 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private GridFsOperations gridFsOperations;
 
     @PostMapping("/add")
     public ResponseEntity<Book> add(@RequestBody BookDTO bookDTO) {
@@ -137,22 +122,21 @@ public class BookController {
     }
 
     //  put cover and book id, get cover id
-    @PostMapping("/upload_cover/{id}")
+    @PostMapping(value = "/upload_cover/{id}")
     public ResponseEntity<String> uploadCover(@RequestParam MultipartFile file, @PathVariable String id){
         String bookCover = bookService.uploadBookCover(file, id);
         return ResponseEntity.ok(bookCover);
     }
 
     // TODO: 01.07.2019 to repair
-    @GetMapping(value = "/get_cover/{id}")
-    public byte[] getCover(@PathVariable String id) throws IOException{
-//        //Resource bookCover = bookService.getBookCover(id);
-//        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
-//        InputStream is = new FileInputStream(file);
-//        new InputStreamResource(file)
-//        return ResponseEntity.ok().body();
-        ///
-        return null;
+    @GetMapping(value = "/get_cover/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<Resource> getCover(@PathVariable String id) throws IOException {
+        Resource bookCover = bookService.getBookCover(id);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")
+                .contentLength(bookCover.contentLength())
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(bookCover);
     }
 
     //  delete by cover id
@@ -170,11 +154,14 @@ public class BookController {
     }
 
     // get content by book id
-    @GetMapping(value = "/get_content/{id}")
-    public ResponseEntity<Resource> getContent(@PathVariable String id){
+    @GetMapping(value = "/get_content/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<Resource> getContent(@PathVariable String id) throws IOException{
         Resource bookContent = bookService.getBookContent(id);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_LOCATION,
-                "attachment; filename=\"" + bookContent.getFilename() + "\"").body(bookContent);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookContent.getFilename() + "\"")
+                .contentLength(bookContent.contentLength())
+                .contentType(MediaType.TEXT_PLAIN)
+                .cacheControl(CacheControl.noCache())
+                .body(bookContent);
     }
 
     //    delete content by content id
