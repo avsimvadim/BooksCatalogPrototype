@@ -9,6 +9,8 @@ import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
 import com.softserve.booksCatalogPrototype.service.GeneralDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorService implements GeneralDao<Author> {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthorService.class);
+
     @Autowired
     private AuthorRepository authorRepository;
 
@@ -38,6 +42,7 @@ public class AuthorService implements GeneralDao<Author> {
     @Override
     public Author save(Author author) {
         Author result = authorRepository.save(author);
+        logger.info("Author " + author.toString() + " is saved");
         return result;
     }
 
@@ -64,6 +69,7 @@ public class AuthorService implements GeneralDao<Author> {
         if (booksByAuthors.isEmpty()){
             try {
                 authorRepository.delete(author);
+                logger.info("author " + author.toString() + " is deleted");
             }catch (Exception e){
                 throw new AuthorException("Did not find the author with this id");
             }
@@ -87,6 +93,7 @@ public class AuthorService implements GeneralDao<Author> {
 
         mongoOperations.updateFirst(query, update, Author.class);
         Author result = authorRepository.findById(newAuthor.getId()).orElseThrow(supplier);
+        logger.info("Author is updated");
         return result;
     }
 

@@ -38,7 +38,7 @@
         <appender-ref ref="Console" />
     </root>
 
-    <logger name="com.softserve.bookscatalogpprototype" level="trace" additivity="false">
+    <logger name="com.softserve.bookscatalogpprototype" level="INFO" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

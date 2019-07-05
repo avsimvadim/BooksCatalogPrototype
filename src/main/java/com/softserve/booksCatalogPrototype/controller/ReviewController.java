@@ -1,11 +1,8 @@
 package com.softserve.booksCatalogPrototype.controller;
 
 import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
-import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
-import com.softserve.booksCatalogPrototype.service.impl.BookService;
 import com.softserve.booksCatalogPrototype.service.impl.ReviewService;
-import com.softserve.booksCatalogPrototype.util.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/api/review")
 public class ReviewController {
 
     @Autowired

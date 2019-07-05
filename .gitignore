@@ -17,6 +17,8 @@ HELP.md
 *.iws
 *.iml
 *.ipr
+*.war
+*.jar
 /out/
 
 ### NetBeans ###

@@ -4,10 +4,10 @@ import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
 import com.softserve.booksCatalogPrototype.exception.custom.ReviewException;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
-import com.softserve.booksCatalogPrototype.repository.BookRepository;
 import com.softserve.booksCatalogPrototype.repository.ReviewRepository;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
-import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -16,11 +16,12 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 @Service
 public class ReviewService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
     @Autowired
     private ReviewRepository reviewRepository;
@@ -38,6 +39,7 @@ public class ReviewService {
         Book book = bookService.get(bookId);
         book.getReviews().add(result);
         bookService.save(book);
+        logger.info("Review " + review.toString() + " is saved");
         return result.getId();
     }
 
@@ -49,7 +51,7 @@ public class ReviewService {
 
         review.getResponses().add(saved);
         reviewRepository.save(review);
-
+        logger.info("Response " + response.toString() + " is saved");
         return saved.getId();
     }
 
@@ -75,12 +77,13 @@ public class ReviewService {
         Book book = bookService.findBookWithReview(review);
         book.getReviews().remove(review);
         bookService.save(book);
-
+        logger.info("Review with id " + reviewId + " is saved");
     }
 
     public void deleteResponse(String responseId){
         Review response = reviewRepository.findById(responseId).orElseThrow(() -> new ReviewException("Did not find the response with such id"));
         reviewRepository.delete(response);
+        logger.info("Response with id " + responseId + " is saved");
     }
 
     public Review update(Review newReview) {

@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
-import com.mongodb.gridfs.GridFSDBFile;
 import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
 import com.softserve.booksCatalogPrototype.exception.custom.BookException;
 import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
@@ -18,8 +17,9 @@ import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
 import com.softserve.booksCatalogPrototype.service.GeneralDao;
 import org.apache.commons.math3.util.Precision;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,11 +29,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.stream.FileImageOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.function.Supplier;
@@ -41,6 +39,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookService implements GeneralDao<Book> {
+
+    private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 
     @Autowired
     private BookRepository bookRepository;
@@ -54,12 +54,10 @@ public class BookService implements GeneralDao<Book> {
     @Autowired
     private GridFsOperations gridFsOperations;
 
-    @Autowired
-    private GridFsTemplate gridFsTemplate;
-
     @Override
     public Book save(Book book) {
         Book result = bookRepository.save(book);
+        logger.info("Book " + book.toString() + " is saved");
         return result;
     }
 
@@ -80,6 +78,7 @@ public class BookService implements GeneralDao<Book> {
            deleteBookContent(book.getIsbn());
            deleteBookCover(book.getIsbn());
            bookRepository.delete(book);
+           logger.info("book " + book.toString() + " is deleted");
         }catch (Exception e){
             throw new BookException("Could not delete the book");
         }
@@ -102,6 +101,7 @@ public class BookService implements GeneralDao<Book> {
 
         mongoOperations.updateFirst(query, update, Book.class);
         Book result = bookRepository.findById(newBook.getIsbn()).orElseThrow(supplier);
+        logger.info("Book is updated");
         return result;
     }
 
@@ -131,6 +131,7 @@ public class BookService implements GeneralDao<Book> {
         book.setRate(rate);
         book.setTotalVoteCount(totalVoteCount + 1);
         bookRepository.save(book);
+        logger.info("Book with id " + id + " is rated");
         return book;
     }
 
