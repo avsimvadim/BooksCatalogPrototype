@@ -18,8 +18,12 @@ import java.util.List;
 @RequestMapping("/api/author")
 public class AuthorController {
 
-    @Autowired
     private AuthorService authorService;
+
+    @Autowired
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Author> add(@RequestBody AuthorDTO authorDTO) {

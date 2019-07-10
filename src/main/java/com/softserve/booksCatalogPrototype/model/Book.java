@@ -1,19 +1,17 @@
 package com.softserve.booksCatalogPrototype.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserve.booksCatalogPrototype.annotations.CascadeDelete;
 import com.softserve.booksCatalogPrototype.annotations.CascadeSave;
 import lombok.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.*;
-
-import static org.springframework.data.mongodb.core.schema.JsonSchemaObject.Type.TIMESTAMP;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @Document
 @NoArgsConstructor

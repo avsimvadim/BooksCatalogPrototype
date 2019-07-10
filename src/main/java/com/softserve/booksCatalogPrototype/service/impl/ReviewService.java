@@ -23,14 +23,18 @@ public class ReviewService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
-    @Autowired
     private ReviewRepository reviewRepository;
 
-    @Autowired
     private BookService bookService;
 
-    @Autowired
     private MongoOperations mongoOperations;
+
+    @Autowired
+    public ReviewService(ReviewRepository reviewRepository, BookService bookService, MongoOperations mongoOperations) {
+        this.reviewRepository = reviewRepository;
+        this.bookService = bookService;
+        this.mongoOperations = mongoOperations;
+    }
 
     public String save(String bookId, ReviewDTO reviewDTO) {
         Review review = DTOConverter.convertReviewDTOToReview(reviewDTO);

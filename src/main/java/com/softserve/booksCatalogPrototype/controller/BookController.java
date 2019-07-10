@@ -27,8 +27,12 @@ import java.util.List;
 @RequestMapping("/api/book")
 public class BookController {
 
-    @Autowired
     private BookService bookService;
+
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Book> add(@RequestBody BookDTO bookDTO) {

@@ -1,13 +1,10 @@
 package com.softserve.booksCatalogPrototype.util;
 
-import com.softserve.booksCatalogPrototype.dto.AuthorDTO;
-import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
-import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
+import com.softserve.booksCatalogPrototype.dto.*;
 import com.softserve.booksCatalogPrototype.model.Author;
-import com.softserve.booksCatalogPrototype.dto.BookDTO;
 import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.model.Publisher;
 import com.softserve.booksCatalogPrototype.model.Review;
+import com.softserve.booksCatalogPrototype.model.User;
 import com.softserve.booksCatalogPrototype.service.impl.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,6 +41,14 @@ public class DTOConverter {
 
     public static Review convertReviewDTOToReview(ReviewDTO reviewDTO) {
         return new Review(reviewDTO.getCommenterName(), reviewDTO.getComment());
+    }
+
+    public static User convertAdminDTOToUser(AdminDTO adminDTO){
+        return new User(adminDTO.getName(), adminDTO.getUsername(), adminDTO.getEmail(), adminDTO.getPassword());
+    }
+
+    public static User convertSignUpRequestToUser(SignUpRequest signUpRequest){
+        return new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getPassword());
     }
 
 }

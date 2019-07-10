@@ -30,14 +30,18 @@ public class AuthorService implements GeneralDao<Author> {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthorService.class);
 
-    @Autowired
     private AuthorRepository authorRepository;
 
-    @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
     private MongoOperations mongoOperations;
+
+    @Autowired
+    public AuthorService(AuthorRepository authorRepository, BookRepository bookRepository, MongoOperations mongoOperations) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+        this.mongoOperations = mongoOperations;
+    }
 
     @Override
     public Author save(Author author) {

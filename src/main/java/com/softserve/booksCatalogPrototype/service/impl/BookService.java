@@ -42,17 +42,21 @@ public class BookService implements GeneralDao<Book> {
 
     private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 
-    @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
     private AuthorRepository authorRepository;
 
-    @Autowired
     private MongoOperations mongoOperations;
 
-    @Autowired
     private GridFsOperations gridFsOperations;
+
+    @Autowired
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, MongoOperations mongoOperations, GridFsOperations gridFsOperations) {
+        this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
+        this.mongoOperations = mongoOperations;
+        this.gridFsOperations = gridFsOperations;
+    }
 
     @Override
     public Book save(Book book) {
@@ -120,7 +124,7 @@ public class BookService implements GeneralDao<Book> {
     }
 
     public List<Book> withRate(double rate, Pageable pageable){
-        return bookRepository.findAllByRateIs(rate, pageable);
+        return bookRepository.findWithRate(rate, pageable);
     }
 
     public Book giveRate(String id, int newRate){
