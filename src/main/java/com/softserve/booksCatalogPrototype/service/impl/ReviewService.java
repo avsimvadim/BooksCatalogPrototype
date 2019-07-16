@@ -5,6 +5,7 @@ import com.softserve.booksCatalogPrototype.exception.custom.ReviewException;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.repository.ReviewRepository;
+import com.softserve.booksCatalogPrototype.service.ReviewServiceInterface;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Service
-public class ReviewService {
+public class ReviewService implements ReviewServiceInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
@@ -36,6 +37,7 @@ public class ReviewService {
         this.mongoOperations = mongoOperations;
     }
 
+    @Override
     public String save(String bookId, ReviewDTO reviewDTO) {
         Review review = DTOConverter.convertReviewDTOToReview(reviewDTO);
         Review result = reviewRepository.save(review);
@@ -59,6 +61,7 @@ public class ReviewService {
         return saved.getId();
     }
 
+    @Override
     public List<Review> getAllReviews(String id) {
         Book book = bookService.get(id);
         List<Review> reviews = book.getReviews();
@@ -71,11 +74,13 @@ public class ReviewService {
         return responses;
     }
 
+    @Override
     public Review get(String id) {
         Review result = reviewRepository.findById(id).orElseThrow(() -> new ReviewException("Did not find the review with such id"));
         return result;
     }
 
+    @Override
     public void deleteReview(String reviewId) {
         Review review = this.get(reviewId);
         Book book = bookService.findBookWithReview(review);
@@ -90,6 +95,7 @@ public class ReviewService {
         logger.info("Response with id " + responseId + " is saved");
     }
 
+    @Override
     public Review update(Review newReview) {
         Supplier<ReviewException> supplier = () -> new ReviewException("Did not find the review with such id");
         reviewRepository.findById(newReview.getId()).orElseThrow(supplier);

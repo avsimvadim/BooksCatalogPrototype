@@ -8,7 +8,7 @@ import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.GeneralDao;
+import com.softserve.booksCatalogPrototype.service.AuthorServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Service
-public class AuthorService implements GeneralDao<Author> {
+public class AuthorService implements AuthorServiceInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthorService.class);
 

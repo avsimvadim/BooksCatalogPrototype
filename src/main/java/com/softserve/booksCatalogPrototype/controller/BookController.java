@@ -133,13 +133,13 @@ public class BookController {
     }
 
     // TODO: 01.07.2019 to repair
-    @GetMapping(value = "/get_cover/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/get_cover/{id}", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<Resource> getCover(@PathVariable String id) throws IOException {
         Resource bookCover = bookService.getBookCover(id);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")
                 .contentLength(bookCover.contentLength())
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.IMAGE_PNG)
                 .body(bookCover);
     }
 

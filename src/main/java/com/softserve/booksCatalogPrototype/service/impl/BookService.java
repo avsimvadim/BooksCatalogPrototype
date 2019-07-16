@@ -15,7 +15,7 @@ import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.GeneralDao;
+import com.softserve.booksCatalogPrototype.service.BookServiceInterface;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Service
-public class BookService implements GeneralDao<Book> {
+public class BookService implements BookServiceInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 
@@ -151,7 +151,7 @@ public class BookService implements GeneralDao<Book> {
         DBObject metaData = new BasicDBObject();
         metaData.put("bookId", id);
         try(InputStream is = file.getInputStream()) {
-            return gridFsOperations.store(is,id + ".jpeg", "image/jpeg",metaData).toString();
+            return gridFsOperations.store(is,id + ".png", "image/png",metaData).toString();
         } catch (Exception e) {
             throw new CoverException("Failed to upload cover");
         }
