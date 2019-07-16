@@ -16,6 +16,11 @@ public class ObjectConverter {
         return json.toJson(response.getBody(), Book.class);
     }
 
+    public static String bookToJson(Book book){
+        Gson json = new Gson();
+        return json.toJson(book, Book.class);
+    }
+
     public static String getJsonBook(String name, Date yearPublished, Publisher publisher, List<String> authorsId) {
         BookDTO bookDTO = new BookDTO(name, yearPublished, publisher, authorsId);
         Gson json = new Gson();

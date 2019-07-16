@@ -83,7 +83,7 @@ public class BookService implements BookServiceInterface {
            deleteBookCover(book.getIsbn());
            bookRepository.delete(book);
            logger.info("book " + book.toString() + " is deleted");
-        }catch (Exception e){
+        } catch (Exception e){
             throw new BookException("Could not delete the book");
         }
     }

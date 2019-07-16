@@ -12,12 +12,8 @@ import org.springframework.util.ReflectionUtils;
 
 public class CascadeMongoEventListener extends AbstractMongoEventListener<Object> {
 
-    private MongoOperations mongoOperations;
-
     @Autowired
-    public CascadeMongoEventListener() {
-        this.mongoOperations = mongoOperations;
-    }
+    private MongoOperations mongoOperations;
 
     @Override
     public void onBeforeSave(BeforeSaveEvent<Object> event) {

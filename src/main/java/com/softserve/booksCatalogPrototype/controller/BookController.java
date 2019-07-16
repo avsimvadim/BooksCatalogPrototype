@@ -104,7 +104,7 @@ public class BookController {
 
     // get books with rate
     @GetMapping("/rate")
-    public ResponseEntity<List<Book>> rate(@RequestParam double rate, @RequestParam int pageNumber, @RequestParam int pageSize){
+    public ResponseEntity<List<Book>> rate(@RequestParam int rate, @RequestParam int pageNumber, @RequestParam int pageSize){
         if (pageNumber < 0 || pageSize < 1){
             throw new PaginationException("Wrong page number or size");
         }
@@ -116,7 +116,7 @@ public class BookController {
     }
 
     //give rate to book with id
-    @GetMapping("/give_rate/{id}")
+    @PutMapping("/give_rate/{id}")
     public ResponseEntity<Book> giveRate(@PathVariable String id, @RequestParam int rate){
         if (rate < 1 || rate > 5){
             throw new RateOutOfBoundException("Rate cannot be " + rate);
