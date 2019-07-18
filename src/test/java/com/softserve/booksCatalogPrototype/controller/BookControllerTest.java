@@ -1,13 +1,11 @@
 package com.softserve.booksCatalogPrototype.controller;
 
-import com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication;
-import com.softserve.booksCatalogPrototype.controller.util.ObjectConverter;
-import com.softserve.booksCatalogPrototype.dto.BookDTO;
-import com.softserve.booksCatalogPrototype.dto.JwtAuthenticationResponse;
-import com.softserve.booksCatalogPrototype.dto.LoginRequest;
-import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.model.Publisher;
-import com.softserve.booksCatalogPrototype.repository.BookRepository;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -27,11 +26,16 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Stream;
+import com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication;
+import com.softserve.booksCatalogPrototype.controller.util.ObjectConverter;
+import com.softserve.booksCatalogPrototype.dto.BookDTO;
+import com.softserve.booksCatalogPrototype.dto.JwtAuthenticationResponse;
+import com.softserve.booksCatalogPrototype.dto.LoginRequest;
+import com.softserve.booksCatalogPrototype.model.Author;
+import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.model.Publisher;
+import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
+import com.softserve.booksCatalogPrototype.repository.BookRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BooksCatalogPrototypeApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -39,6 +43,9 @@ public class BookControllerTest {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+	AuthorRepository authorRepository;
 
     @Autowired
     private AuthenticationController authenticationController;
@@ -57,39 +64,62 @@ public class BookControllerTest {
         return "http://localhost:" + port + uri;
     }
 
-    private void fillList(int booksSize, int rate){
-        Stream.iterate(0, i -> i)
-                .limit(booksSize)
-                .map(i -> new Book(null, null,null, null, null, rate, 1, new ArrayList<>(), new LinkedList<>()))
-                .forEach(book -> bookRepository.save(book));
-    }
+	@Value("${admin.username}")
+	private String USERNAME;
 
-    private List<Book> fillList(int size){
-        Stream.iterate(0, i -> i)
-                .limit(size)
-                .map(i -> new BookDTO(null, null,null, null))
-                .forEach(bookDTO -> {
-                    HttpEntity<BookDTO> entity = new HttpEntity<>(bookDTO, header);
-                    restTemplate.exchange(createURLWithPort("/api/book/add"), HttpMethod.POST, entity, Book.class);
-                });
-        HttpEntity entity = new HttpEntity(null, header);
-        ResponseEntity<List<Book>> response = restTemplate.exchange(
-                createURLWithPort("/api/book/all"),
-                HttpMethod.GET, entity, new ParameterizedTypeReference<List<Book>>(){});
-        return response.getBody();
+	@Value("${admin.password}")
+	private String PASSWORD;
 
-    }
+	public void fillList(int booksSize, int rate){
+		Stream.iterate(0, i -> i)
+				.limit(booksSize)
+				.map(i -> new Book(null, null,null, null, null, rate, 1, new ArrayList<>(), new LinkedList<>()))
+				.forEach(book -> bookRepository.save(book));
+	}
 
-    private Book fillBook(){
-        HttpEntity<BookDTO> entity = new HttpEntity<>(new BookDTO(), header);
-        ResponseEntity<Book> response = restTemplate.exchange(createURLWithPort("/api/book/add"), HttpMethod.POST, entity, Book.class);
-        return response.getBody();
-    }
+	public List<Book> fillList(int size){
+		Stream.iterate(0, i -> i)
+				.limit(size)
+				.map(i -> new BookDTO(null, null,null, null))
+				.forEach(bookDTO -> {
+					HttpEntity<BookDTO> entity = new HttpEntity<>(bookDTO, header);
+					restTemplate.exchange(createURLWithPort("/api/book/add"), HttpMethod.POST, entity, Book.class);
+				});
+		HttpEntity entity = new HttpEntity(null, header);
+		ResponseEntity<List<Book>> response = restTemplate.exchange(
+				createURLWithPort("/api/book/all"),
+				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Book>>(){});
+		return response.getBody();
 
+	}
+
+	public Book fillBook(){
+		HttpEntity<BookDTO> entity = new HttpEntity<>(new BookDTO(), header);
+		ResponseEntity<Book> response = restTemplate.exchange(createURLWithPort("/api/book/add"), HttpMethod.POST, entity, Book.class);
+		return response.getBody();
+	}
+
+	public String fillAuthorWithBooks(int booksSize){
+		Author author1 = new Author("author1", "author2");
+		Author author2 = new Author("author3", "author4");
+		String authorId1 = authorRepository.save(author1).getId();
+		String authorId2 = authorRepository.save(author2).getId();
+		List<String> authorsIds = new ArrayList<>();
+		authorsIds.add(authorId1);
+		authorsIds.add(authorId2);
+		Stream.iterate(0, i -> i)
+				.limit(booksSize)
+				.map(i -> new BookDTO(null, null,null, authorsIds))
+				.forEach(bookDTO -> {
+					HttpEntity<BookDTO> entity = new HttpEntity<>(bookDTO, header);
+					restTemplate.exchange(createURLWithPort("/api/book/add"), HttpMethod.POST, entity, Book.class);
+				});
+		return authorId1;
+	}
 
     @Before
     public void setUp() throws Exception{
-        ResponseEntity<JwtAuthenticationResponse> response = authenticationController.login(new LoginRequest("BooksAdmin", "00000000"));
+        ResponseEntity<JwtAuthenticationResponse> response = authenticationController.login(new LoginRequest(USERNAME, PASSWORD));
         header = new HttpHeaders();
         header.set("Authorization", "Bearer " + response.getBody().getAccessToken());
     }
@@ -125,7 +155,7 @@ public class BookControllerTest {
     @Test
     public void allTest() {
         int booksSize = 5;
-        fillList(booksSize);
+	    fillList(booksSize);
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<List<Book>> response = restTemplate.exchange(
                 createURLWithPort("/api/book/all"),
@@ -138,7 +168,7 @@ public class BookControllerTest {
         int booksSize = 20;
         int pageNumber = 1;
         int pageSize = 5;
-        fillList(booksSize);
+	    fillList(booksSize);
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<List<Book>> response = restTemplate.exchange(
                 createURLWithPort("/api/book//all_pagination?pageNumber=" + pageNumber + "&pageSize=" + pageSize),
@@ -194,7 +224,14 @@ public class BookControllerTest {
     }
 
     @Test
-    public void author() {
+    public void authorTest() {
+    	int booksSize = 10;
+	    String authorId = fillAuthorWithBooks(booksSize);
+	    HttpEntity entity = new HttpEntity(null, header);
+	    ResponseEntity<List<Book>> response = restTemplate.exchange(
+			    createURLWithPort("/api/book/books/" + authorId),
+			    HttpMethod.GET, entity, new ParameterizedTypeReference<List<Book>>(){});
+	    Assert.assertEquals(booksSize, response.getBody().size());
     }
 
     @Test
@@ -203,7 +240,7 @@ public class BookControllerTest {
         int rate = 3;
         int pageNumber = 0;
         int pageSize = 30;
-        fillList(booksSize, rate);
+	    fillList(booksSize, rate);
 
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<List<Book>> response = restTemplate.exchange(
@@ -218,7 +255,7 @@ public class BookControllerTest {
         int rate = 3;
         int pageNumber = 0;
         int pageSize = 5;
-        fillList(booksSize, rate);
+	    fillList(booksSize, rate);
 
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<List<Book>> response = restTemplate.exchange(

@@ -1,6 +1,7 @@
 package com.softserve.booksCatalogPrototype.exception;
 
-import com.softserve.booksCatalogPrototype.exception.custom.*;
+import java.util.Date;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Date;
+import com.softserve.booksCatalogPrototype.exception.custom.AuthenticationException;
+import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
+import com.softserve.booksCatalogPrototype.exception.custom.BookException;
+import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
+import com.softserve.booksCatalogPrototype.exception.custom.CoverException;
+import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
+import com.softserve.booksCatalogPrototype.exception.custom.RateOutOfBoundException;
+import com.softserve.booksCatalogPrototype.exception.custom.ReviewException;
 
 @ControllerAdvice
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
@@ -35,7 +43,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.EXPECTATION_FAILED);
     }
 
-    @ExceptionHandler(value = {PaginationException.class})
+    @ExceptionHandler(value = {PaginationException.class, AuthenticationException.class})
     public ResponseEntity<Object> handleSpecificException(Exception exception){
 
         String errorMessageDescription = exception.getLocalizedMessage();

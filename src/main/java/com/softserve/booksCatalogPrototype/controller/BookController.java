@@ -1,13 +1,8 @@
 package com.softserve.booksCatalogPrototype.controller;
 
-import com.softserve.booksCatalogPrototype.dto.BookDTO;
-import com.softserve.booksCatalogPrototype.exception.custom.BookException;
-import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
-import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
-import com.softserve.booksCatalogPrototype.exception.custom.RateOutOfBoundException;
-import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.service.impl.BookService;
-import com.softserve.booksCatalogPrototype.util.DTOConverter;
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -17,11 +12,24 @@ import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.List;
+import com.softserve.booksCatalogPrototype.dto.BookDTO;
+import com.softserve.booksCatalogPrototype.exception.custom.BookException;
+import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
+import com.softserve.booksCatalogPrototype.exception.custom.RateOutOfBoundException;
+import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.service.impl.BookService;
+import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @RestController
 @RequestMapping("/api/book")
@@ -85,14 +93,17 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
-    //get books by author
     @GetMapping("/books/{authorId}")
     public ResponseEntity<List<Book>> author(@PathVariable String authorId){
         List<Book> result = bookService.getBooksByAuthor(authorId);
         return ResponseEntity.ok(result);
     }
 
-    //get books with rate
+	/**
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return books which have any rate
+	 */
     @GetMapping("/rate_exists")
     public ResponseEntity<List<Book>> rateExists(@RequestParam int pageNumber, @RequestParam int pageSize){
         if (pageNumber < 0 || pageSize < 1){
@@ -102,7 +113,12 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
 
-    // get books with rate
+	/**
+	 * @param rate
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return books with rate
+	 */
     @GetMapping("/rate")
     public ResponseEntity<List<Book>> rate(@RequestParam int rate, @RequestParam int pageNumber, @RequestParam int pageSize){
         if (pageNumber < 0 || pageSize < 1){
@@ -115,7 +131,11 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
 
-    //give rate to book with id
+	/**
+	 * @param id book id to which rate will be given
+	 * @param rate
+	 * @return
+	 */
     @PutMapping("/give_rate/{id}")
     public ResponseEntity<Book> giveRate(@PathVariable String id, @RequestParam int rate){
         if (rate < 1 || rate > 5){
@@ -125,14 +145,22 @@ public class BookController {
         return ResponseEntity.ok(result);
     }
 
-    //  put cover and book id, get cover id
+	/**
+	 * @param file cover of the book
+	 * @param id book id to which cover will be given
+	 * @return cover id
+	 */
     @PostMapping(value = "/upload_cover/{id}")
     public ResponseEntity<String> uploadCover(@RequestParam MultipartFile file, @PathVariable String id){
         String bookCover = bookService.uploadBookCover(file, id);
         return ResponseEntity.ok(bookCover);
     }
 
-    // TODO: 01.07.2019 to repair
+	/**
+	 * @param id book id
+	 * @return
+	 * @throws IOException
+	 */
     @GetMapping(value = "/get_cover/{id}", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<Resource> getCover(@PathVariable String id) throws IOException {
         Resource bookCover = bookService.getBookCover(id);
@@ -143,21 +171,32 @@ public class BookController {
                 .body(bookCover);
     }
 
-    //  delete by cover id
+	/**
+	 * @param id cover id
+	 * @return
+	 */
     @DeleteMapping("/delete_cover/{id}")
     public ResponseEntity deleteCover(@PathVariable String id) {
         bookService.deleteBookCover(id);
         return ResponseEntity.ok().build();
     }
 
-    //    put content and book id, get content id
+	/**
+	 * @param file content of the book
+	 * @param id book id to which content will be given
+	 * @return content id
+	 */
     @PostMapping("/upload_content/{id}")
-    public ResponseEntity<String> uploadContent(@RequestParam MultipartFile file, @PathVariable String id) throws ContentException {
+    public ResponseEntity<String> uploadContent(@RequestParam MultipartFile file, @PathVariable String id) {
         String bookContent = bookService.uploadBookContent(file, id);
         return ResponseEntity.ok(bookContent);
     }
 
-    // get content by book id
+	/**
+	 * @param id book id
+	 * @return
+	 * @throws IOException
+	 */
     @GetMapping(value = "/get_content/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<Resource> getContent(@PathVariable String id) throws IOException{
         Resource bookContent = bookService.getBookContent(id);
@@ -168,7 +207,10 @@ public class BookController {
                 .body(bookContent);
     }
 
-    //    delete content by content id
+	/**
+	 * @param id content id
+	 * @return
+	 */
     @DeleteMapping("/delete_content/{id}")
     public ResponseEntity deleteContent(@PathVariable String id) {
         bookService.deleteBookContent(id);

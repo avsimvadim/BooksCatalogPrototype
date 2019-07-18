@@ -1,12 +1,16 @@
 package com.softserve.booksCatalogPrototype.unit;
 
-import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
-import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.model.Review;
-import com.softserve.booksCatalogPrototype.repository.ReviewRepository;
-import com.softserve.booksCatalogPrototype.service.impl.BookService;
-import com.softserve.booksCatalogPrototype.service.impl.ReviewService;
-import com.softserve.booksCatalogPrototype.unit.util.GetObjects;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,9 +20,13 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.mongodb.core.MongoOperations;
 
-import java.util.*;
-
-import static org.mockito.Mockito.*;
+import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
+import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.model.Review;
+import com.softserve.booksCatalogPrototype.repository.ReviewRepository;
+import com.softserve.booksCatalogPrototype.service.impl.BookService;
+import com.softserve.booksCatalogPrototype.service.impl.ReviewService;
+import com.softserve.booksCatalogPrototype.unit.util.GetObjects;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -50,7 +58,7 @@ public class ReviewServiceTests {
         Book book = GetObjects.getBook("1");
         when(reviewRepository.save(review)).thenReturn(new Review("1","name", "comment", null, new Date()));
         when(bookService.get(book.getIsbn())).thenReturn(book);
-        Assert.assertEquals(book.getIsbn(), reviewService.save(book.getIsbn(), reviewDTO));
+        Assert.assertEquals(book.getIsbn(), reviewService.save(book.getIsbn(), reviewDTO).getId());
     }
 
     @Test
@@ -59,7 +67,7 @@ public class ReviewServiceTests {
         Review review = new Review("1", null, null, new ArrayList<>(), new Date());
         when(reviewRepository.findById("1")).thenReturn(Optional.of(review));
         when(reviewRepository.save(new Review("responser", "response"))).thenReturn(response);
-        Assert.assertEquals("2" ,reviewService.saveResponse("1", new ReviewDTO("responser", "response")));
+        Assert.assertEquals("2" ,reviewService.saveResponse("1", new ReviewDTO("responser", "response")).getId());
     }
 
     @Test

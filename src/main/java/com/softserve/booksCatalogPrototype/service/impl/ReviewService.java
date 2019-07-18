@@ -1,12 +1,8 @@
 package com.softserve.booksCatalogPrototype.service.impl;
 
-import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
-import com.softserve.booksCatalogPrototype.exception.custom.ReviewException;
-import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.model.Review;
-import com.softserve.booksCatalogPrototype.repository.ReviewRepository;
-import com.softserve.booksCatalogPrototype.service.ReviewServiceInterface;
-import com.softserve.booksCatalogPrototype.util.DTOConverter;
+import java.util.List;
+import java.util.function.Supplier;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +12,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.function.Supplier;
+import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
+import com.softserve.booksCatalogPrototype.exception.custom.ReviewException;
+import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.model.Review;
+import com.softserve.booksCatalogPrototype.repository.ReviewRepository;
+import com.softserve.booksCatalogPrototype.service.ReviewServiceInterface;
+import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @Service
 public class ReviewService implements ReviewServiceInterface {
@@ -38,7 +39,7 @@ public class ReviewService implements ReviewServiceInterface {
     }
 
     @Override
-    public String save(String bookId, ReviewDTO reviewDTO) {
+    public Review save(String bookId, ReviewDTO reviewDTO) {
         Review review = DTOConverter.convertReviewDTOToReview(reviewDTO);
         Review result = reviewRepository.save(review);
 
@@ -46,10 +47,10 @@ public class ReviewService implements ReviewServiceInterface {
         book.getReviews().add(result);
         bookService.save(book);
         logger.info("Review " + review.toString() + " is saved");
-        return result.getId();
+        return result;
     }
 
-    public String saveResponse(String parentId, ReviewDTO responseDTO){
+    public Review saveResponse(String parentId, ReviewDTO responseDTO){
         Review review = reviewRepository.findById(parentId).orElseThrow(() -> new ReviewException("Did not find the review with such id"));
 
         Review response = DTOConverter.convertReviewDTOToReview(responseDTO);
@@ -58,7 +59,7 @@ public class ReviewService implements ReviewServiceInterface {
         review.getResponses().add(saved);
         reviewRepository.save(review);
         logger.info("Response " + response.toString() + " is saved");
-        return saved.getId();
+        return saved;
     }
 
     @Override

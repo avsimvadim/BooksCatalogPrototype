@@ -1,13 +1,21 @@
 package com.softserve.booksCatalogPrototype.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.service.impl.ReviewService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/review")
@@ -21,15 +29,15 @@ public class ReviewController {
     }
 
     @PostMapping("/add_review/{id}")
-    public ResponseEntity<String> addReview(@PathVariable("id") String bookId, @RequestBody ReviewDTO reviewDTO){
-        String result = reviewService.save(bookId, reviewDTO);
+    public ResponseEntity<Review> addReview(@PathVariable("id") String bookId, @RequestBody ReviewDTO reviewDTO){
+        Review result = reviewService.save(bookId, reviewDTO);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/add_response/{id}")
-    public ResponseEntity<String> addResponse(@PathVariable("id") String parentReviewId, @RequestBody ReviewDTO responseDTO){
-        String responseId = reviewService.saveResponse(parentReviewId, responseDTO);
-        return ResponseEntity.ok(responseId);
+    public ResponseEntity<Review> addResponse(@PathVariable("id") String parentReviewId, @RequestBody ReviewDTO responseDTO){
+        Review response = reviewService.saveResponse(parentReviewId, responseDTO);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/get/{id}")
@@ -38,14 +46,20 @@ public class ReviewController {
         return ResponseEntity.ok(review);
     }
 
-    // all reviews of book by book id
+	/**
+	 * @param id book id
+	 * @return all reviews of book
+	 */
     @GetMapping("/all_reviews/{id}")
     public ResponseEntity<List<Review>> allReviews(@PathVariable String id){
         List<Review> reviews = reviewService.getAllReviews(id);
         return ResponseEntity.ok(reviews);
     }
 
-    // review id
+	/**
+	 * @param id review id
+	 * @return response of review
+	 */
     @GetMapping("/all_responses/{id}")
     public ResponseEntity<List<Review>> allResponses(@PathVariable String id){
         List<Review> responses = reviewService.getAllResponses(id);

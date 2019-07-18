@@ -1,13 +1,18 @@
 package com.softserve.booksCatalogPrototype.controller.util;
 
-import com.google.gson.Gson;
-import com.softserve.booksCatalogPrototype.dto.BookDTO;
-import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.model.Publisher;
-import org.springframework.http.ResponseEntity;
-
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.google.gson.Gson;
+import com.softserve.booksCatalogPrototype.dto.AuthorDTO;
+import com.softserve.booksCatalogPrototype.dto.BookDTO;
+import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
+import com.softserve.booksCatalogPrototype.model.Author;
+import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.model.Publisher;
+import com.softserve.booksCatalogPrototype.model.Review;
 
 public class ObjectConverter {
 
@@ -26,5 +31,27 @@ public class ObjectConverter {
         Gson json = new Gson();
         return json.toJson(bookDTO, BookDTO.class);
     }
+
+	public static String authorToJson(ResponseEntity<Author> response){
+		Gson json = new Gson();
+		return json.toJson(response.getBody(), Author.class);
+	}
+
+	public static String getJsonAuthor(String firstName, String secondName) {
+		AuthorDTO authorDTO = new AuthorDTO(firstName, secondName);
+		Gson json = new Gson();
+		return json.toJson(authorDTO, AuthorDTO.class);
+	}
+
+	public static String reviewToJson(ResponseEntity<Review> response){
+		Gson json = new Gson();
+		return json.toJson(response.getBody(), Review.class);
+	}
+
+	public static String getJsonReview(String commenterName, String comment) {
+		ReviewDTO reviewDTO = new ReviewDTO(commenterName, comment);
+		Gson json = new Gson();
+		return json.toJson(reviewDTO, ReviewDTO.class);
+	}
 
 }
