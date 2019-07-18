@@ -276,27 +276,4 @@ public class BookControllerTest {
         Assert.assertEquals(1, response.getBody().getTotalVoteCount());
     }
 
-    @Test
-    public void uploadCover() {
-    }
-
-    @Test
-    public void getCover() {
-    }
-
-    @Test
-    public void deleteCover() {
-    }
-
-    @Test
-    public void uploadContent() {
-    }
-
-    @Test
-    public void getContent() {
-    }
-
-    @Test
-    public void deleteContent() {
-    }
 }
