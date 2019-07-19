@@ -171,7 +171,7 @@ public class BookControllerTest {
 	    fillList(booksSize);
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<List<Book>> response = restTemplate.exchange(
-                createURLWithPort("/api/book//all_pagination?pageNumber=" + pageNumber + "&pageSize=" + pageSize),
+                createURLWithPort("/api/book//all-pagination?pageNumber=" + pageNumber + "&pageSize=" + pageSize),
                 HttpMethod.GET, entity, new ParameterizedTypeReference<List<Book>>(){});
         Assert.assertEquals(pageSize, response.getBody().size());
     }

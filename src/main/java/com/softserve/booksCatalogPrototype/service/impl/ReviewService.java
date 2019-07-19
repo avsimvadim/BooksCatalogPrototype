@@ -86,14 +86,15 @@ public class ReviewService implements ReviewServiceInterface {
         Review review = this.get(reviewId);
         Book book = bookService.findBookWithReview(review);
         book.getReviews().remove(review);
+        reviewRepository.delete(review);
         bookService.save(book);
-        logger.info("Review with id " + reviewId + " is saved");
+        logger.info("Review with id " + reviewId + " is deleted");
     }
 
     public void deleteResponse(String responseId){
         Review response = reviewRepository.findById(responseId).orElseThrow(() -> new ReviewException("Did not find the response with such id"));
         reviewRepository.delete(response);
-        logger.info("Response with id " + responseId + " is saved");
+        logger.info("Response with id " + responseId + " is deleted");
     }
 
     @Override

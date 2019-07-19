@@ -1,14 +1,10 @@
 package com.softserve.booksCatalogPrototype.service.impl;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
-import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
-import com.softserve.booksCatalogPrototype.exception.custom.BookException;
-import com.softserve.booksCatalogPrototype.model.Author;
-import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
-import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.AuthorServiceInterface;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +16,15 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
+import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
+import com.softserve.booksCatalogPrototype.exception.custom.BookException;
+import com.softserve.booksCatalogPrototype.model.Author;
+import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
+import com.softserve.booksCatalogPrototype.repository.BookRepository;
+import com.softserve.booksCatalogPrototype.service.AuthorServiceInterface;
 
 @Service
 public class AuthorService implements AuthorServiceInterface {

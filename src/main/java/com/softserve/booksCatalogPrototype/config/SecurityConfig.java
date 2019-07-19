@@ -1,7 +1,5 @@
 package com.softserve.booksCatalogPrototype.config;
 
-import com.softserve.booksCatalogPrototype.security.jwt.CustomUserDetailsService;
-import com.softserve.booksCatalogPrototype.security.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.softserve.booksCatalogPrototype.security.jwt.CustomUserDetailsService;
+import com.softserve.booksCatalogPrototype.security.jwt.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -59,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/book/**", "/api/author/**").hasRole("ADMIN")
                 .antMatchers("/api/review/**").hasAnyRole("USER", "ADMIN");
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

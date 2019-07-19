@@ -1,18 +1,28 @@
 package com.softserve.booksCatalogPrototype.controller;
 
-import com.softserve.booksCatalogPrototype.dto.AuthorDTO;
-import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
-import com.softserve.booksCatalogPrototype.model.Author;
-import com.softserve.booksCatalogPrototype.service.impl.AuthorService;
-import com.softserve.booksCatalogPrototype.util.DTOConverter;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.softserve.booksCatalogPrototype.dto.AuthorDTO;
+import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
+import com.softserve.booksCatalogPrototype.model.Author;
+import com.softserve.booksCatalogPrototype.service.impl.AuthorService;
+import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @RestController
 @RequestMapping("/api/author")
@@ -25,6 +35,7 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
+	@Secured("ROLE_ADMIN")
     @PostMapping("/add")
     public ResponseEntity<Author> add(@RequestBody AuthorDTO authorDTO) {
         Author author = DTOConverter.convertAuthorDTOToAuthor(authorDTO);
@@ -32,13 +43,15 @@ public class AuthorController {
         return ResponseEntity.ok(result);
     }
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/all")
     public ResponseEntity<List<Author>> all() {
         List<Author> result = authorService.getAll();
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/all_pagination")
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @GetMapping("/all-pagination")
     public ResponseEntity<List<Author>> allPages(@RequestParam int pageNumber, @RequestParam int pageSize) {
         if (pageNumber < 0 || pageSize <= 0){
             throw new PaginationException("wrong page number or size");
@@ -48,18 +61,21 @@ public class AuthorController {
         return ResponseEntity.ok(result);
     }
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/get/{id}")
     public ResponseEntity<Author> get(@PathVariable String id){
         Author result = authorService.get(id);
         return ResponseEntity.ok(result);
     }
 
+	@Secured("ROLE_ADMIN")
     @PutMapping("/update")
     public ResponseEntity<Author> update(@RequestBody Author author){
         Author result = authorService.update(author);
         return ResponseEntity.ok(result);
     }
 
+	@Secured("ROLE_ADMIN")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable String id){
         Author author = authorService.get(id);
@@ -67,7 +83,8 @@ public class AuthorController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/bulk_delete")
+	@Secured("ROLE_ADMIN")
+    @DeleteMapping("/bulk-delete")
     public ResponseEntity deleteAuthors(@RequestParam("id") String... ids){
         authorService.deleteAuthors(ids);
         return ResponseEntity.ok().build();

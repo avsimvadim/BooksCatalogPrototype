@@ -1,21 +1,10 @@
 package com.softserve.booksCatalogPrototype.service.impl;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.client.gridfs.model.GridFSFile;
-import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
-import com.softserve.booksCatalogPrototype.exception.custom.BookException;
-import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
-import com.softserve.booksCatalogPrototype.exception.custom.CoverException;
-import com.softserve.booksCatalogPrototype.model.Author;
-import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.model.Review;
-import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
-import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.BookServiceInterface;
+import java.io.InputStream;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +21,22 @@ import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.client.gridfs.model.GridFSFile;
+import com.softserve.booksCatalogPrototype.exception.custom.AuthorException;
+import com.softserve.booksCatalogPrototype.exception.custom.BookException;
+import com.softserve.booksCatalogPrototype.exception.custom.ContentException;
+import com.softserve.booksCatalogPrototype.exception.custom.CoverException;
+import com.softserve.booksCatalogPrototype.model.Author;
+import com.softserve.booksCatalogPrototype.model.Book;
+import com.softserve.booksCatalogPrototype.model.Review;
+import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
+import com.softserve.booksCatalogPrototype.repository.BookRepository;
+import com.softserve.booksCatalogPrototype.service.BookServiceInterface;
 
 @Service
 public class BookService implements BookServiceInterface {
@@ -50,12 +51,15 @@ public class BookService implements BookServiceInterface {
 
     private GridFsOperations gridFsOperations;
 
+    private AuthorService authorService;
+
     @Autowired
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, MongoOperations mongoOperations, GridFsOperations gridFsOperations) {
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, MongoOperations mongoOperations, GridFsOperations gridFsOperations, AuthorService authorService) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.mongoOperations = mongoOperations;
         this.gridFsOperations = gridFsOperations;
+        this.authorService = authorService;
     }
 
     @Override
@@ -118,6 +122,17 @@ public class BookService implements BookServiceInterface {
         List<Book> booksByAuthors = bookRepository.findBooksByAuthors(author);
         return booksByAuthors;
     }
+
+	public Book deleteAuthorFromBook(String bookId, String authorId){
+		Book book = get(bookId);
+		Author author = authorService.get(authorId);
+		if(!book.getAuthors().contains(author)){
+			throw new AuthorException("The book with id " + bookId + " already does not contain the author with id " + authorId);
+		}
+		book.getAuthors().remove(author);
+		Book saved = bookRepository.save(book);
+		return saved;
+	}
 
     public List<Book> withRate(Pageable pageable){
         return bookRepository.findAllByRateIsNot(0, pageable);

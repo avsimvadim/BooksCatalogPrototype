@@ -1,17 +1,23 @@
 package com.softserve.booksCatalogPrototype.model;
 
-import com.softserve.booksCatalogPrototype.annotations.CascadeDelete;
-import com.softserve.booksCatalogPrototype.annotations.CascadeSave;
-import lombok.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import com.softserve.booksCatalogPrototype.annotations.CascadeSave;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Document
 @NoArgsConstructor
@@ -34,7 +40,6 @@ public class Book {
     @CreatedDate
     private Date creationDate;
 
-    //rate can be between 1 and 5, rate = 0 means book is not evaluated yet
     private double rate;
 
     private int totalVoteCount;
@@ -45,7 +50,6 @@ public class Book {
 
     @DBRef
     @CascadeSave
-    @CascadeDelete
     private List<Review> reviews = new LinkedList<>();
 
     public Book(String name, Date yearPublished, Publisher publisher, List<Author> authors) {
