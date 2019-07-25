@@ -42,7 +42,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody SignUpRequest signUpRequest) {
         if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-           throw new AuthenticationException("User with this username already exists");
+           throw new AuthenticationException("User with CHANGES this username already exists");
         }
 
         if(userRepository.existsByEmail(signUpRequest.getEmail())) {
