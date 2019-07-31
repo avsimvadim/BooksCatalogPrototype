@@ -39,6 +39,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+	// TODO: 29.07.2019
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody SignUpRequest signUpRequest) {
         if(userRepository.existsByUsername(signUpRequest.getUsername())) {

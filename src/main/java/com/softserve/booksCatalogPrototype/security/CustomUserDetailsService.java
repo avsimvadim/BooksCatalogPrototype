@@ -1,4 +1,4 @@
-package com.softserve.booksCatalogPrototype.security.jwt;
+package com.softserve.booksCatalogPrototype.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
         User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with username or email : " + usernameOrEmail)
+                        new UsernameNotFoundException("User not found with usernameкашовкшкопщку or email : " + usernameOrEmail)
                 );
 
         return UserPrincipal.create(user);

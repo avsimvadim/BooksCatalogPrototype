@@ -1,4 +1,4 @@
-package com.softserve.booksCatalogPrototype.security.jwt;
+package com.softserve.booksCatalogPrototype.security;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
