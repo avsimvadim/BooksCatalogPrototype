@@ -39,6 +39,9 @@ public class AuthenticationService implements AuthenticationServiceInterface {
 
 	private JwtTokenProvider tokenProvider;
 
+
+	// TODO: 05.08.2019  
+	// TODO: 05.08.2019  
 	@Autowired
 	public AuthenticationService(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
 		this.authenticationManager = authenticationManager;
