@@ -4,7 +4,7 @@ import com.softserve.booksCatalogPrototype.model.Author;
 
 import java.util.List;
 
-public interface AuthorServiceInterface {
+public interface AuthorService {
     Author save(Author object);
 
     List<Author> getAll();

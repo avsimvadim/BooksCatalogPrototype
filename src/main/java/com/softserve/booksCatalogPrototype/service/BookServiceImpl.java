@@ -1,4 +1,4 @@
-package com.softserve.booksCatalogPrototype.service.impl;
+package com.softserve.booksCatalogPrototype.service;
 
 import java.io.InputStream;
 import java.util.List;
@@ -36,12 +36,11 @@ import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.BookServiceInterface;
 
 @Service
-public class BookService implements BookServiceInterface {
+public class BookServiceImpl implements BookService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BookService.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
 
     private BookRepository bookRepository;
 
@@ -51,10 +50,10 @@ public class BookService implements BookServiceInterface {
 
     private GridFsOperations gridFsOperations;
 
-    private AuthorService authorService;
+    private AuthorServiceImpl authorService;
 
     @Autowired
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, MongoOperations mongoOperations, GridFsOperations gridFsOperations, AuthorService authorService) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, MongoOperations mongoOperations, GridFsOperations gridFsOperations, AuthorServiceImpl authorService) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.mongoOperations = mongoOperations;

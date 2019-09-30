@@ -1,7 +1,8 @@
-package com.softserve.booksCatalogPrototype.service.impl;
+package com.softserve.booksCatalogPrototype.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -24,12 +25,12 @@ import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.AuthorServiceInterface;
 
 @Service
-public class AuthorService implements AuthorServiceInterface {
+public class AuthorServiceImpl implements AuthorService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthorService.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthorServiceImpl.class);
+    private static final String DELETING_AUTHOR_IS_FAILED = "Deleting of the [{}] failed.";
 
     private AuthorRepository authorRepository;
 
@@ -38,7 +39,7 @@ public class AuthorService implements AuthorServiceInterface {
     private MongoOperations mongoOperations;
 
     @Autowired
-    public AuthorService(AuthorRepository authorRepository, BookRepository bookRepository, MongoOperations mongoOperations) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository, MongoOperations mongoOperations) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.mongoOperations = mongoOperations;
@@ -64,32 +65,40 @@ public class AuthorService implements AuthorServiceInterface {
 
     @Override
     public Author get(String id) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new AuthorException("Did not find the author with this id"));
+        Author author = authorRepository.findById(id).orElseThrow(() -> new AuthorException("Did not find the author with id: " + id));
         return author;
     }
 
     @Override
     public void delete(Author author) {
         List<Book> booksByAuthors = bookRepository.findBooksByAuthors(author);
+        String authorDescription = author.toString();
         if (booksByAuthors.isEmpty()){
             try {
                 authorRepository.delete(author);
-                logger.info("author " + author.toString() + " is deleted");
+                logger.info("Author " + authorDescription + " is deleted");
             }catch (Exception e){
-                throw new AuthorException("Did not find the author with this id");
+                logger.error(DELETING_AUTHOR_IS_FAILED, authorDescription);
+                throw new AuthorException("Did not find " + authorDescription);
             }
         } else {
-            throw new BookException("There is at least 1 book connected to this author");
+            logger.error(DELETING_AUTHOR_IS_FAILED, authorDescription);
+            throw new BookException("There is at least 1 book connected to " + authorDescription);
         }
     }
 
     @Override
     public Author update(Author newAuthor) {
-        Supplier<AuthorException> supplier = () -> new AuthorException( "Did not find the author with this id");
-        authorRepository.findById(newAuthor.getId()).orElseThrow(supplier);
+        if(Objects.isNull(newAuthor.getId())) {
+            logger.error(DELETING_AUTHOR_IS_FAILED, newAuthor);
+            throw new AuthorException("Empty id field in the author");
+        }
+        String newAuthorId = newAuthor.getId();
+        Supplier<AuthorException> supplier = () -> new AuthorException( "Did not find the author with id: " + newAuthorId);
+        authorRepository.findById(newAuthorId).orElseThrow(supplier);
 
         Query query = new Query();
-        query.addCriteria(Criteria.where("_id").is(newAuthor.getId()));
+        query.addCriteria(Criteria.where("_id").is(newAuthorId));
         query.fields().include("_id");
 
         Update update = new Update();
@@ -97,7 +106,7 @@ public class AuthorService implements AuthorServiceInterface {
         update.set("secondName", newAuthor.getSecondName());
 
         mongoOperations.updateFirst(query, update, Author.class);
-        Author result = authorRepository.findById(newAuthor.getId()).orElseThrow(supplier);
+        Author result = authorRepository.findById(newAuthorId).orElseThrow(supplier);
         logger.info("Author is updated");
         return result;
     }

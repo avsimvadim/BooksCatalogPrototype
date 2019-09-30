@@ -4,7 +4,7 @@ import com.softserve.booksCatalogPrototype.model.Book;
 
 import java.util.List;
 
-public interface BookServiceInterface {
+public interface BookService {
 
     Book save(Book object);
 

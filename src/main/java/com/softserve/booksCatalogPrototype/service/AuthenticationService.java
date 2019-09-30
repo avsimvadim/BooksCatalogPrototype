@@ -6,7 +6,7 @@ import com.softserve.booksCatalogPrototype.dto.JwtAuthenticationResponse;
 import com.softserve.booksCatalogPrototype.dto.LoginRequest;
 import com.softserve.booksCatalogPrototype.dto.SignUpRequest;
 
-public interface AuthenticationServiceInterface {
+public interface AuthenticationService {
 
 	ApiResponse register(SignUpRequest signUpRequest);
 

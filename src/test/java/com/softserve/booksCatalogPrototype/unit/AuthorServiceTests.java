@@ -3,7 +3,7 @@ package com.softserve.booksCatalogPrototype.unit;
 import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.impl.AuthorService;
+import com.softserve.booksCatalogPrototype.service.AuthorServiceImpl;
 import com.softserve.booksCatalogPrototype.unit.util.GetObjects;
 import org.junit.After;
 import org.junit.Assert;
@@ -37,7 +37,7 @@ public class AuthorServiceTests {
     private MongoOperations mongoOperations;
 
     @InjectMocks
-    AuthorService authorService;
+    AuthorServiceImpl authorService;
 
     @After
     public void tearDown() throws Exception {

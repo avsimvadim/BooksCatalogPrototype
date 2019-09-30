@@ -6,7 +6,7 @@ import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.repository.AuthorRepository;
 import com.softserve.booksCatalogPrototype.repository.BookRepository;
-import com.softserve.booksCatalogPrototype.service.impl.BookService;
+import com.softserve.booksCatalogPrototype.service.BookServiceImpl;
 import com.softserve.booksCatalogPrototype.unit.util.GetObjects;
 import org.bson.types.ObjectId;
 import org.junit.After;
@@ -48,7 +48,7 @@ public class BookServiceTests {
     private GridFsOperations gridFsOperations;
 
     @InjectMocks
-    BookService bookService;
+    BookServiceImpl bookService;
 
     @After
     public void tearDown() throws Exception {

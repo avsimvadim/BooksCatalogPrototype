@@ -24,8 +24,8 @@ import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.repository.ReviewRepository;
-import com.softserve.booksCatalogPrototype.service.impl.BookService;
-import com.softserve.booksCatalogPrototype.service.impl.ReviewService;
+import com.softserve.booksCatalogPrototype.service.BookServiceImpl;
+import com.softserve.booksCatalogPrototype.service.ReviewServiceImpl;
 import com.softserve.booksCatalogPrototype.unit.util.GetObjects;
 
 
@@ -36,13 +36,13 @@ public class ReviewServiceTests {
     private ReviewRepository reviewRepository;
 
     @Mock
-    private BookService bookService;
+    private BookServiceImpl bookService;
 
     @Mock
     private MongoOperations mongoOperations;
 
     @InjectMocks
-    ReviewService reviewService;
+    ReviewServiceImpl reviewService;
 
     @After
     public void tearDown() throws Exception {

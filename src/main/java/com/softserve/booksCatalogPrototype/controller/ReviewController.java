@@ -2,6 +2,8 @@ package com.softserve.booksCatalogPrototype.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,33 +17,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.softserve.booksCatalogPrototype.dto.ReviewDTO;
 import com.softserve.booksCatalogPrototype.model.Review;
-import com.softserve.booksCatalogPrototype.service.impl.ReviewService;
+import com.softserve.booksCatalogPrototype.service.ReviewServiceImpl;
 
 @RestController
 @RequestMapping("/api/review")
 public class ReviewController {
 
-    private ReviewService reviewService;
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+
+    private ReviewServiceImpl reviewService;
 
     @Autowired
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewServiceImpl reviewService) {
         this.reviewService = reviewService;
     }
 
     @PostMapping("/add-review/{bookId}")
     public ResponseEntity<Review> addReview(@PathVariable String bookId, @RequestBody ReviewDTO reviewDTO){
+        logger.info("In addReview method.");
         Review result = reviewService.save(bookId, reviewDTO);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/add-response/{parentReviewId}")
     public ResponseEntity<Review> addResponse(@PathVariable String parentReviewId, @RequestBody ReviewDTO responseDTO){
+        logger.info("In addResponse method.");
         Review response = reviewService.saveResponse(parentReviewId, responseDTO);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Review> get(@PathVariable("id") String reviewId){
+        logger.info("In addResponse method.");
         Review review = reviewService.get(reviewId);
         return ResponseEntity.ok(review);
     }
@@ -52,6 +59,7 @@ public class ReviewController {
 	 */
     @GetMapping("/all-reviews/{bookId}")
     public ResponseEntity<List<Review>> allReviews(@PathVariable String bookId){
+        logger.info("In allReviews method.");
         List<Review> reviews = reviewService.getAllReviews(bookId);
         return ResponseEntity.ok(reviews);
     }
@@ -62,24 +70,28 @@ public class ReviewController {
 	 */
     @GetMapping("/all-responses/{reviewId}")
     public ResponseEntity<List<Review>> allResponses(@PathVariable String reviewId){
+        logger.info("In allResponses method.");
         List<Review> responses = reviewService.getAllResponses(reviewId);
         return ResponseEntity.ok(responses);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Review> update(@RequestBody Review review){
+        logger.info("In update method.");
         Review result = reviewService.update(review);
         return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/delete-review/{reviewId}")
     public ResponseEntity deleteReview(@PathVariable String reviewId){
+        logger.info("In deleteReview method.");
         reviewService.deleteReview(reviewId);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/delete-response/{responseId}")
     public ResponseEntity deleteResponse(@PathVariable String responseId){
+        logger.info("In deleteResponse method.");
         reviewService.deleteResponse(responseId);
         return ResponseEntity.ok().build();
     }

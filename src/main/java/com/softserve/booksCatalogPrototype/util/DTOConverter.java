@@ -5,7 +5,7 @@ import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
 import com.softserve.booksCatalogPrototype.model.Review;
 import com.softserve.booksCatalogPrototype.model.User;
-import com.softserve.booksCatalogPrototype.service.impl.AuthorService;
+import com.softserve.booksCatalogPrototype.service.AuthorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 @Component
 public class DTOConverter {
 
-    private static AuthorService authorService;
+    private static AuthorServiceImpl authorService;
 
     @Autowired
-    private DTOConverter(AuthorService authorService) {
+    private DTOConverter(AuthorServiceImpl authorService) {
         this.authorService = authorService;
     }
 

@@ -3,6 +3,8 @@ package com.softserve.booksCatalogPrototype.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -29,23 +31,26 @@ import com.softserve.booksCatalogPrototype.exception.custom.BookException;
 import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
 import com.softserve.booksCatalogPrototype.exception.custom.RateOutOfBoundException;
 import com.softserve.booksCatalogPrototype.model.Book;
-import com.softserve.booksCatalogPrototype.service.impl.BookService;
+import com.softserve.booksCatalogPrototype.service.BookServiceImpl;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
 
-    private BookService bookService;
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+
+    private BookServiceImpl bookService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookServiceImpl bookService) {
         this.bookService = bookService;
     }
 
 	@Secured("ROLE_ADMIN")
     @PostMapping("/add")
     public ResponseEntity<Book> add(@RequestBody BookDTO bookDTO) {
+        logger.info("In add method.");
         Book book = DTOConverter.convertBook(bookDTO);
         Book result = bookService.save(book);
         return ResponseEntity.ok(result);
@@ -54,6 +59,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/all")
     public ResponseEntity<List<Book>> all() {
+        logger.info("In all method.");
         List<Book> result = bookService.getAll();
         return ResponseEntity.ok(result);
     }
@@ -61,6 +67,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/all-pagination")
     public ResponseEntity<List<Book>> allPages(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        logger.info("In allPages method.");
         if (pageNumber < 0 || pageSize <= 0){
             throw new PaginationException("Wrong page number or size" );
         }
@@ -75,6 +82,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/get/{id}")
     public ResponseEntity<Book> get(@PathVariable String id){
+        logger.info("In get method.");
         Book result = bookService.get(id);
         return ResponseEntity.ok(result);
     }
@@ -89,6 +97,7 @@ public class BookController {
 	@Secured("ROLE_ADMIN")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable String id){
+        logger.info("In delete method.");
         Book book = bookService.get(id);
         bookService.delete(book);
         return ResponseEntity.ok().build();
@@ -97,6 +106,7 @@ public class BookController {
 	@Secured("ROLE_ADMIN")
     @DeleteMapping("/bulk-delete")
     public ResponseEntity deleteBooks(@RequestParam("id") String... ids){
+        logger.info("In deleteBooks method.");
         bookService.deleteBooks(ids);
         return ResponseEntity.ok().build();
     }
@@ -104,6 +114,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/books/{authorId}")
     public ResponseEntity<List<Book>> author(@PathVariable String authorId){
+        logger.info("In author method.");
         List<Book> result = bookService.getBooksByAuthor(authorId);
         return ResponseEntity.ok(result);
     }
@@ -111,6 +122,7 @@ public class BookController {
 	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/delete-author-from-book/{bookId}/{authorId}")
 	public ResponseEntity<Book> deleteAuthorFromBook(@PathVariable String bookId, @PathVariable String authorId){
+        logger.info("In deleteAuthorFromBook method.");
 		Book result = bookService.deleteAuthorFromBook(bookId, authorId);
 		return ResponseEntity.ok(result);
 	}
@@ -123,6 +135,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/rate-exists")
     public ResponseEntity<List<Book>> rateExists(@RequestParam int pageNumber, @RequestParam int pageSize){
+        logger.info("In rateExists method.");
         if (pageNumber < 0 || pageSize < 1){
             throw new PaginationException("Wrong page number or size");
         }
@@ -139,6 +152,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/rate")
     public ResponseEntity<List<Book>> rate(@RequestParam double rate, @RequestParam int pageNumber, @RequestParam int pageSize){
+        logger.info("In rate method.");
         if (pageNumber < 0 || pageSize < 1){
             throw new PaginationException("Wrong page number or size");
         }
@@ -157,6 +171,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @PutMapping("/give-rate/{id}")
     public ResponseEntity<Book> giveRate(@PathVariable String id, @RequestParam int rate){
+        logger.info("In giveRate method.");
         if (rate < 1 || rate > 5){
             throw new RateOutOfBoundException("Rate cannot be " + rate);
         }
@@ -172,6 +187,7 @@ public class BookController {
 	@Secured("ROLE_ADMIN")
     @PostMapping(value = "/upload-cover/{id}")
     public ResponseEntity<String> uploadCover(@RequestParam MultipartFile file, @PathVariable String id){
+        logger.info("In uploadCover method.");
         String bookCover = bookService.uploadBookCover(file, id);
         return ResponseEntity.ok(bookCover);
     }
@@ -184,6 +200,7 @@ public class BookController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value = "/get-cover/{id}", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<Resource> getCover(@PathVariable String id) throws IOException {
+        logger.info("In getCover method.");
         Resource bookCover = bookService.getBookCover(id);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")

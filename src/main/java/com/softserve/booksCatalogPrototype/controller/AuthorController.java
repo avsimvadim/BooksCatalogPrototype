@@ -2,6 +2,8 @@ package com.softserve.booksCatalogPrototype.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,23 +23,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.softserve.booksCatalogPrototype.dto.AuthorDTO;
 import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
 import com.softserve.booksCatalogPrototype.model.Author;
-import com.softserve.booksCatalogPrototype.service.impl.AuthorService;
+import com.softserve.booksCatalogPrototype.service.AuthorServiceImpl;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @RestController
 @RequestMapping("/api/author")
 public class AuthorController {
 
-    private AuthorService authorService;
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+
+    private AuthorServiceImpl authorService;
 
     @Autowired
-    public AuthorController(AuthorService authorService) {
+    public AuthorController(AuthorServiceImpl authorService) {
         this.authorService = authorService;
     }
 
 	@Secured("ROLE_ADMIN")
     @PostMapping("/add")
     public ResponseEntity<Author> add(@RequestBody AuthorDTO authorDTO) {
+        logger.info("In add method.");
         Author author = DTOConverter.convertAuthorDTOToAuthor(authorDTO);
         Author result = authorService.save(author);
         return ResponseEntity.ok(result);
@@ -46,6 +51,7 @@ public class AuthorController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/all")
     public ResponseEntity<List<Author>> all() {
+        logger.info("In all method.");
         List<Author> result = authorService.getAll();
         return ResponseEntity.ok(result);
     }
@@ -53,6 +59,7 @@ public class AuthorController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/all-pagination")
     public ResponseEntity<List<Author>> allPages(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        logger.info("In allPages method.");
         if (pageNumber < 0 || pageSize <= 0){
             throw new PaginationException("wrong page number or size");
         }
@@ -64,6 +71,7 @@ public class AuthorController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/get/{id}")
     public ResponseEntity<Author> get(@PathVariable String id){
+        logger.info("In get method.");
         Author result = authorService.get(id);
         return ResponseEntity.ok(result);
     }
@@ -71,6 +79,7 @@ public class AuthorController {
 	@Secured("ROLE_ADMIN")
     @PutMapping("/update")
     public ResponseEntity<Author> update(@RequestBody Author author){
+        logger.info("In update method.");
         Author result = authorService.update(author);
         return ResponseEntity.ok(result);
     }
@@ -78,6 +87,7 @@ public class AuthorController {
 	@Secured("ROLE_ADMIN")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable String id){
+        logger.info("In delete method.");
         Author author = authorService.get(id);
         authorService.delete(author);
         return ResponseEntity.ok().build();
@@ -86,6 +96,7 @@ public class AuthorController {
 	@Secured("ROLE_ADMIN")
     @DeleteMapping("/bulk-delete")
     public ResponseEntity deleteAuthors(@RequestParam("id") String... ids){
+        logger.info("In deleteAuthors method.");
         authorService.deleteAuthors(ids);
         return ResponseEntity.ok().build();
     }

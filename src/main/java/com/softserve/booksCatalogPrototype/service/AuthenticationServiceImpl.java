@@ -1,4 +1,4 @@
-package com.softserve.booksCatalogPrototype.service.impl;
+package com.softserve.booksCatalogPrototype.service;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,11 +23,10 @@ import com.softserve.booksCatalogPrototype.model.User;
 import com.softserve.booksCatalogPrototype.repository.RoleRepository;
 import com.softserve.booksCatalogPrototype.repository.UserRepository;
 import com.softserve.booksCatalogPrototype.security.jwt.JwtTokenProvider;
-import com.softserve.booksCatalogPrototype.service.AuthenticationServiceInterface;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @Service
-public class AuthenticationService implements AuthenticationServiceInterface {
+public class AuthenticationServiceImpl implements AuthenticationService {
 
 	private AuthenticationManager authenticationManager;
 
@@ -40,7 +39,7 @@ public class AuthenticationService implements AuthenticationServiceInterface {
 	private JwtTokenProvider tokenProvider;
 
 	@Autowired
-	public AuthenticationService(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
+	public AuthenticationServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
 		this.authenticationManager = authenticationManager;
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
