@@ -3,6 +3,7 @@ package com.softserve.booksCatalogPrototype.service;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.softserve.booksCatalogPrototype.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +23,7 @@ import com.softserve.booksCatalogPrototype.model.RoleName;
 import com.softserve.booksCatalogPrototype.model.User;
 import com.softserve.booksCatalogPrototype.repository.RoleRepository;
 import com.softserve.booksCatalogPrototype.repository.UserRepository;
-import com.softserve.booksCatalogPrototype.security.jwt.JwtTokenProvider;
+import com.softserve.booksCatalogPrototype.security.JwtTokenProvider;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @Service
