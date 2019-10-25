@@ -75,7 +75,7 @@ public class ReviewControllerTest {
 		ReviewDTO reviewDTO = new ReviewDTO("review", "review");
 		HttpEntity<ReviewDTO> entity = new HttpEntity<>(reviewDTO, header);
 		ResponseEntity<Review> response = restTemplate.exchange(
-				createURLWithPort("/api/review/add_review/" + book.getIsbn()),
+				createURLWithPort("/api/review/add-review/" + book.getIsbn()),
 				HttpMethod.POST, entity, Review.class);
 		return response.getBody();
 	}
@@ -85,7 +85,7 @@ public class ReviewControllerTest {
 		ReviewDTO reviewDTO = new ReviewDTO(commenterName, comment);
 		HttpEntity<ReviewDTO> entity = new HttpEntity<>(reviewDTO, header);
 		ResponseEntity<Review> response = restTemplate.exchange(
-				createURLWithPort("/api/review/add_review/" + book.getIsbn()),
+				createURLWithPort("/api/review/add-review/" + book.getIsbn()),
 				HttpMethod.POST, entity, Review.class);
 		return response.getBody();
 	}
@@ -95,7 +95,7 @@ public class ReviewControllerTest {
 		ReviewDTO reviewDTO = new ReviewDTO("some response", "some comment");
 		HttpEntity<ReviewDTO> entity = new HttpEntity<>(reviewDTO, header);
 		ResponseEntity<Review> response = restTemplate.exchange(
-				createURLWithPort("/api/review/add_response/" + review.getId()),
+				createURLWithPort("/api/review/add-response/" + review.getId()),
 				HttpMethod.POST, entity, Review.class);
 		return response.getBody();
 	}
@@ -107,7 +107,7 @@ public class ReviewControllerTest {
 				.map(i -> new ReviewDTO("some", "text"))
 				.forEach(reviewDTO -> {
 					HttpEntity<ReviewDTO> entity = new HttpEntity<>(reviewDTO, header);
-					restTemplate.exchange(createURLWithPort("/api/review/add_review/" + book.getIsbn()), HttpMethod.POST, entity, Review.class);
+					restTemplate.exchange(createURLWithPort("/api/review/add-review/" + book.getIsbn()), HttpMethod.POST, entity, Review.class);
 				});
 		return book;
 	}
@@ -119,7 +119,7 @@ public class ReviewControllerTest {
 				.map(i -> new ReviewDTO("some", "text"))
 				.forEach(response -> {
 					HttpEntity<ReviewDTO> entity = new HttpEntity<>(response, header);
-					restTemplate.exchange(createURLWithPort("/api/review/add_response/" + review.getId()), HttpMethod.POST, entity, Review.class);
+					restTemplate.exchange(createURLWithPort("/api/review/add-response/" + review.getId()), HttpMethod.POST, entity, Review.class);
 				});
 		return review;
 	}
@@ -147,7 +147,7 @@ public class ReviewControllerTest {
 
 		HttpEntity<ReviewDTO> entity = new HttpEntity<>(reviewDTO, header);
 		ResponseEntity<Review> response = restTemplate.exchange(
-				createURLWithPort("/api/review/add_review/" + book.getIsbn()),
+				createURLWithPort("/api/review/add-review/" + book.getIsbn()),
 				HttpMethod.POST, entity, Review.class);
 
 		Assert.assertEquals(commenterName, response.getBody().getCommenterName());
@@ -163,7 +163,7 @@ public class ReviewControllerTest {
 
 		HttpEntity<ReviewDTO> entity = new HttpEntity<>(responseDTO, header);
 		ResponseEntity<Review> response = restTemplate.exchange(
-				createURLWithPort("/api/review/add_response/" + review.getId()),
+				createURLWithPort("/api/review/add-response/" + review.getId()),
 				HttpMethod.POST, entity, Review.class);
 
 		Assert.assertEquals(commenterName, response.getBody().getCommenterName());
@@ -193,7 +193,7 @@ public class ReviewControllerTest {
 
 		HttpEntity<ReviewDTO> entity = new HttpEntity<>(null, header);
 		ResponseEntity<List<Review>> response = restTemplate.exchange(
-				createURLWithPort("/api/review/all_reviews/" + book.getIsbn()),
+				createURLWithPort("/api/review/all-reviews/" + book.getIsbn()),
 				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Review>>(){});
 
 		Assert.assertEquals(reviewsSize, response.getBody().size());
@@ -206,7 +206,7 @@ public class ReviewControllerTest {
 
 		HttpEntity<ReviewDTO> entity = new HttpEntity<>(null, header);
 		ResponseEntity<List<Review>> response = restTemplate.exchange(
-				createURLWithPort("/api/review/all_responses/" + review.getId()),
+				createURLWithPort("/api/review/all-responses/" + review.getId()),
 				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Review>>(){});
 
 		Assert.assertEquals(responsesSize, response.getBody().size());
@@ -234,7 +234,7 @@ public class ReviewControllerTest {
 		Review review = fillReview();
 		HttpEntity<Review> entity = new HttpEntity<>(null, header);
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/api/review/delete_review/" + review.getId()),
+				createURLWithPort("/api/review/delete-review/" + review.getId()),
 				HttpMethod.DELETE, entity, String.class);
 		Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
 	}
@@ -244,7 +244,7 @@ public class ReviewControllerTest {
 		Review  review = fillResponse();
 		HttpEntity<Review> entity = new HttpEntity<>(null, header);
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/api/review/delete_response/" + review.getId()),
+				createURLWithPort("/api/review/delete-response/" + review.getId()),
 				HttpMethod.DELETE, entity, String.class);
 		Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
 	}

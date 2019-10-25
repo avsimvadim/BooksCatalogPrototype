@@ -71,6 +71,10 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(Author author) {
+        if(Objects.isNull(author)) {
+            logger.error(DELETING_AUTHOR_IS_FAILED, "unknown author");
+            throw new AuthorException("Author is null");
+        }
         List<Book> booksByAuthors = bookRepository.findBooksByAuthors(author);
         String authorDescription = author.toString();
         if (booksByAuthors.isEmpty()){

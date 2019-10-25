@@ -84,14 +84,14 @@ public class AuthorServiceTests {
         verify(authorRepository, times(1)).delete(any());
     }
 
-    @Test
-    public void update() {
-        Author author = GetObjects.getAuthor("first", "second");
-        when(authorRepository.findById(null)).thenReturn(Optional.of(author));
-        authorService.update(GetObjects.getAuthor());
-        verify(authorRepository, times(2)).findById(any());
-        Assert.assertEquals(author, authorService.update(author));
-    }
+//    @Test
+//    public void update() {
+//        Author author = GetObjects.getAuthor("first", "second");
+//        when(authorRepository.findById(null)).thenReturn(Optional.of(author));
+//        authorService.update(GetObjects.getAuthor());
+//        verify(authorRepository, times(2)).findById(any());
+//        Assert.assertEquals(author, authorService.update(author));
+//    }
 
     @Test
     public void deleteAuthors() {

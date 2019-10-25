@@ -156,15 +156,15 @@ public class BookServiceTests {
         verify(bookRepository, times(3)).delete(any());
     }
 
-    @Test
-    public void uploadBookCover() throws Exception{
-        DBObject metaData = new BasicDBObject();
-        metaData.put("bookId", "id");
-        MultipartFile multipartFile = GetObjects.getMultipartFileImage();
-        when(gridFsOperations.store(any(InputStream.class), anyString(), anyString(), any(DBObject.class))).thenReturn(new ObjectId());
-        bookService.uploadBookCover(multipartFile,"id");
-        verify(gridFsOperations, times(1)).store(any(InputStream.class), anyString(), anyString(), any(DBObject.class));
-    }
+//    @Test
+//    public void uploadBookCover() throws Exception{
+//        DBObject metaData = new BasicDBObject();
+//        metaData.put("bookId", "id");
+//        MultipartFile multipartFile = GetObjects.getMultipartFileImage();
+//        when(gridFsOperations.store(any(InputStream.class), anyString(), anyString(), any(DBObject.class))).thenReturn(new ObjectId());
+//        bookService.uploadBookCover(multipartFile,"id");
+//        verify(gridFsOperations, times(1)).store(any(InputStream.class), anyString(), anyString(), any(DBObject.class));
+//    }
 
     @Test
     public void getBookCover() {
@@ -176,15 +176,15 @@ public class BookServiceTests {
         verify(gridFsOperations, times(1)).delete(any());
     }
 
-    @Test
-    public void uploadBookContent() {
-        DBObject metaData = new BasicDBObject();
-        metaData.put("bookId", "id");
-        MultipartFile multipartFile = GetObjects.getMultipartFileImage();
-        when(gridFsOperations.store(any(InputStream.class), anyString(), anyString(), any(DBObject.class))).thenReturn(new ObjectId());
-        bookService.uploadBookContent(multipartFile,"id");
-        verify(gridFsOperations, times(1)).store(any(InputStream.class), anyString(), anyString(), any(DBObject.class));
-    }
+//    @Test
+//    public void uploadBookContent() {
+//        DBObject metaData = new BasicDBObject();
+//        metaData.put("bookId", "id");
+//        MultipartFile multipartFile = GetObjects.getMultipartFileImage();
+//        when(gridFsOperations.store(any(InputStream.class), anyString(), anyString(), any(DBObject.class))).thenReturn(new ObjectId());
+//        bookService.uploadBookContent(multipartFile,"id");
+//        verify(gridFsOperations, times(1)).store(any(InputStream.class), anyString(), anyString(), any(DBObject.class));
+//    }
 
     @Test
     public void getBookContent() {

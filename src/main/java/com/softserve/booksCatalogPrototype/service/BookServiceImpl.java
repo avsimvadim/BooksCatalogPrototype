@@ -1,11 +1,14 @@
 package com.softserve.booksCatalogPrototype.service;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.apache.commons.math3.util.Precision;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,12 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.base.Predicates;
@@ -41,6 +49,10 @@ import com.softserve.booksCatalogPrototype.repository.BookRepository;
 public class BookServiceImpl implements BookService {
 
     private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
+    private static final String DELETING_BOOK_IS_FAILED = "Deleting book failed.";
+    private static final String GETTING_BOOK_IS_FAILED = "Getting book failed.";
+    private static final String UPDATING_BOOK_IS_FAILED = "Updating book failed.";
+    private static final String GIVING_RATE_IS_FAILED = "Giving rate to book failed.";
 
     private BookRepository bookRepository;
 
@@ -49,6 +61,9 @@ public class BookServiceImpl implements BookService {
     private MongoOperations mongoOperations;
 
     private GridFsOperations gridFsOperations;
+
+    @Autowired
+    private GridFsTemplate gridFsTemplate;
 
     private AuthorServiceImpl authorService;
 
@@ -75,12 +90,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book get(String id) {
+        if(Objects.isNull(id)) {
+            logger.error(GETTING_BOOK_IS_FAILED);
+            throw new BookException("Book id is null");
+        }
         Book book = bookRepository.findById(id).orElseThrow(() -> new BookException("There is no book with id " + id));
         return book;
     }
 
     @Override
     public void delete(Book book) {
+        if(Objects.isNull(book)) {
+            logger.error(DELETING_BOOK_IS_FAILED);
+            throw new BookException("Book is null");
+        }
        try {
            deleteBookContent(book.getIsbn());
            deleteBookCover(book.getIsbn());
@@ -93,6 +116,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book update(Book newBook) {
+        if(Objects.isNull(newBook)) {
+            logger.error(UPDATING_BOOK_IS_FAILED);
+            throw new BookException("New book is null");
+        }
         Supplier<BookException> supplier = () -> new BookException( "There is no book with such id");
         bookRepository.findById(newBook.getIsbn()).orElseThrow(supplier);
 
@@ -117,12 +144,22 @@ public class BookServiceImpl implements BookService {
     }
 
     public List<Book> getBooksByAuthor(String authorId){
+        if(Objects.isNull(authorId)) {
+            logger.error(GETTING_BOOK_IS_FAILED);
+            throw new BookException("Book id is null");
+        }
+
         Author author = authorRepository.findById(authorId).orElseThrow(() -> new AuthorException("No author with such id"));
         List<Book> booksByAuthors = bookRepository.findBooksByAuthors(author);
         return booksByAuthors;
     }
 
 	public Book deleteAuthorFromBook(String bookId, String authorId){
+        if(Objects.isNull(authorId) || Objects.isNull(bookId)) {
+            logger.error(DELETING_BOOK_IS_FAILED);
+            throw new BookException("Author or book id is null");
+        }
+
 		Book book = get(bookId);
 		Author author = authorService.get(authorId);
 		if(!book.getAuthors().contains(author)){
@@ -142,6 +179,11 @@ public class BookServiceImpl implements BookService {
     }
 
     public Book giveRate(String id, int newRate){
+        if(Objects.isNull(id)) {
+            logger.error(GIVING_RATE_IS_FAILED);
+            throw new BookException("Author or book id is null");
+        }
+
         Book book = this.get(id);
         double rate = book.getRate();
         int totalVoteCount = book.getTotalVoteCount();
@@ -162,17 +204,11 @@ public class BookServiceImpl implements BookService {
     }
 
     public String uploadBookCover(MultipartFile file, String id){
-        DBObject metaData = new BasicDBObject();
-        metaData.put("bookId", id);
-        try(InputStream is = file.getInputStream()) {
-            return gridFsOperations.store(is,id + ".png", "image/png",metaData).toString();
-        } catch (Exception e) {
-            throw new CoverException("Failed to upload cover");
-        }
+        return null;
     }
 
     public Resource getBookCover(String id){
-        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+        GridFSFile file = gridFsTemplate.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
         if (file == null){
             throw new CoverException("Did not find a cover with such id");
         }
@@ -214,6 +250,11 @@ public class BookServiceImpl implements BookService {
     }
 
     public Book findBookWithReview(Review review){
+        if(Objects.isNull(review)) {
+            logger.error(GETTING_BOOK_IS_FAILED);
+            throw new BookException("Review is null");
+        }
+
         try{
             Book result = bookRepository.findBookByReviewsIs(review);
             return result;

@@ -218,7 +218,7 @@ public class BookControllerTest {
         List<Book> books = fillList(booksSize);
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/api/book/bulk_delete?id=" + books.get(0).getIsbn() + "&id=" + books.get(1).getIsbn()),
+                createURLWithPort("/api/book/bulk-delete?id=" + books.get(0).getIsbn() + "&id=" + books.get(1).getIsbn()),
                 HttpMethod.DELETE, entity, String.class);
         Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
     }
@@ -244,7 +244,7 @@ public class BookControllerTest {
 
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<List<Book>> response = restTemplate.exchange(
-                createURLWithPort("/api/book/rate_exists?pageNumber=" + pageNumber + "&pageSize=" + pageSize),
+                createURLWithPort("/api/book/rate-exists?pageNumber=" + pageNumber + "&pageSize=" + pageSize),
                 HttpMethod.GET, entity, new ParameterizedTypeReference<List<Book>>(){});
         Assert.assertEquals(booksSize, response.getBody().size());
     }
@@ -270,7 +270,7 @@ public class BookControllerTest {
         int rate = 3;
         HttpEntity entity = new HttpEntity(null, header);
         ResponseEntity<Book> response = restTemplate.exchange(
-                createURLWithPort("/api/book/give_rate/" + book.getIsbn() + "?rate=" + rate),
+                createURLWithPort("/api/book/give-rate/" + book.getIsbn() + "?rate=" + rate),
                 HttpMethod.PUT, entity, Book.class);
         Assert.assertEquals(rate, response.getBody().getRate(), 0.01);
         Assert.assertEquals(1, response.getBody().getTotalVoteCount());

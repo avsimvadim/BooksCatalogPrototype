@@ -130,7 +130,7 @@ public class AuthorControllerTest {
 		fillList(authorSize);
 		HttpEntity entity = new HttpEntity(null, header);
 		ResponseEntity<List<Author>> response = restTemplate.exchange(
-				createURLWithPort("/api/author//all_pagination?pageNumber=" + pageNumber + "&pageSize=" + pageSize),
+				createURLWithPort("/api/author//all-pagination?pageNumber=" + pageNumber + "&pageSize=" + pageSize),
 				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Author>>(){});
 		Assert.assertEquals(pageSize, response.getBody().size());
 	}
@@ -178,7 +178,7 @@ public class AuthorControllerTest {
 		List<Author> authors = fillList(authorsSize);
 		HttpEntity entity = new HttpEntity(null, header);
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/api/author/bulk_delete?id=" + authors.get(0).getId() + "&id=" + authors.get(1).getId()),
+				createURLWithPort("/api/author/bulk-delete?id=" + authors.get(0).getId() + "&id=" + authors.get(1).getId()),
 				HttpMethod.DELETE, entity, String.class);
 		Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
 	}

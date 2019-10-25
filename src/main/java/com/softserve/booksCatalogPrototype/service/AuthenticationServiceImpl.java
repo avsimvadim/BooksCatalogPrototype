@@ -53,7 +53,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public ApiResponse register(SignUpRequest signUpRequest) {
 		User user = DTOConverter.convertSignUpRequestToUser(signUpRequest);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		Role role = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow(() -> new AuthenticationException("Role was not found"));
+		Role role = roleRepository.findByName(RoleName.ROLE_USER)
+				.orElseThrow(() -> new AuthenticationException("Role was not found"));
 		user.getRoles().add(role);
 		userRepository.save(user);
 		return new ApiResponse(true, "User registered successfully");
@@ -76,7 +77,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public ApiResponse addAdmin(AdminDTO adminDTO) {
 		User admin = DTOConverter.convertAdminDTOToUser(adminDTO);
 		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-		Role role = roleRepository.findByName(RoleName.ROLE_ADMIN).orElseThrow(() -> new AuthenticationException("Role was not found"));
+		Role role = roleRepository.findByName(RoleName.ROLE_ADMIN)
+				.orElseThrow(() -> new AuthenticationException("Role was not found"));
 		Set<Role> roles = new HashSet<>();
 		roles.add(role);
 		admin.setRoles(roles);
