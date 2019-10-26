@@ -109,9 +109,6 @@ public class AuthorServiceImpl implements AuthorService {
         update.set("firstName", newAuthor.getFirstName());
         update.set("secondName", newAuthor.getSecondName());
 
-
-
-
         mongoOperations.updateFirst(query, update, Author.class);
         Author result = authorRepository.findById(newAuthorId).orElseThrow(supplier);
         logger.info("Author is updated");
