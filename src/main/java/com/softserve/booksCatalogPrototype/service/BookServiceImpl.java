@@ -1,12 +1,12 @@
 package com.softserve.booksCatalogPrototype.service;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.math3.util.Precision;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -204,15 +204,27 @@ public class BookServiceImpl implements BookService {
     }
 
     public String uploadBookCover(MultipartFile file, String id){
-        return null;
+        DBObject metaData = new BasicDBObject();
+        metaData.put("bookId", id);
+        try(InputStream is = file.getInputStream()) {
+            return gridFsOperations.store(is,id + ".png", "image/png", metaData).toString();
+        } catch (Exception e) {
+            throw new ContentException("Failed to delete book's content, wrong id");
+        }
     }
 
-    public Resource getBookCover(String id){
-        GridFSFile file = gridFsTemplate.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+    public InputStream getBookCover(String id) throws Exception {
+        GridFSFile file =
+                gridFsTemplate.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
+        InputStream inputStream = gridFsTemplate.getResource(file).getInputStream();
         if (file == null){
             throw new CoverException("Did not find a cover with such id");
         }
-        return new GridFsResource(file);
+
+
+        File file1 = new File("D:/java.png");
+        InputStream is = new FileInputStream(file1);
+        return inputStream;
     }
 
     public void deleteBookCover(String id){

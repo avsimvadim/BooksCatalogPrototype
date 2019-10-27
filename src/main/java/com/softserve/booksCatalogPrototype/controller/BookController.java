@@ -1,6 +1,9 @@
 package com.softserve.booksCatalogPrototype.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -12,10 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -192,18 +192,27 @@ public class BookController {
 	 * @throws IOException
 	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
-    @GetMapping(value = "/get-cover/{id}")
+    @GetMapping(value = "/get-cover/{id}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
-    public ResponseEntity<InputStreamResource> getCover(@PathVariable String id) throws IOException {
+    public ResponseEntity<byte[]> getCover(@PathVariable String id) throws Exception {
         logger.info("In getCover method.");
-        Resource bookCover = bookService.getBookCover(id);
-        System.out.println(bookCover.contentLength());
-        return ResponseEntity.ok()
-                //.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")
-                .contentLength(bookCover.contentLength())
-                .contentType(MediaType.IMAGE_PNG)
-                .body(new InputStreamResource(bookCover.getInputStream()));
+        InputStream bookCover = bookService.getBookCover(id);
+        ResponseEntity<byte[]> responseEntity =
+                new ResponseEntity<>(IOUtils.toByteArray(bookCover), HttpStatus.OK);
+        return responseEntity;
+
+
+
+//        logger.info("In getCover method.");
+//        Resource bookCover = bookService.getBookCover(id);
+//        System.out.println(bookCover.contentLength());
+//        return ResponseEntity.ok()
+//                //.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")
+//                .contentLength(bookCover.contentLength())
+//                .contentType(MediaType.IMAGE_PNG)
+//                .body(new InputStreamResource(bookCover.getInputStream()));
     }
+
 
 	/**
 	 * @param id cover id
@@ -235,6 +244,7 @@ public class BookController {
 	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value = "/get-content/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
     public ResponseEntity<Resource> getContent(@PathVariable String id) throws IOException{
         Resource bookContent = bookService.getBookContent(id);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookContent.getFilename() + "\"")
