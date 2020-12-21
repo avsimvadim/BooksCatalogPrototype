@@ -1,17 +1,12 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.5.RELEASE'
     id 'java'
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'pl.allegro.tech.build.axion-release' version '1.12.0'
+    id "com.palantir.docker" version "0.22.1"
 }
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-
-archivesBaseName = 'bookscatalog'
-group = 'com.softserve'
-version = '0.0.1'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 configurations {
     developmentOnly
@@ -25,6 +20,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -52,4 +48,22 @@ dependencies {
     compile("io.springfox:springfox-swagger2:2.7.0")
     compile("io.springfox:springfox-swagger-ui:2.7.0")
     compile("io.springfox:springfox-bean-validators:2.7.0")
+}
+
+group = 'avsimvadim'
+bootJar {
+    baseName = 'bookscatalogprototype'
+}
+
+task unpack(type: Copy) {
+    dependsOn bootJar
+    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+    into("build/dependency")
+}
+
+docker {
+    name "${project.group}/${bootJar.baseName}"
+    dockerfile file('src/main/java/com/softserve/booksCatalogPrototype/docker/Dockerfile')
+    copySpec.from(tasks.bootJar.outputs).into("jars")
+    buildArgs(['JAR_FILE': "jars/${bootJar.archiveName}"])
 }

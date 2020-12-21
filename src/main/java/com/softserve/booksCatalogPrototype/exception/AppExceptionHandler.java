@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.softserve.booksCatalogPrototype.exception.custom.AuthenticationException;
@@ -17,6 +19,9 @@ import com.softserve.booksCatalogPrototype.exception.custom.CoverException;
 import com.softserve.booksCatalogPrototype.exception.custom.PaginationException;
 import com.softserve.booksCatalogPrototype.exception.custom.RateOutOfBoundException;
 import com.softserve.booksCatalogPrototype.exception.custom.ReviewException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @ControllerAdvice
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
@@ -64,6 +69,17 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         }
         ErrorMessage errorMessage = new ErrorMessage(new Date(), errorMessageDescription);
         return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value ={MaxUploadSizeExceededException.class})
+    public ModelAndView handleMaxSizeException(
+            MaxUploadSizeExceededException exc,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+        ModelAndView modelAndView = new ModelAndView("file");
+        modelAndView.getModel().put("message", "File too large.");
+        return modelAndView;
     }
 
 }

@@ -1,17 +1,10 @@
 package com.softserve.booksCatalogPrototype.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -174,9 +167,10 @@ public class BookController {
     }
 
 	/**
-	 * @param file cover of the book
-	 * @param id book id to which cover will be given
+	 * @param file is a cover of the book
+	 * @param id of book
 	 * @return cover id
+     * If upload another cover for the same id, previous cover will be deleted
 	 */
 	@Secured("ROLE_ADMIN")
     @PostMapping(value = "/upload-cover/{id}")
@@ -186,37 +180,22 @@ public class BookController {
         return ResponseEntity.ok(bookCover);
     }
 
-	/**
-	 * @param id book id
-	 * @return
-	 * @throws IOException
-	 */
+    /**
+     * @param id of book
+     * @return byte array of book cover
+     */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(value = "/get-cover/{id}", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
-    public ResponseEntity<byte[]> getCover(@PathVariable String id) throws Exception {
+    public ResponseEntity<byte[]> getCover(@PathVariable String id){
         logger.info("In getCover method.");
-        InputStream bookCover = bookService.getBookCover(id);
-        ResponseEntity<byte[]> responseEntity =
-                new ResponseEntity<>(IOUtils.toByteArray(bookCover), HttpStatus.OK);
-        return responseEntity;
-
-
-
-//        logger.info("In getCover method.");
-//        Resource bookCover = bookService.getBookCover(id);
-//        System.out.println(bookCover.contentLength());
-//        return ResponseEntity.ok()
-//                //.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookCover.getFilename() + "\"")
-//                .contentLength(bookCover.contentLength())
-//                .contentType(MediaType.IMAGE_PNG)
-//                .body(new InputStreamResource(bookCover.getInputStream()));
+        byte[] bookCover = bookService.getBookCover(id);
+        return ResponseEntity.ok(bookCover);
     }
 
-
 	/**
-	 * @param id cover id
-	 * @return
+	 * @param id of book
+	 * @return response status
 	 */
 	@Secured("ROLE_ADMIN")
     @DeleteMapping("/delete-cover/{id}")
@@ -226,37 +205,34 @@ public class BookController {
     }
 
 	/**
-	 * @param file content of the book
-	 * @param id book id to which content will be given
+	 * @param file is a content of the book
+	 * @param id of the content
 	 * @return content id
+     * If upload another content for the same id, previous content will be deleted
 	 */
 	@Secured("ROLE_ADMIN")
-    @PostMapping("/upload-content/{id}")
+    @PostMapping(value = "/upload-content/{id}")
     public ResponseEntity<String> uploadContent(@RequestParam MultipartFile file, @PathVariable String id) {
         String bookContent = bookService.uploadBookContent(file, id);
         return ResponseEntity.ok(bookContent);
     }
 
 	/**
-	 * @param id book id
-	 * @return
-	 * @throws IOException
+	 * @param id of book
+	 * @return byte array of book content
 	 */
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
-    @GetMapping(value = "/get-content/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/get-content/{id}")
     @ResponseBody
-    public ResponseEntity<Resource> getContent(@PathVariable String id) throws IOException{
-        Resource bookContent = bookService.getBookContent(id);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bookContent.getFilename() + "\"")
-                .contentLength(bookContent.contentLength())
-                .contentType(MediaType.TEXT_PLAIN)
-                .cacheControl(CacheControl.noCache())
-                .body(bookContent);
+    public ResponseEntity<byte[]> getContent(@PathVariable String id) {
+        logger.info("In getContent method.");
+        byte[] bookContent = bookService.getBookContent(id);
+        return ResponseEntity.ok(bookContent);
     }
 
 	/**
-	 * @param id content id
-	 * @return
+	 * @param id of book
+	 * @return response status
 	 */
 	@Secured("ROLE_ADMIN")
     @DeleteMapping("/delete-content/{id}")

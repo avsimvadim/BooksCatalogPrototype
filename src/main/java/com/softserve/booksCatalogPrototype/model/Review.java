@@ -3,7 +3,6 @@ package com.softserve.booksCatalogPrototype.model;
 import com.softserve.booksCatalogPrototype.annotations.CascadeDelete;
 import com.softserve.booksCatalogPrototype.annotations.CascadeSave;
 import lombok.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;

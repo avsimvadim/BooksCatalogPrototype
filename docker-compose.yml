@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+  app:
+    image: avsimvadim/bookscatalogprototype
+    container_name: bookscatalogprototype
+    build: src/main/java/com/softserve/booksCatalogPrototype/docker
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - net-spring-db
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+  mongodb:
+    image: library/mongo:4.2
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      - net-spring-db
+
+networks:
+  net-spring-db:
+    driver: bridge
+
+
+
+
+
+
+
+

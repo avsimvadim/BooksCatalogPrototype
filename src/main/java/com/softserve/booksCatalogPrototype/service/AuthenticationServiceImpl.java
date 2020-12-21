@@ -23,7 +23,6 @@ import com.softserve.booksCatalogPrototype.model.RoleName;
 import com.softserve.booksCatalogPrototype.model.User;
 import com.softserve.booksCatalogPrototype.repository.RoleRepository;
 import com.softserve.booksCatalogPrototype.repository.UserRepository;
-import com.softserve.booksCatalogPrototype.security.JwtTokenProvider;
 import com.softserve.booksCatalogPrototype.util.DTOConverter;
 
 @Service

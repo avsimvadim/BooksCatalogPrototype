@@ -6,27 +6,20 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.math3.util.Precision;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.data.mongodb.gridfs.GridFsOperations;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.data.mongodb.gridfs.GridFsCriteria;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.base.Predicates;
@@ -53,6 +46,10 @@ public class BookServiceImpl implements BookService {
     private static final String GETTING_BOOK_IS_FAILED = "Getting book failed.";
     private static final String UPDATING_BOOK_IS_FAILED = "Updating book failed.";
     private static final String GIVING_RATE_IS_FAILED = "Giving rate to book failed.";
+    private static final String GETTING_BOOK_COVER_FAILED = "Getting cover failed.";
+    private static final String GETTING_BOOK_CONTENT_FAILED = "Getting content failed.";
+    private static final String CONTENT_TYPE_PNG = "image/png";
+    private static final String CONTENT_TYPE_PDF = "application/pdf";
 
     private BookRepository bookRepository;
 
@@ -60,19 +57,18 @@ public class BookServiceImpl implements BookService {
 
     private MongoOperations mongoOperations;
 
-    private GridFsOperations gridFsOperations;
-
-    @Autowired
     private GridFsTemplate gridFsTemplate;
 
     private AuthorServiceImpl authorService;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, MongoOperations mongoOperations, GridFsOperations gridFsOperations, AuthorServiceImpl authorService) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository,
+                           MongoOperations mongoOperations, GridFsTemplate gridFsTemplate,
+                           AuthorServiceImpl authorService) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.mongoOperations = mongoOperations;
-        this.gridFsOperations = gridFsOperations;
+        this.gridFsTemplate = gridFsTemplate;
         this.authorService = authorService;
     }
 
@@ -204,61 +200,124 @@ public class BookServiceImpl implements BookService {
     }
 
     public String uploadBookCover(MultipartFile file, String id){
+        if (Objects.isNull(file)){
+            logger.error("File is null.");
+            throw new CoverException("File is null");
+        }
+        if (!file.getContentType().equals(CONTENT_TYPE_PNG)){
+            logger.error("Wrong cover type.");
+            throw new CoverException("Wrong cover type");
+        }
+        try {
+            gridFsTemplate.delete(Query.query(Criteria.where("_id").is(id)));
+        } catch (Exception e){
+            throw new CoverException("Failed to clear book's cover, wrong id");
+        }
         DBObject metaData = new BasicDBObject();
         metaData.put("bookId", id);
+        metaData.put("contentType", CONTENT_TYPE_PNG);
         try(InputStream is = file.getInputStream()) {
-            return gridFsOperations.store(is,id + ".png", "image/png", metaData).toString();
+            return gridFsTemplate.store(is,id + ".png", CONTENT_TYPE_PNG, metaData).toString();
         } catch (Exception e) {
-            throw new ContentException("Failed to delete book's content, wrong id");
+            throw new CoverException("Failed to delete book's cover, wrong id");
         }
     }
 
-    public InputStream getBookCover(String id) throws Exception {
-        GridFSFile file =
-                gridFsTemplate.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
-        InputStream inputStream = gridFsTemplate.getResource(file).getInputStream();
-        if (file == null){
-            throw new CoverException("Did not find a cover with such id");
+    public byte[] getBookCover(String id) {
+        GridFSFile file = checkMediaTypeByBookId(CONTENT_TYPE_PNG, id);
+        try(InputStream inputStream = gridFsTemplate.getResource(file).getInputStream()) {
+            return IOUtils.toByteArray(inputStream);
+        } catch (Exception e) {
+            throw new CoverException("Failed to get book's cover");
         }
-
-
-        File file1 = new File("D:/java.png");
-        InputStream is = new FileInputStream(file1);
-        return inputStream;
     }
 
     public void deleteBookCover(String id){
+        checkMediaTypeByBookId(CONTENT_TYPE_PNG, id);
         try {
-            gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
+            //gridFsTemplate.delete(Query.query(Criteria.where("_id").is(id)));
+            Query query = new Query(GridFsCriteria.whereMetaData("bookId").is(id));
+            gridFsTemplate.delete(query);
         } catch (Exception e){
             throw new CoverException("Failed to delete book's cover, wrong id");
         }
     }
 
     public String uploadBookContent(MultipartFile file, String id){
+        if (Objects.isNull(file)){
+            logger.error("File is null.");
+            throw new ContentException("File is null");
+        }
+        if (!file.getContentType().equals(CONTENT_TYPE_PDF)){
+            logger.error("Wrong content type.");
+            throw new ContentException("Wrong content type");
+        }
+        //if (gridFsTemplate);
+        try {
+            gridFsTemplate.delete(Query.query(Criteria.where("_id").is(id)));
+        } catch (Exception e){
+            throw new CoverException("Failed to clear book's content, wrong id");
+        }
         DBObject metaData = new BasicDBObject();
         metaData.put("bookId", id);
+        metaData.put("contentType", CONTENT_TYPE_PDF);
         try(InputStream is = file.getInputStream()) {
-            return gridFsOperations.store(is,id + ".txt", "text/plain", metaData).toString();
+            return gridFsTemplate.store(is,id + ".pdf", CONTENT_TYPE_PDF, metaData).toString();
         } catch (Exception e) {
             throw new ContentException("Failed to delete book's content, wrong id");
         }
     }
 
-    public Resource getBookContent(String id){
-        GridFSFile file = gridFsOperations.findOne(Query.query(Criteria.where("metadata.bookId").is(id)));
-        if (file == null){
-            throw new ContentException("Did not find a content with such id");
+
+
+    public byte[] getBookContent(String id){
+        GridFSFile file = checkMediaTypeByBookId(CONTENT_TYPE_PDF, id);
+        try(InputStream inputStream = gridFsTemplate.getResource(file).getInputStream()) {
+            return IOUtils.toByteArray(inputStream);
+        } catch (Exception e) {
+            throw new ContentException("Failed to get book's content");
         }
-        return new GridFsResource(file);
     }
 
     public void deleteBookContent(String id){
+        checkMediaTypeByBookId(CONTENT_TYPE_PDF, id);
         try {
-            gridFsOperations.delete(Query.query(Criteria.where("_id").is(id)));
+            Query query = new Query(GridFsCriteria.whereMetaData("bookId").is(id));
+            query.addCriteria(GridFsCriteria.whereMetaData("contentType").is(CONTENT_TYPE_PDF));
+            gridFsTemplate.delete(query);
         } catch (Exception e){
             throw new ContentException("Failed to delete book's content, wrong id");
         }
+    }
+
+    private GridFSFile checkMediaTypeByBookId(String mediaType, String id){
+        Query query = new Query(GridFsCriteria.whereMetaData("bookId").is(id));
+        query.addCriteria(GridFsCriteria.whereMetaData("contentType").is(mediaType.toString()));
+        GridFSFile file =
+                gridFsTemplate.findOne(query);
+        if (mediaType.equals(CONTENT_TYPE_PDF)){
+            if (Objects.isNull(file)){
+                logger.error(GETTING_BOOK_CONTENT_FAILED);
+                throw new ContentException("Did not find a content with such id");
+            }
+            if (!file.getMetadata().get("contentType").toString().equals(CONTENT_TYPE_PDF)){
+                logger.error("Wrong id.");
+                throw new ContentException("Wrong id");
+            }
+        } else if (mediaType.equals(CONTENT_TYPE_PNG)){
+            if (Objects.isNull(file)){
+                logger.error(GETTING_BOOK_COVER_FAILED);
+                throw new CoverException("Did not find a cover with such id");
+            }
+            if (!file.getMetadata().get("contentType").toString().equals(CONTENT_TYPE_PNG)){
+                logger.error("Wrong id.");
+                throw new CoverException("Wrong id");
+            }
+        } else {
+            logger.error("No content type for this book.");
+            throw new BookException("No content type for this book");
+        }
+        return file;
     }
 
     public Book findBookWithReview(Review review){
