@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.5.RELEASE'
     id 'pl.allegro.tech.build.axion-release' version '1.12.0'
     id "com.palantir.docker" version "0.22.1"
+    id 'com.palantir.docker-run' version "0.22.1"
 }
 
 apply plugin: 'org.springframework.boot'
@@ -66,4 +67,12 @@ docker {
     dockerfile file('src/main/java/com/softserve/booksCatalogPrototype/docker/Dockerfile')
     copySpec.from(tasks.bootJar.outputs).into("jars")
     buildArgs(['JAR_FILE': "jars/${bootJar.archiveName}"])
+    tag 'dockerhub',"avsimvadim/bookscatalogprototype:${version}"
+}
+
+dockerRun {
+    name "${project.name}"
+    image "${project.group}/${bootJar.baseName}"
+    ports '8080:8080'
+    clean true
 }

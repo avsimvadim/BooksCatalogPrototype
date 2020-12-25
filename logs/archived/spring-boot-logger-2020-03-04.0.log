@@ -1,0 +1,617 @@
+2020-03-04 20:53:49,714 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting BooksCatalogPrototypeApplication on VADYM with PID 8280 (C:\Users\avsim\IdeaProjects\BooksCatalogPrototype\build\classes\java\main started by avsim in C:\Users\avsim\IdeaProjects\BooksCatalogPrototype)
+2020-03-04 20:53:49,722 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-03-04 20:53:49,776 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-03-04 20:53:49,777 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-03-04 20:53:52,199 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-04 20:53:52,303 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 96ms. Found 5 repository interfaces.
+2020-03-04 20:53:52,859 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$20238f8b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:53:52,866 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:53:52,871 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@267af836' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:53:52,877 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$44f8323d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:53:52,882 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:53:52,902 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$6f61483] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:53:53,440 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-03-04 20:53:53,462 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-04 20:53:53,475 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2020-03-04 20:53:53,477 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-03-04 20:53:53,620 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2020-03-04 20:53:53,620 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3843 ms
+2020-03-04 20:53:55,679 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-04 20:53:55,681 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Adding discovered server localhost:27017 to client view of cluster
+2020-03-04 20:53:55,767 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605bb3026e0a205812c0bf', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:129}] to localhost:27017
+2020-03-04 20:53:55,774 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605bb3026e0a205812c0bf', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 11]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=4508400}
+2020-03-04 20:53:55,776 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605bb3026e0a205812c0bf', description='null'}-localhost:27017] Discovered cluster type of STANDALONE
+2020-03-04 20:53:57,070 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-03-04 20:53:57,903 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-04 20:53:58,153 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-03-04 20:53:58,522 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3401306a, org.springframework.security.web.context.SecurityContextPersistenceFilter@3b1fd982, org.springframework.security.web.header.HeaderWriterFilter@62a08ce, org.springframework.web.filter.CorsFilter@3f6d04d1, org.springframework.security.web.authentication.logout.LogoutFilter@1b07d535, com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter@7a86a9e7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51f77c9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6a82102e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58c04ece, org.springframework.security.web.session.SessionManagementFilter@61c13ba2, org.springframework.security.web.access.ExceptionTranslationFilter@4c0a58c5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@40aef372]
+2020-03-04 20:53:58,708 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-04 20:53:59,354 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2020-03-04 20:53:59,376 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2020-03-04 20:53:59,413 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2020-03-04 20:53:59,626 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: addUsingPOST_1
+2020-03-04 20:53:59,634 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allUsingGET_1
+2020-03-04 20:53:59,646 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allPagesUsingGET_1
+2020-03-04 20:53:59,665 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2020-03-04 20:53:59,702 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_1
+2020-03-04 20:53:59,757 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2020-03-04 20:53:59,798 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_2
+2020-03-04 20:53:59,802 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2020-03-04 20:53:59,826 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2020-03-04 20:53:59,853 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-04 20:53:59,861 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started BooksCatalogPrototypeApplication in 10.885 seconds (JVM running for 12.671)
+2020-03-04 20:53:59,946 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Opened connection [connectionId{localValue:2, serverValue:130}] to localhost:27017
+2020-03-04 20:54:00,079 INFO com.softserve.booksCatalogPrototype.event.InitListener [restartedMain] ROLE_ADMIN was created
+2020-03-04 20:54:00,086 INFO com.softserve.booksCatalogPrototype.event.InitListener [restartedMain] ROLE_USER was created
+2020-03-04 20:54:00,244 INFO com.softserve.booksCatalogPrototype.event.InitListener [restartedMain] Admin was created
+2020-03-04 20:54:00,246 INFO com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication [restartedMain] Books catalog app is started
+2020-03-04 20:54:00,452 INFO org.apache.juli.logging.DirectJDKLog [RMI TCP Connection(5)-10.48.40.174] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-04 20:54:00,453 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(5)-10.48.40.174] Initializing Servlet 'dispatcherServlet'
+2020-03-04 20:54:00,475 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(5)-10.48.40.174] Completed initialization in 22 ms
+2020-03-04 20:54:37,702 INFO com.softserve.booksCatalogPrototype.controller.AuthenticationController [http-nio-8080-exec-3] In login method.
+2020-03-04 20:54:55,354 INFO com.softserve.booksCatalogPrototype.controller.AuthorController [http-nio-8080-exec-9] In add method.
+2020-03-04 20:54:55,389 INFO com.softserve.booksCatalogPrototype.service.AuthorServiceImpl [http-nio-8080-exec-9] Author Author(id=5e605bef026e0a205812c0c2, firstName=string, secondName=string, creationDate=Wed Mar 04 20:54:55 EST 2020) is saved
+2020-03-04 20:55:09,005 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-7] In add method.
+2020-03-04 20:55:09,052 INFO com.softserve.booksCatalogPrototype.service.BookServiceImpl [http-nio-8080-exec-7] Book Book(isbn=5e605bfd026e0a205812c0c3, name=string, yearPublished=Wed Mar 04 20:54:47 EST 2020, publisher=Publisher(companyName=string), creationDate=Wed Mar 04 20:55:09 EST 2020, rate=0.0, totalVoteCount=0, authors=[Author(id=5e605bef026e0a205812c0c2, firstName=string, secondName=string, creationDate=Wed Mar 04 20:54:55 EST 2020)], reviews=[]) is saved
+2020-03-04 20:55:39,026 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-1] In getContent method.
+2020-03-04 20:58:53,643 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting BooksCatalogPrototypeApplication on VADYM with PID 14864 (C:\Users\avsim\IdeaProjects\BooksCatalogPrototype\build\classes\java\main started by avsim in C:\Users\avsim\IdeaProjects\BooksCatalogPrototype)
+2020-03-04 20:58:53,646 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-03-04 20:58:53,707 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-03-04 20:58:53,707 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-03-04 20:58:55,494 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-04 20:58:55,605 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 104ms. Found 5 repository interfaces.
+2020-03-04 20:58:56,074 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$4a618685] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:58:56,083 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:58:56,088 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@20cf3934' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:58:56,090 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$6f362937] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:58:56,113 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:58:56,128 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$31340b7d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 20:58:56,624 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-03-04 20:58:56,643 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-04 20:58:56,653 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2020-03-04 20:58:56,654 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-03-04 20:58:56,768 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2020-03-04 20:58:56,769 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3061 ms
+2020-03-04 20:58:58,530 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-04 20:58:58,531 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Adding discovered server localhost:27017 to client view of cluster
+2020-03-04 20:58:58,588 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605ce2026e0a3a10089a0d', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:141}] to localhost:27017
+2020-03-04 20:58:58,594 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605ce2026e0a3a10089a0d', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 11]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3222300}
+2020-03-04 20:58:58,596 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605ce2026e0a3a10089a0d', description='null'}-localhost:27017] Discovered cluster type of STANDALONE
+2020-03-04 20:58:59,819 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-03-04 20:59:00,880 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-04 20:59:01,257 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-03-04 20:59:01,611 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@216f2e6c, org.springframework.security.web.context.SecurityContextPersistenceFilter@3a04ad7c, org.springframework.security.web.header.HeaderWriterFilter@4a30183c, org.springframework.web.filter.CorsFilter@6ac54629, org.springframework.security.web.authentication.logout.LogoutFilter@3d77ebee, com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter@2a74b94d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32a5edc1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d3214a1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4956d269, org.springframework.security.web.session.SessionManagementFilter@473265a8, org.springframework.security.web.access.ExceptionTranslationFilter@6ae9c554, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@14c11f2a]
+2020-03-04 20:59:01,810 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-04 20:59:02,335 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2020-03-04 20:59:02,358 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2020-03-04 20:59:02,392 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2020-03-04 20:59:02,606 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: addUsingPOST_1
+2020-03-04 20:59:02,618 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allUsingGET_1
+2020-03-04 20:59:02,630 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allPagesUsingGET_1
+2020-03-04 20:59:02,651 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2020-03-04 20:59:02,687 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_1
+2020-03-04 20:59:02,738 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2020-03-04 20:59:02,784 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_2
+2020-03-04 20:59:02,789 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2020-03-04 20:59:02,814 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2020-03-04 20:59:02,845 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-04 20:59:02,850 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started BooksCatalogPrototypeApplication in 9.822 seconds (JVM running for 11.139)
+2020-03-04 20:59:02,937 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Opened connection [connectionId{localValue:2, serverValue:142}] to localhost:27017
+2020-03-04 20:59:02,982 INFO com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication [restartedMain] Books catalog app is started
+2020-03-04 20:59:03,330 INFO org.apache.juli.logging.DirectJDKLog [RMI TCP Connection(1)-10.48.40.174] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-04 20:59:03,331 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(1)-10.48.40.174] Initializing Servlet 'dispatcherServlet'
+2020-03-04 20:59:03,357 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(1)-10.48.40.174] Completed initialization in 26 ms
+2020-03-04 20:59:13,384 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-1] In getContent method.
+2020-03-04 21:00:28,067 INFO com.softserve.booksCatalogPrototype.controller.AuthenticationController [http-nio-8080-exec-2] In login method.
+2020-03-04 21:00:44,679 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-8] In all method.
+2020-03-04 21:00:57,402 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-10] In getContent method.
+2020-03-04 21:01:26,615 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting BooksCatalogPrototypeApplication on VADYM with PID 2640 (C:\Users\avsim\IdeaProjects\BooksCatalogPrototype\build\classes\java\main started by avsim in C:\Users\avsim\IdeaProjects\BooksCatalogPrototype)
+2020-03-04 21:01:26,619 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-03-04 21:01:26,658 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-03-04 21:01:26,658 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-03-04 21:01:28,368 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-04 21:01:28,460 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 87ms. Found 5 repository interfaces.
+2020-03-04 21:01:28,872 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$6711be48] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:01:28,879 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:01:28,882 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2257b738' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:01:28,887 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$8be660fa] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:01:28,891 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:01:28,907 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$4de44340] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:01:29,363 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-03-04 21:01:29,378 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:01:29,386 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2020-03-04 21:01:29,387 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-03-04 21:01:29,494 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2020-03-04 21:01:29,495 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2836 ms
+2020-03-04 21:01:31,281 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-04 21:01:31,283 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Adding discovered server localhost:27017 to client view of cluster
+2020-03-04 21:01:31,338 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605d7b026e0a0a504deefe', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:148}] to localhost:27017
+2020-03-04 21:01:31,344 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605d7b026e0a0a504deefe', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 11]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3707500}
+2020-03-04 21:01:31,346 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e605d7b026e0a0a504deefe', description='null'}-localhost:27017] Discovered cluster type of STANDALONE
+2020-03-04 21:01:32,532 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-03-04 21:01:33,291 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-04 21:01:33,566 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-03-04 21:01:33,905 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@462fdf0f, org.springframework.security.web.context.SecurityContextPersistenceFilter@5f6b0bff, org.springframework.security.web.header.HeaderWriterFilter@262320f5, org.springframework.web.filter.CorsFilter@477a6db, org.springframework.security.web.authentication.logout.LogoutFilter@64ba5c79, com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter@65ac0a58, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1123a07c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5842e5f3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3325fc50, org.springframework.security.web.session.SessionManagementFilter@5c7ab927, org.springframework.security.web.access.ExceptionTranslationFilter@3f6ba6a3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6a3d4a4d]
+2020-03-04 21:01:34,078 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-04 21:01:34,608 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2020-03-04 21:01:34,624 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2020-03-04 21:01:34,657 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2020-03-04 21:01:34,846 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: addUsingPOST_1
+2020-03-04 21:01:34,856 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allUsingGET_1
+2020-03-04 21:01:34,864 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allPagesUsingGET_1
+2020-03-04 21:01:34,882 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2020-03-04 21:01:34,926 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_1
+2020-03-04 21:01:34,979 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2020-03-04 21:01:35,022 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_2
+2020-03-04 21:01:35,026 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2020-03-04 21:01:35,049 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:01:35,074 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-04 21:01:35,078 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started BooksCatalogPrototypeApplication in 8.938 seconds (JVM running for 10.236)
+2020-03-04 21:01:35,149 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Opened connection [connectionId{localValue:2, serverValue:149}] to localhost:27017
+2020-03-04 21:01:35,199 INFO com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication [restartedMain] Books catalog app is started
+2020-03-04 21:01:36,583 INFO org.apache.juli.logging.DirectJDKLog [RMI TCP Connection(4)-10.48.40.174] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-04 21:01:36,583 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(4)-10.48.40.174] Initializing Servlet 'dispatcherServlet'
+2020-03-04 21:01:36,611 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(4)-10.48.40.174] Completed initialization in 27 ms
+2020-03-04 21:02:14,688 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-1] In getContent method.
+2020-03-04 21:03:51,304 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-8] Resolved [org.springframework.security.access.AccessDeniedException: Access is denied]
+2020-03-04 21:04:07,146 INFO com.softserve.booksCatalogPrototype.controller.AuthenticationController [http-nio-8080-exec-4] In login method.
+2020-03-04 21:04:35,582 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-10] In all method.
+2020-03-04 21:04:44,615 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-1] In getContent method.
+2020-03-04 21:25:15,106 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-9] In getContent method.
+2020-03-04 21:32:11,813 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting BooksCatalogPrototypeApplication on VADYM with PID 17676 (C:\Users\avsim\IdeaProjects\BooksCatalogPrototype\build\classes\java\main started by avsim in C:\Users\avsim\IdeaProjects\BooksCatalogPrototype)
+2020-03-04 21:32:11,818 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-03-04 21:32:11,878 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-03-04 21:32:11,878 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-03-04 21:32:14,371 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-04 21:32:14,509 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 128ms. Found 5 repository interfaces.
+2020-03-04 21:32:15,128 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$6f11cec5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:32:15,141 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:32:15,145 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@37bb1d19' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:32:15,152 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$93e67177] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:32:15,159 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:32:15,182 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$55e453bd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:32:15,838 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-03-04 21:32:15,861 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:32:15,873 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2020-03-04 21:32:15,874 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-03-04 21:32:16,019 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2020-03-04 21:32:16,019 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4141 ms
+2020-03-04 21:32:18,528 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-04 21:32:18,530 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Adding discovered server localhost:27017 to client view of cluster
+2020-03-04 21:32:18,612 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e6064b2026e0a450cda09a4', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:209}] to localhost:27017
+2020-03-04 21:32:18,619 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e6064b2026e0a450cda09a4', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 11]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=4597500}
+2020-03-04 21:32:18,621 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e6064b2026e0a450cda09a4', description='null'}-localhost:27017] Discovered cluster type of STANDALONE
+2020-03-04 21:32:20,292 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-03-04 21:32:21,396 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-04 21:32:21,945 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-03-04 21:32:22,503 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5fcfebe2, org.springframework.security.web.context.SecurityContextPersistenceFilter@7c95367d, org.springframework.security.web.header.HeaderWriterFilter@3a320b96, org.springframework.web.filter.CorsFilter@2c65f348, org.springframework.security.web.authentication.logout.LogoutFilter@589e554b, com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter@41833e9f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51403d23, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@354f81bf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3bb4b663, org.springframework.security.web.session.SessionManagementFilter@64684815, org.springframework.security.web.access.ExceptionTranslationFilter@543b629d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2fdc66c9]
+2020-03-04 21:32:22,777 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-04 21:32:23,619 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2020-03-04 21:32:23,647 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2020-03-04 21:32:23,700 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2020-03-04 21:32:23,988 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: addUsingPOST_1
+2020-03-04 21:32:24,002 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allUsingGET_1
+2020-03-04 21:32:24,017 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allPagesUsingGET_1
+2020-03-04 21:32:24,044 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2020-03-04 21:32:24,110 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_1
+2020-03-04 21:32:24,203 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2020-03-04 21:32:24,274 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_2
+2020-03-04 21:32:24,281 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2020-03-04 21:32:24,317 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:32:24,345 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-04 21:32:24,350 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started BooksCatalogPrototypeApplication in 13.239 seconds (JVM running for 15.24)
+2020-03-04 21:32:24,431 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Opened connection [connectionId{localValue:2, serverValue:210}] to localhost:27017
+2020-03-04 21:32:24,506 INFO com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication [restartedMain] Books catalog app is started
+2020-03-04 21:32:25,672 INFO org.apache.juli.logging.DirectJDKLog [RMI TCP Connection(3)-10.48.40.174] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-04 21:32:25,673 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(3)-10.48.40.174] Initializing Servlet 'dispatcherServlet'
+2020-03-04 21:32:25,704 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(3)-10.48.40.174] Completed initialization in 31 ms
+2020-03-04 21:32:39,599 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-1] In all method.
+2020-03-04 21:32:45,701 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-2] In getContent method.
+2020-03-04 21:32:45,714 ERROR com.softserve.booksCatalogPrototype.service.BookServiceImpl [http-nio-8080-exec-2] Wrong id.
+2020-03-04 21:32:45,724 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-2] Resolved [com.softserve.booksCatalogPrototype.exception.custom.ContentException: Wrong id]
+2020-03-04 21:32:52,020 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-3] In getContent method.
+2020-03-04 21:32:52,022 ERROR com.softserve.booksCatalogPrototype.service.BookServiceImpl [http-nio-8080-exec-3] Wrong id.
+2020-03-04 21:32:52,024 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-3] Resolved [com.softserve.booksCatalogPrototype.exception.custom.ContentException: Wrong id]
+2020-03-04 21:33:48,214 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting BooksCatalogPrototypeApplication on VADYM with PID 1552 (C:\Users\avsim\IdeaProjects\BooksCatalogPrototype\build\classes\java\main started by avsim in C:\Users\avsim\IdeaProjects\BooksCatalogPrototype)
+2020-03-04 21:33:48,221 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-03-04 21:33:48,307 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-03-04 21:33:48,308 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-03-04 21:33:50,951 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-04 21:33:51,131 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 170ms. Found 5 repository interfaces.
+2020-03-04 21:33:51,995 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$f42f4a92] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:33:52,008 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:33:52,015 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@322ebcfa' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:33:52,018 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$1903ed44] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:33:52,026 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:33:52,059 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$db01cf8a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:33:52,941 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-03-04 21:33:52,969 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:33:52,983 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2020-03-04 21:33:52,984 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-03-04 21:33:53,312 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2020-03-04 21:33:53,313 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 5004 ms
+2020-03-04 21:33:55,649 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-04 21:33:55,651 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Adding discovered server localhost:27017 to client view of cluster
+2020-03-04 21:33:55,759 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e606513026e0a0610c70da2', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:214}] to localhost:27017
+2020-03-04 21:33:55,767 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e606513026e0a0610c70da2', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 11]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=4752500}
+2020-03-04 21:33:55,769 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e606513026e0a0610c70da2', description='null'}-localhost:27017] Discovered cluster type of STANDALONE
+2020-03-04 21:33:57,990 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-03-04 21:33:59,977 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-04 21:34:00,708 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-03-04 21:34:01,633 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@55a110f6, org.springframework.security.web.context.SecurityContextPersistenceFilter@62dc5958, org.springframework.security.web.header.HeaderWriterFilter@597e767c, org.springframework.web.filter.CorsFilter@42710955, org.springframework.security.web.authentication.logout.LogoutFilter@6cb90edb, com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter@6edab442, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c6e7773, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4d59dcd6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@56b0290d, org.springframework.security.web.session.SessionManagementFilter@5d3214f9, org.springframework.security.web.access.ExceptionTranslationFilter@504576f3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7b31d61f]
+2020-03-04 21:34:02,023 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-04 21:34:02,997 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2020-03-04 21:34:03,032 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2020-03-04 21:34:03,100 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2020-03-04 21:34:03,443 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: addUsingPOST_1
+2020-03-04 21:34:03,464 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allUsingGET_1
+2020-03-04 21:34:03,482 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allPagesUsingGET_1
+2020-03-04 21:34:03,511 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2020-03-04 21:34:03,579 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_1
+2020-03-04 21:34:03,677 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2020-03-04 21:34:03,781 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_2
+2020-03-04 21:34:03,790 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2020-03-04 21:34:03,823 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:34:03,860 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-04 21:34:03,865 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started BooksCatalogPrototypeApplication in 16.751 seconds (JVM running for 21.153)
+2020-03-04 21:34:04,005 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Opened connection [connectionId{localValue:2, serverValue:216}] to localhost:27017
+2020-03-04 21:34:04,093 INFO com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication [restartedMain] Books catalog app is started
+2020-03-04 21:34:05,332 INFO org.apache.juli.logging.DirectJDKLog [RMI TCP Connection(5)-10.48.40.174] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-04 21:34:05,333 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(5)-10.48.40.174] Initializing Servlet 'dispatcherServlet'
+2020-03-04 21:34:05,376 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(5)-10.48.40.174] Completed initialization in 41 ms
+2020-03-04 21:34:11,634 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-1] In getContent method.
+2020-03-04 21:34:11,655 ERROR com.softserve.booksCatalogPrototype.service.BookServiceImpl [http-nio-8080-exec-1] Wrong id.
+2020-03-04 21:34:11,705 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-1] Resolved [com.softserve.booksCatalogPrototype.exception.custom.ContentException: Wrong id]
+2020-03-04 21:34:26,912 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-2] In getContent method.
+2020-03-04 21:37:51,246 ERROR com.softserve.booksCatalogPrototype.service.BookServiceImpl [http-nio-8080-exec-2] Wrong id.
+2020-03-04 21:37:51,260 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-2] Resolved [com.softserve.booksCatalogPrototype.exception.custom.ContentException: Wrong id]
+2020-03-04 21:37:51,325 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-39] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-04 21:37:51,336 INFO com.mongodb.diagnostics.logging.SLF4JLogger [Thread-39] Closed connection [connectionId{localValue:2, serverValue:216}] to localhost:27017 because the pool has been closed.
+2020-03-04 21:38:18,175 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting BooksCatalogPrototypeApplication on VADYM with PID 10132 (C:\Users\avsim\IdeaProjects\BooksCatalogPrototype\build\classes\java\main started by avsim in C:\Users\avsim\IdeaProjects\BooksCatalogPrototype)
+2020-03-04 21:38:18,182 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-03-04 21:38:18,270 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-03-04 21:38:18,270 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-03-04 21:38:20,820 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-04 21:38:20,995 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 165ms. Found 5 repository interfaces.
+2020-03-04 21:38:21,748 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$140d52da] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:38:21,759 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:38:21,764 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@683650eb' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:38:21,773 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$38e1f58c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:38:21,780 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:38:21,805 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$fadfd7d2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:38:22,551 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-03-04 21:38:22,578 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:38:22,591 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2020-03-04 21:38:22,592 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-03-04 21:38:22,892 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2020-03-04 21:38:22,892 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4621 ms
+2020-03-04 21:38:25,143 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-04 21:38:25,145 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Adding discovered server localhost:27017 to client view of cluster
+2020-03-04 21:38:25,255 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e606621026e0a279491ffbc', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:231}] to localhost:27017
+2020-03-04 21:38:25,261 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e606621026e0a279491ffbc', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 11]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=4598900}
+2020-03-04 21:38:25,263 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e606621026e0a279491ffbc', description='null'}-localhost:27017] Discovered cluster type of STANDALONE
+2020-03-04 21:38:27,468 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-03-04 21:38:29,577 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-04 21:38:30,107 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-03-04 21:38:30,806 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5843778, org.springframework.security.web.context.SecurityContextPersistenceFilter@69426798, org.springframework.security.web.header.HeaderWriterFilter@1a0c3777, org.springframework.web.filter.CorsFilter@35a9fdf0, org.springframework.security.web.authentication.logout.LogoutFilter@488ff447, com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter@f9f245e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64ae3fcb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6af97cfe, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d15131b, org.springframework.security.web.session.SessionManagementFilter@4e3405fe, org.springframework.security.web.access.ExceptionTranslationFilter@9c22005, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2e362c1e]
+2020-03-04 21:38:31,211 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-04 21:38:32,221 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2020-03-04 21:38:32,253 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2020-03-04 21:38:32,315 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2020-03-04 21:38:32,653 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: addUsingPOST_1
+2020-03-04 21:38:32,669 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allUsingGET_1
+2020-03-04 21:38:32,687 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allPagesUsingGET_1
+2020-03-04 21:38:32,721 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2020-03-04 21:38:32,788 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_1
+2020-03-04 21:38:32,886 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2020-03-04 21:38:32,982 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_2
+2020-03-04 21:38:32,991 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2020-03-04 21:38:33,030 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:38:33,070 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-04 21:38:33,075 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started BooksCatalogPrototypeApplication in 15.758 seconds (JVM running for 17.712)
+2020-03-04 21:38:33,190 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Opened connection [connectionId{localValue:2, serverValue:233}] to localhost:27017
+2020-03-04 21:38:33,433 INFO com.softserve.booksCatalogPrototype.event.InitListener [restartedMain] ROLE_ADMIN was created
+2020-03-04 21:38:33,438 INFO com.softserve.booksCatalogPrototype.event.InitListener [restartedMain] ROLE_USER was created
+2020-03-04 21:38:34,128 INFO com.softserve.booksCatalogPrototype.event.InitListener [restartedMain] Admin was created
+2020-03-04 21:38:34,130 INFO com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication [restartedMain] Books catalog app is started
+2020-03-04 21:38:35,117 INFO org.apache.juli.logging.DirectJDKLog [RMI TCP Connection(5)-10.48.40.174] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-04 21:38:35,118 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(5)-10.48.40.174] Initializing Servlet 'dispatcherServlet'
+2020-03-04 21:38:35,155 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(5)-10.48.40.174] Completed initialization in 36 ms
+2020-03-04 21:38:48,180 INFO com.softserve.booksCatalogPrototype.controller.AuthenticationController [http-nio-8080-exec-1] In login method.
+2020-03-04 21:39:17,003 INFO com.softserve.booksCatalogPrototype.controller.AuthorController [http-nio-8080-exec-6] In add method.
+2020-03-04 21:39:17,065 INFO com.softserve.booksCatalogPrototype.service.AuthorServiceImpl [http-nio-8080-exec-6] Author Author(id=5e606655026e0a279491ffbf, firstName=string, secondName=string, creationDate=Wed Mar 04 21:39:17 EST 2020) is saved
+2020-03-04 21:39:33,097 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-7] In add method.
+2020-03-04 21:39:33,157 INFO com.softserve.booksCatalogPrototype.service.BookServiceImpl [http-nio-8080-exec-7] Book Book(isbn=5e606665026e0a279491ffc0, name=string, yearPublished=Wed Mar 04 21:39:09 EST 2020, publisher=Publisher(companyName=string), creationDate=Wed Mar 04 21:39:33 EST 2020, rate=0.0, totalVoteCount=0, authors=[Author(id=5e606655026e0a279491ffbf, firstName=string, secondName=string, creationDate=Wed Mar 04 21:39:17 EST 2020)], reviews=[]) is saved
+2020-03-04 21:40:13,949 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-10] In getContent method.
+2020-03-04 21:43:15,397 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-1] Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException: the request was rejected because its size (24956911) exceeds the configured maximum (20971520)]
+2020-03-04 21:43:15,419 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-1] Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.FileUploadBase$SizeLimitExceededException: the request was rejected because its size (24956911) exceeds the configured maximum (20971520)]
+2020-03-04 21:43:15,428 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Servlet.service() for servlet [dispatcherServlet] threw exception
+javax.servlet.ServletException: Circular view path [file]: would dispatch back to the current handler URL [/api/book/upload-content/file] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)
+	at org.springframework.web.servlet.view.InternalResourceView.prepareForRendering(InternalResourceView.java:209)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:147)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1371)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1117)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1056)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:712)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequestDispatcher.forward(HeaderWriterFilter.java:143)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:170)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1371)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1117)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1056)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:90)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:45)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:117)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:106)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2020-03-04 21:43:15,432 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Circular view path [file]: would dispatch back to the current handler URL [/api/book/upload-content/file] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)] with root cause
+javax.servlet.ServletException: Circular view path [file]: would dispatch back to the current handler URL [/api/book/upload-content/file] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)
+	at org.springframework.web.servlet.view.InternalResourceView.prepareForRendering(InternalResourceView.java:209)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:147)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1371)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1117)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1056)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:712)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:459)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequestDispatcher.forward(HeaderWriterFilter.java:143)
+	at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:170)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1371)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1117)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1056)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:90)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:45)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:117)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:106)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2020-03-04 21:44:20,638 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-38] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-04 21:44:20,647 INFO com.mongodb.diagnostics.logging.SLF4JLogger [Thread-38] Closed connection [connectionId{localValue:2, serverValue:233}] to localhost:27017 because the pool has been closed.
+2020-03-04 21:44:25,859 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting BooksCatalogPrototypeApplication on VADYM with PID 19828 (C:\Users\avsim\IdeaProjects\BooksCatalogPrototype\build\classes\java\main started by avsim in C:\Users\avsim\IdeaProjects\BooksCatalogPrototype)
+2020-03-04 21:44:25,862 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-03-04 21:44:25,920 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-03-04 21:44:25,921 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-03-04 21:44:28,042 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-03-04 21:44:28,162 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 115ms. Found 5 repository interfaces.
+2020-03-04 21:44:28,718 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$45b9690] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:44:28,727 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:44:28,730 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@700ed9a0' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:44:28,736 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$29303942] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:44:28,742 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:44:28,781 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$eb2e1b88] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-04 21:44:29,389 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-03-04 21:44:29,409 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:44:29,421 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2020-03-04 21:44:29,422 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-03-04 21:44:29,558 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2020-03-04 21:44:29,559 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3638 ms
+2020-03-04 21:44:31,694 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Cluster created with settings {hosts=[localhost:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2020-03-04 21:44:31,696 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Adding discovered server localhost:27017 to client view of cluster
+2020-03-04 21:44:31,774 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e60678f026e0a4d741b4561', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:245}] to localhost:27017
+2020-03-04 21:44:31,781 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e60678f026e0a4d741b4561', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 11]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=4358300}
+2020-03-04 21:44:31,783 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='5e60678f026e0a4d741b4561', description='null'}-localhost:27017] Discovered cluster type of STANDALONE
+2020-03-04 21:44:33,317 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-03-04 21:44:34,354 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-03-04 21:44:34,688 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-03-04 21:44:35,149 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3cc5e390, org.springframework.security.web.context.SecurityContextPersistenceFilter@10dcfc7, org.springframework.security.web.header.HeaderWriterFilter@5be2a94c, org.springframework.web.filter.CorsFilter@5548f3f4, org.springframework.security.web.authentication.logout.LogoutFilter@52b11a31, com.softserve.booksCatalogPrototype.security.JwtAuthenticationFilter@2ac9acd7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4220f3e1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3194010f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7a8a4843, org.springframework.security.web.session.SessionManagementFilter@7c192b6c, org.springframework.security.web.access.ExceptionTranslationFilter@13f16b84, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@49c86d25]
+2020-03-04 21:44:35,431 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-04 21:44:36,069 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2020-03-04 21:44:36,093 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2020-03-04 21:44:36,141 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2020-03-04 21:44:36,421 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: addUsingPOST_1
+2020-03-04 21:44:36,433 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allUsingGET_1
+2020-03-04 21:44:36,445 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: allPagesUsingGET_1
+2020-03-04 21:44:36,467 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2020-03-04 21:44:36,522 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_1
+2020-03-04 21:44:36,600 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2020-03-04 21:44:36,684 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getUsingGET_2
+2020-03-04 21:44:36,695 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2020-03-04 21:44:36,734 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2020-03-04 21:44:36,764 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-04 21:44:36,768 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started BooksCatalogPrototypeApplication in 11.508 seconds (JVM running for 12.953)
+2020-03-04 21:44:36,844 INFO com.mongodb.diagnostics.logging.SLF4JLogger [restartedMain] Opened connection [connectionId{localValue:2, serverValue:246}] to localhost:27017
+2020-03-04 21:44:36,905 INFO com.softserve.booksCatalogPrototype.BooksCatalogPrototypeApplication [restartedMain] Books catalog app is started
+2020-03-04 21:44:37,949 INFO org.apache.juli.logging.DirectJDKLog [RMI TCP Connection(2)-10.48.40.174] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-04 21:44:37,950 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(2)-10.48.40.174] Initializing Servlet 'dispatcherServlet'
+2020-03-04 21:44:37,984 INFO org.springframework.web.servlet.FrameworkServlet [RMI TCP Connection(2)-10.48.40.174] Completed initialization in 33 ms
+2020-03-04 21:45:00,682 INFO com.softserve.booksCatalogPrototype.controller.BookController [http-nio-8080-exec-2] In getContent method.

@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: dev
+  data:
+    mongodb:
+      database: TestBooksCatalog
+      port: 27017
+  servlet:
+    multipart:
+      max-file-size: 26MB
+      max-request-size: 26MB
+app:
+  jwtSecret: key
+  jwtExpirationInMs: 3600000
+admin:
+  password: string
+  id: 28409351905264201995
+  name: string
+  username: string
+  email: admin@mail.com
+
+---
+
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      host: localhost
+
+---
+
+spring:
+  profiles: docker
+  data:
+    mongodb:
+      host: mongodb
