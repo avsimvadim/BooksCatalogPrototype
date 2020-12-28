@@ -21,10 +21,33 @@ services:
     restart: always
     networks:
       - net-spring-db
+  sonarqube:
+    image: sonarqube:lts
+    ports:
+      - 9000:9000
+    networks:
+      - mynetwork
+  jenkins:
+    image: getintodevops/jenkins-withdocker:lts
+    volumes:
+      - jenkinsvolume:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9999:8080
+    networks:
+      - mynetwork
+
+volumes:
+  jenkinsvolume:
+    external: true
 
 networks:
+  mynetwork:
   net-spring-db:
     driver: bridge
+
+
+
 
 
 
