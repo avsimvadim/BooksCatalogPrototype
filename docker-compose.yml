@@ -9,7 +9,7 @@ services:
     restart: always
     networks:
       - net-spring-db
-    depends_on:
+    links:
       - mongodb
     environment:
       SPRING_PROFILES_ACTIVE: docker
@@ -47,8 +47,8 @@ services:
     networks:
       - mynetwork
     volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
+      - postgresql1:/var/lib/postgresql
+      - postgresql_data1:/var/lib/postgresql/data
   jenkins:
     image: getintodevops/jenkins-withdocker:lts
     volumes:
@@ -64,8 +64,8 @@ volumes:
     external: true
   sonarqube_conf:
   sonarqube_data:
-  postgresql:
-  postgresql_data:
+  postgresql1:
+  postgresql_data1:
 
 networks:
   mynetwork:
