@@ -23,10 +23,32 @@ services:
       - net-spring-db
   sonarqube:
     image: sonarqube:lts
+    links:
+      - db
     ports:
       - 9000:9000
     networks:
       - mynetwork
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+  db:
+    image: postgres:10
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=sonar
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    networks:
+      - mynetwork
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
   jenkins:
     image: getintodevops/jenkins-withdocker:lts
     volumes:
@@ -40,6 +62,10 @@ services:
 volumes:
   jenkinsvolume:
     external: true
+  sonarqube_conf:
+  sonarqube_data:
+  postgresql:
+  postgresql_data:
 
 networks:
   mynetwork:
