@@ -23,7 +23,6 @@ services:
       - net-spring-db
   sonarqube:
     image: sonarqube:lts
-    #image: orangesignal/sonar:latest
     links:
       - db
     ports:
