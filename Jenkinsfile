@@ -5,7 +5,7 @@ pipeline {
         pollSCM '* * * * *'
     }
     stages {
-        /*stage('Build') {
+        stage('Build') {
             steps {
                 sh 'chmod +x gradlew'
                 sh './gradlew build'
@@ -15,11 +15,10 @@ pipeline {
             steps {
                 sh './gradlew test'
             }
-        }*/
+        }
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'chmod +x gradlew'
                     sh "./gradlew sonarqube"
                 }
             }
