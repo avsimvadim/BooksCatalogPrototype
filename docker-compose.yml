@@ -1,54 +1,54 @@
 version: "3.3"
 services:
-#  app:
-#    image: avsimvadim/bookscatalogprototype
-#    container_name: bookscatalogprototype
-#    build: src/main/java/com/softserve/booksCatalogPrototype/docker
-#    ports:
-#      - "8080:8080"
-#    restart: always
-#    networks:
-#      - net-spring-db
-#    links:
-#      - mongodb
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#  mongodb:
-#    image: library/mongo:4.2
-#    container_name: mongodb
-#    ports:
-#      - "27017:27017"
-#    restart: always
-#    networks:
-#      - net-spring-db
-#  sonarqube:
-#    image: sonarqube:lts
-#    links:
-#      - db
-#    ports:
-#      - 9000:9000
-#    networks:
-#      - mynetwork
-#    environment:
-#      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
-#      - SONAR_JDBC_USERNAME=sonar
-#      - SONAR_JDBC_PASSWORD=sonar
-#    volumes:
-#      - sonarqube_conf:/opt/sonarqube/conf
-#      - sonarqube_data:/opt/sonarqube/data
-#  db:
-#    image: postgres:10
-#    ports:
-#      - 5432:5432
-#    environment:
-#      - POSTGRES_DB=sonar
-#      - POSTGRES_USER=sonar
-#      - POSTGRES_PASSWORD=sonar
-#    networks:
-#      - mynetwork
-#    volumes:
-#      - postgresql:/var/lib/postgresql
-#      - postgresql_data:/var/lib/postgresql/data
+  app:
+    image: avsimvadim/bookscatalogprototype
+    container_name: bookscatalogprototype
+    build: src/main/java/com/softserve/booksCatalogPrototype/docker
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - net-spring-db
+    links:
+      - mongodb
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+  mongodb:
+    image: library/mongo:4.2
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      - net-spring-db
+  sonarqube:
+    image: sonarqube:lts
+    links:
+      - db
+    ports:
+      - 9000:9000
+    networks:
+      - mynetwork
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+  db:
+    image: postgres:10
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=sonar
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    networks:
+      - mynetwork
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
   jenkins:
     image: getintodevops/jenkins-withdocker:lts
     volumes:
