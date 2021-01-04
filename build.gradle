@@ -60,6 +60,7 @@ test{
 }
 
 group = 'avsimvadim'
+
 bootJar {
     baseName = 'bookscatalogprototype'
 }
@@ -93,3 +94,19 @@ sonarqube {
 
 tasks['sonarqube'].dependsOn test
 
+String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'avsimvadim'
+import com.amazonaws.services.cloudformation.model.Capability
+cloudFormation {
+    stackName "$project.name-stack"
+    stackParams([
+            SubnetID: findProperty('subnetId') ?: '',
+            ServiceName: project.name,
+            ServiceVersion: project.version,
+            DockerHubUsername: dockerHubUsernameProperty
+    ])
+    templateFile project.file("ecs.yml")
+}
+
+aws {
+    region = findProperty('region') ?: 'us-east-2'
+}

@@ -42,5 +42,15 @@ pipeline {
                 sh './gradlew dockerPush'
             }
         }
+        stage('Deploy to AWS') {
+            environment {
+                DOCKER_HUB_LOGIN = credentials('dockerhub')
+            }
+            steps {
+                withAWS(credentials: 'aws-credentials', region: env.AWS_REGION) {
+                    sh './gradlew awsCfnMigrateStack awsCfnWaitStackComplete -PsubnetId=$SUBNET_ID -PdockerHubUsername=$DOCKER_HUB_LOGIN_USR -Pregion=$AWS_REGION'
+                }
+            }
+        }
     }
 }
