@@ -95,7 +95,13 @@ sonarqube {
 tasks['sonarqube'].dependsOn test
 
 String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'avsimvadim'
+
 import com.amazonaws.services.cloudformation.model.Capability
+
+aws {
+    region = findProperty('region') ?: 'us-east-2'
+}
+
 cloudFormation {
     stackName "$project.name-stack"
     stackParams([
@@ -107,6 +113,4 @@ cloudFormation {
     templateFile project.file("ecs.yml")
 }
 
-aws {
-    region = findProperty('region') ?: 'us-east-2'
-}
+
