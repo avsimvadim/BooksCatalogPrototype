@@ -58,6 +58,7 @@ dependencies {
 test{
     finalizedBy jacocoTestReport
 }
+
 version = '1.0'
 group = 'avsimvadim'
 
