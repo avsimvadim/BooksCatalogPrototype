@@ -96,8 +96,9 @@ sonarqube {
 tasks['sonarqube'].dependsOn test
 
 String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'avsimvadim'
+String imageName = "${dockerHubUsernameProperty}/bookscatalogprototype:$version"
 
-import com.amazonaws.services.cloudformation.model.Capability
+//import com.amazonaws.services.cloudformation.model.Capability
 
 aws {
     region = findProperty('region') ?: 'us-east-2'

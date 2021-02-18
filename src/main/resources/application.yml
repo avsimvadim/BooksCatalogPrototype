@@ -18,7 +18,8 @@ admin:
   name: string
   username: string
   email: admin@mail.com
-
+server:
+  port: 8081
 ---
 
 spring:

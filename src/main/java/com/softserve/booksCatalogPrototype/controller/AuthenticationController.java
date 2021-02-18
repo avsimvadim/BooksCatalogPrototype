@@ -43,12 +43,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-	// TODO: 29.07.2019
+    // TODO: 1/20/2021
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody SignUpRequest signUpRequest) {
         logger.info("In register method.");
         if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-           throw new AuthenticationException("User with CHANGES this username already exists");
+           throw new AuthenticationException("User with this username already exists");
         }
 
         if(userRepository.existsByEmail(signUpRequest.getEmail())) {

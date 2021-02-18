@@ -86,7 +86,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book get(String id) {
-        if(Objects.isNull(id)) {
+        if (Objects.isNull(id)) {
             logger.error(GETTING_BOOK_IS_FAILED);
             throw new BookException("Book id is null");
         }
@@ -96,27 +96,27 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(Book book) {
-        if(Objects.isNull(book)) {
+        if (Objects.isNull(book)) {
             logger.error(DELETING_BOOK_IS_FAILED);
             throw new BookException("Book is null");
         }
-       try {
-           deleteBookContent(book.getIsbn());
-           deleteBookCover(book.getIsbn());
-           bookRepository.delete(book);
-           logger.info("book " + book.toString() + " is deleted");
-        } catch (Exception e){
+        try {
+            deleteBookContent(book.getIsbn());
+            deleteBookCover(book.getIsbn());
+            bookRepository.delete(book);
+            logger.info("book " + book.toString() + " is deleted");
+        } catch (Exception e) {
             throw new BookException("Could not delete the book");
         }
     }
 
     @Override
     public Book update(Book newBook) {
-        if(Objects.isNull(newBook)) {
+        if (Objects.isNull(newBook)) {
             logger.error(UPDATING_BOOK_IS_FAILED);
             throw new BookException("New book is null");
         }
-        Supplier<BookException> supplier = () -> new BookException( "There is no book with such id");
+        Supplier<BookException> supplier = () -> new BookException("There is no book with such id");
         bookRepository.findById(newBook.getIsbn()).orElseThrow(supplier);
 
         Query query = new Query();
@@ -139,8 +139,8 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll(pageable);
     }
 
-    public List<Book> getBooksByAuthor(String authorId){
-        if(Objects.isNull(authorId)) {
+    public List<Book> getBooksByAuthor(String authorId) {
+        if (Objects.isNull(authorId)) {
             logger.error(GETTING_BOOK_IS_FAILED);
             throw new BookException("Book id is null");
         }
@@ -150,32 +150,32 @@ public class BookServiceImpl implements BookService {
         return booksByAuthors;
     }
 
-	public Book deleteAuthorFromBook(String bookId, String authorId){
-        if(Objects.isNull(authorId) || Objects.isNull(bookId)) {
+    public Book deleteAuthorFromBook(String bookId, String authorId) {
+        if (Objects.isNull(authorId) || Objects.isNull(bookId)) {
             logger.error(DELETING_BOOK_IS_FAILED);
             throw new BookException("Author or book id is null");
         }
 
-		Book book = get(bookId);
-		Author author = authorService.get(authorId);
-		if(!book.getAuthors().contains(author)){
-			throw new AuthorException("The book with id " + bookId + " already does not contain the author with id " + authorId);
-		}
-		book.getAuthors().remove(author);
-		Book saved = bookRepository.save(book);
-		return saved;
-	}
+        Book book = get(bookId);
+        Author author = authorService.get(authorId);
+        if (!book.getAuthors().contains(author)) {
+            throw new AuthorException("The book with id " + bookId + " already does not contain the author with id " + authorId);
+        }
+        book.getAuthors().remove(author);
+        Book saved = bookRepository.save(book);
+        return saved;
+    }
 
-    public List<Book> withRate(Pageable pageable){
+    public List<Book> withRate(Pageable pageable) {
         return bookRepository.findAllByRateIsNot(0, pageable);
     }
 
-    public List<Book> withRate(double rate, Pageable pageable){
+    public List<Book> withRate(double rate, Pageable pageable) {
         return bookRepository.findWithRate(rate, pageable);
     }
 
-    public Book giveRate(String id, int newRate){
-        if(Objects.isNull(id)) {
+    public Book giveRate(String id, int newRate) {
+        if (Objects.isNull(id)) {
             logger.error(GIVING_RATE_IS_FAILED);
             throw new BookException("Author or book id is null");
         }
@@ -191,7 +191,7 @@ public class BookServiceImpl implements BookService {
         return book;
     }
 
-    public void deleteBooks(String... ids){
+    public void deleteBooks(String... ids) {
         List<String> list = Lists.newArrayList(ids);
         Iterables.removeIf(list, Predicates.isNull());
         List<String> listWithoutDuplicates = list.stream().distinct().collect(Collectors.toList());
@@ -199,25 +199,25 @@ public class BookServiceImpl implements BookService {
         listWithoutDuplicates.forEach(id -> this.delete(this.get(id)));
     }
 
-    public String uploadBookCover(MultipartFile file, String id){
-        if (Objects.isNull(file)){
+    public String uploadBookCover(MultipartFile file, String id) {
+        if (Objects.isNull(file)) {
             logger.error("File is null.");
             throw new CoverException("File is null");
         }
-        if (!file.getContentType().equals(CONTENT_TYPE_PNG)){
+        if (!file.getContentType().equals(CONTENT_TYPE_PNG)) {
             logger.error("Wrong cover type.");
             throw new CoverException("Wrong cover type");
         }
         try {
             gridFsTemplate.delete(Query.query(Criteria.where("_id").is(id)));
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CoverException("Failed to clear book's cover, wrong id");
         }
         DBObject metaData = new BasicDBObject();
         metaData.put("bookId", id);
         metaData.put("contentType", CONTENT_TYPE_PNG);
-        try(InputStream is = file.getInputStream()) {
-            return gridFsTemplate.store(is,id + ".png", CONTENT_TYPE_PNG, metaData).toString();
+        try (InputStream is = file.getInputStream()) {
+            return gridFsTemplate.store(is, id + ".png", CONTENT_TYPE_PNG, metaData).toString();
         } catch (Exception e) {
             throw new CoverException("Failed to delete book's cover, wrong id");
         }
@@ -225,91 +225,92 @@ public class BookServiceImpl implements BookService {
 
     public byte[] getBookCover(String id) {
         GridFSFile file = checkMediaTypeByBookId(CONTENT_TYPE_PNG, id);
-        try(InputStream inputStream = gridFsTemplate.getResource(file).getInputStream()) {
+        try (InputStream inputStream = gridFsTemplate.getResource(file).getInputStream()) {
             return IOUtils.toByteArray(inputStream);
         } catch (Exception e) {
             throw new CoverException("Failed to get book's cover");
         }
     }
 
-    public void deleteBookCover(String id){
-        checkMediaTypeByBookId(CONTENT_TYPE_PNG, id);
+    public void deleteBookCover(String id) {
+        // TODO: 1/19/2021  
+        //checkMediaTypeByBookId(CONTENT_TYPE_PNG, id);
         try {
             //gridFsTemplate.delete(Query.query(Criteria.where("_id").is(id)));
             Query query = new Query(GridFsCriteria.whereMetaData("bookId").is(id));
             gridFsTemplate.delete(query);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CoverException("Failed to delete book's cover, wrong id");
         }
     }
 
-    public String uploadBookContent(MultipartFile file, String id){
-        if (Objects.isNull(file)){
+    public String uploadBookContent(MultipartFile file, String id) {
+        if (Objects.isNull(file)) {
             logger.error("File is null.");
             throw new ContentException("File is null");
         }
-        if (!file.getContentType().equals(CONTENT_TYPE_PDF)){
+        if (!file.getContentType().equals(CONTENT_TYPE_PDF)) {
             logger.error("Wrong content type.");
             throw new ContentException("Wrong content type");
         }
         //if (gridFsTemplate);
         try {
             gridFsTemplate.delete(Query.query(Criteria.where("_id").is(id)));
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CoverException("Failed to clear book's content, wrong id");
         }
         DBObject metaData = new BasicDBObject();
         metaData.put("bookId", id);
         metaData.put("contentType", CONTENT_TYPE_PDF);
-        try(InputStream is = file.getInputStream()) {
-            return gridFsTemplate.store(is,id + ".pdf", CONTENT_TYPE_PDF, metaData).toString();
+        try (InputStream is = file.getInputStream()) {
+            return gridFsTemplate.store(is, id + ".pdf", CONTENT_TYPE_PDF, metaData).toString();
         } catch (Exception e) {
             throw new ContentException("Failed to delete book's content, wrong id");
         }
     }
 
 
-
-    public byte[] getBookContent(String id){
+    public byte[] getBookContent(String id) {
         GridFSFile file = checkMediaTypeByBookId(CONTENT_TYPE_PDF, id);
-        try(InputStream inputStream = gridFsTemplate.getResource(file).getInputStream()) {
+        try (InputStream inputStream = gridFsTemplate.getResource(file).getInputStream()) {
             return IOUtils.toByteArray(inputStream);
         } catch (Exception e) {
             throw new ContentException("Failed to get book's content");
         }
     }
 
-    public void deleteBookContent(String id){
-        checkMediaTypeByBookId(CONTENT_TYPE_PDF, id);
+    public void deleteBookContent(String id) {
+        // TODO: 1/19/2021  
+        //checkMediaTypeByBookId(CONTENT_TYPE_PDF, id);
         try {
             Query query = new Query(GridFsCriteria.whereMetaData("bookId").is(id));
             query.addCriteria(GridFsCriteria.whereMetaData("contentType").is(CONTENT_TYPE_PDF));
             gridFsTemplate.delete(query);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ContentException("Failed to delete book's content, wrong id");
         }
     }
 
-    private GridFSFile checkMediaTypeByBookId(String mediaType, String id){
+    private GridFSFile checkMediaTypeByBookId(String mediaType, String id) {
         Query query = new Query(GridFsCriteria.whereMetaData("bookId").is(id));
         query.addCriteria(GridFsCriteria.whereMetaData("contentType").is(mediaType.toString()));
         GridFSFile file =
                 gridFsTemplate.findOne(query);
-        if (mediaType.equals(CONTENT_TYPE_PDF)){
-            if (Objects.isNull(file)){
+        if (mediaType.equals(CONTENT_TYPE_PDF)) {
+            if (Objects.isNull(file)) {
                 logger.error(GETTING_BOOK_CONTENT_FAILED);
                 throw new ContentException("Did not find a content with such id");
             }
-            if (!file.getMetadata().get("contentType").toString().equals(CONTENT_TYPE_PDF)){
+            if (!file.getMetadata().get("contentType").toString().equals(CONTENT_TYPE_PDF)) {
                 logger.error("Wrong id.");
                 throw new ContentException("Wrong id");
             }
-        } else if (mediaType.equals(CONTENT_TYPE_PNG)){
-            if (Objects.isNull(file)){
+        } else if (mediaType.equals(CONTENT_TYPE_PNG)) {
+            if (Objects.isNull(file)) {
                 logger.error(GETTING_BOOK_COVER_FAILED);
                 throw new CoverException("Did not find a cover with such id");
             }
-            if (!file.getMetadata().get("contentType").toString().equals(CONTENT_TYPE_PNG)){
+            if (!file.getMetadata().get("contentType").toString().equals(CONTENT_TYPE_PNG)) {
                 logger.error("Wrong id.");
                 throw new CoverException("Wrong id");
             }
@@ -320,16 +321,16 @@ public class BookServiceImpl implements BookService {
         return file;
     }
 
-    public Book findBookWithReview(Review review){
-        if(Objects.isNull(review)) {
+    public Book findBookWithReview(Review review) {
+        if (Objects.isNull(review)) {
             logger.error(GETTING_BOOK_IS_FAILED);
             throw new BookException("Review is null");
         }
 
-        try{
+        try {
             Book result = bookRepository.findBookByReviewsIs(review);
             return result;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new BookException("There is no book with such review");
         }
     }

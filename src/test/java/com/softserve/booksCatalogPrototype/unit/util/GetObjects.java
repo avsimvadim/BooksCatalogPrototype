@@ -1,4 +1,4 @@
-package com.softserve.booksCatalogPrototype.util;
+package com.softserve.booksCatalogPrototype.unit.util;
 
 import com.softserve.booksCatalogPrototype.model.Author;
 import com.softserve.booksCatalogPrototype.model.Book;
